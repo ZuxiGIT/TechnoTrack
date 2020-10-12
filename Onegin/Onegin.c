@@ -1,11 +1,6 @@
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <locale.h>
-#include <ctype.h>
 #include "Lines.h"	
 #include "Comparisons.h"
-
+#include "Sort.h"
 
 
 size_t fsize(const char* name)
@@ -37,6 +32,9 @@ unsigned char* CreateText(const char* name, const size_t size)
 	assert(fp != NULL);
 	
 	unsigned char* buff = (unsigned char*)calloc(size + 1, sizeof(unsigned char));
+	
+	assert(buff != NULL);
+
 	buff[size] = '\0';
 
 	size_t written_sz = fread(buff, sizeof(unsigned char), size, fp);
@@ -56,7 +54,8 @@ void FPrint(Line* ind, int num_of_lines)
 
 	for (int i  = 0; i < num_of_lines; i ++)
 		fprintf(fp, "%s\n", ind[i].start);
-	fprintf(fp, "\n--------------------------------------\n\n");
+	fprintf(fp, "\n============================================\n \
+				 \n============================================\n");
 
 	fclose(fp); 
 }
@@ -64,14 +63,14 @@ void FPrint(Line* ind, int num_of_lines)
 int main(int argc, char* argv[])
 {
 
-	char* PROGRAM_NAME = argv[0];
+	const char* PROGRAM_NAME = argv[0];
 	if ( argc == 1)
 	{
 		printf("ERROR: enter the input file\n");
 		return 1;
 	}
 
-	char* INPUT = argv[1];
+	const char* INPUT = argv[1];
 
 	char* current_locale = setlocale(LC_ALL, "");
 	setlocale(LC_ALL, "ru_RU.CP1251"); 
@@ -90,7 +89,7 @@ int main(int argc, char* argv[])
 
 	Line* ind = ParseLines(txt, num_of_lines);
 	FPrint(ind, num_of_lines);
-	qsort(ind, num_of_lines, sizeof(Line), DirectComparisonForLines);
+	SelectionSort(ind, num_of_lines, DirectComparisonForLines);
 	FPrint(ind, num_of_lines);
 	qsort(ind, num_of_lines, sizeof(Line), ReverseComparisonForLines);
 	FPrint(ind, num_of_lines);
@@ -99,6 +98,7 @@ int main(int argc, char* argv[])
 	for (int i = 0; i < num_of_lines; i++)
 		printf("%s\n", ind[i].start);
 
+	free(ind);
 	free(txt);
 	setlocale(LC_ALL, current_locale);
 	free(current_locale);

@@ -30,6 +30,8 @@ Line* ParseLines(unsigned char* lines, int size)
 	assert(lines != NULL);
 
 	Line* index = (Line*)calloc(size, sizeof(Line));
+
+	assert(index != NULL);
 	
 	unsigned char* begin = lines;
 	unsigned char* end   = begin;

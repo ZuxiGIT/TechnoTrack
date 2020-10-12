@@ -24,9 +24,7 @@ int DirectComparisonForLines(const void* a, const void* b)
 		j++;
 	}
 
-	if (i != j) return (i - j);
-	
-	return 0;
+	return (i - j);
 }
 
 
@@ -52,8 +50,5 @@ int ReverseComparisonForLines(const void* a, const void* b)
 		j++;
 	}
 	
-	if (i != j) return (i - j);
-	
-	return 0;
-
+	return (i - j);
 }

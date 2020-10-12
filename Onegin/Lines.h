@@ -1,12 +1,7 @@
 #ifndef Lines_hpp
 #define Lines_hpp
 
-#include <assert.h>
-#include <stdio.h>
-#include <malloc.h>
-
-typedef struct{ unsigned char* start; unsigned char* finish; int length;} Line;
-typedef unsigned char uc;
+#include "Libraries.h"
 
 int isletter(unsigned char symbol);
 int NumOfLines(const unsigned char* text);
