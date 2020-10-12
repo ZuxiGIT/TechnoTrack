@@ -8,6 +8,15 @@ int isletter(unsigned char symbol)
 }
 
 
+unsigned char toLower(unsigned char symbol)
+{
+	if (symbol < (uc)'à')
+		return symbol + ((uc)'à' - (uc)'À');
+	else 
+		return symbol;
+}
+
+
 int NumOfLines(const unsigned char* text)
 {
 	assert(text != NULL);

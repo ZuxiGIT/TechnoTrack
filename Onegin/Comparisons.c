@@ -18,8 +18,11 @@ int DirectComparisonForLines(const void* a, const void* b)
 	{
 		if (isletter(fst.start[i])) ; else { i++; continue;}
 		if (isletter(snd.start[j])) ; else { j++; continue;}
+		
+		unsigned char a = toLower(fst.start[i]);
+		unsigned char b = toLower(snd.start[j]);
 
-		if(fst.start[i] != snd.start[j])  return  (fst.start[i] - snd.start[j]);
+		if(a != b)  return  (a - b);
 		i++;
 		j++;
 	}
