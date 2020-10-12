@@ -1,7 +1,14 @@
 #include "Comparisons.h"
 #include "Lines.h"
 
+/** 
+	Function that can compare two Line variables (direct)
 
+	\param[in] a - void pointer to the Line variable
+	\param[in] b - void pointer to the Line variable
+
+	\return 1 if *a > *b else 0
+*/
 int DirectComparisonForLines(const void* a, const void* b)
 {
 	assert(a != NULL);
@@ -30,6 +37,14 @@ int DirectComparisonForLines(const void* a, const void* b)
 	return (i - j);
 }
 
+/** 
+	Function that can compare two Line variables (reverse)
+
+	\param[in] a - void pointer to the Line variable
+	\param[in] b - void pointer to the Line variable
+
+	\return 1 if *a > *b else 0
+*/
 
 int ReverseComparisonForLines(const void* a, const void* b)
 {

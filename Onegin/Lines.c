@@ -1,6 +1,12 @@
 #include "Lines.h"
 
+/**
+	Checks if the symbol is letter
 
+	\param[in] symbol - unsigned char 
+
+	\return 1 if the symbol is letter and 0 if not
+*/
 int isletter(unsigned char symbol)
 {
 
@@ -8,6 +14,13 @@ int isletter(unsigned char symbol)
 		|| isalpha(symbol);
 }
 
+/**
+	Convert uppercase to lowercase
+
+	\param[in] symbol - unsigned char
+
+	\return lowercase
+*/
 
 unsigned char toLower(unsigned char symbol)
 {
@@ -17,7 +30,13 @@ unsigned char toLower(unsigned char symbol)
 		return symbol;
 }
 
+/** 
+	Count lines
 
+	\param[in] text - pointer to the array of unsigned char
+
+	\return number of lines
+*/
 int NumOfLines(const unsigned char* text)
 {
 	assert(text != NULL);
@@ -34,6 +53,14 @@ int NumOfLines(const unsigned char* text)
 	return i;
 }
 
+/**
+	Parse lines from the array of unsigned char
+
+	\param[in] text - pointer to the array of unsigned char
+	\param[in] size - number of lines
+
+	\return pointer to the array of Line
+*/
 
 Line* ParseLines(unsigned char* lines, int size)
 {
@@ -58,8 +85,7 @@ Line* ParseLines(unsigned char* lines, int size)
 		index[i].length = (end - begin);
 
 		begin = end + 1;
-		end = begin;
-	
+		end = begin;	
 	}
 
 	return index;

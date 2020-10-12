@@ -3,6 +3,15 @@
 #include "Sort.h"
 
 
+
+/**
+	Calculate the file's size
+
+	\param[in] name - the file name
+
+	\return the file's size
+*/
+
 size_t fsize(const char* name)
 {
 	assert(name != NULL);
@@ -22,6 +31,14 @@ size_t fsize(const char* name)
 	return stbuf.st_size;
 }
 
+/**
+	Read text from the file
+
+	\param[in] name - the filename
+	\param[in] size - the file's size
+
+	\return pointer to the array of unsigned char
+*/
 
 unsigned char* CreateText(const char* name, const size_t size)
 {
@@ -45,7 +62,13 @@ unsigned char* CreateText(const char* name, const size_t size)
 	return buff;
 }
 
+/**
+	Writes the results to a file
 
+	\param[in] index  - array of structures "Line"
+	\param[in] number - number of lines
+	
+*/
 void FPrint(Line* ind, int num_of_lines)
 {
 	FILE* fp = fopen("output.txt", "a");
