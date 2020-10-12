@@ -47,7 +47,10 @@ int ReverseComparisonForLines(const void* a, const void* b)
 		if (isletter(fst.finish[-i])) ; else { i++; continue;}
 		if (isletter(snd.finish[-j])) ; else { j++; continue;}
 
-		if (fst.finish[-i] != snd.finish[-j]) return (fst.finish[-i] - snd.finish[-j]);
+		unsigned char a = toLower(fst.finish[-i]);
+		unsigned char b = toLower(snd.finish[-j]);
+
+		if (a != b) return (a - b);
 		
 		i++;
 		j++;

@@ -4,7 +4,8 @@
 int isletter(unsigned char symbol)
 {
 
-	return ((uc)'à' <= symbol && symbol <= (uc)'ÿ') || ((uc)'À' <= symbol && symbol <= (uc)'ß');
+	return ((uc)'à' <= symbol && symbol <= (uc)'ÿ') || ((uc)'À' <= symbol && symbol <= (uc)'ß') \
+		|| isalpha(symbol);
 }
 
 

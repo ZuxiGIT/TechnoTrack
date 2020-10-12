@@ -54,8 +54,8 @@ void FPrint(Line* ind, int num_of_lines)
 
 	for (int i  = 0; i < num_of_lines; i ++)
 		fprintf(fp, "%s\n", ind[i].start);
-	fprintf(fp, "\n============================================\n \
-				 \n============================================\n");
+	fprintf(fp, "\n============================================\n"
+				"\n============================================\n");
 
 	fclose(fp); 
 }
@@ -63,7 +63,7 @@ void FPrint(Line* ind, int num_of_lines)
 int main(int argc, char* argv[])
 {
 
-	const char* PROGRAM_NAME = argv[0];
+	//const char* PROGRAM_NAME = argv[0];
 	if ( argc == 1)
 	{
 		printf("ERROR: enter the input file\n");
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 	size_t sz = fsize(INPUT);
 	printf("sz is %zu\n", sz);
 
-	char* txt = CreateText(INPUT, sz);
+	unsigned char* txt = CreateText(INPUT, sz);
 	int num_of_lines = NumOfLines(txt);
 
 	printf("\nTotal number of lines is %d\n", num_of_lines);
