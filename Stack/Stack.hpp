@@ -7,9 +7,9 @@
 
 
 #define	NAME_OF_ARG(ARG)	#ARG
-#define STACK_CONCAT(TYPE) 	Stack ## _ ## TYPE
-#define CTOR_CONCAT(TYPE)	StackCtor ## _ ## TYPE	
-
+#define STACK_CONCAT(TYPE) 	Stack 		## _ ## TYPE
+#define CTOR_CONCAT(TYPE)	StackCtor 	## _ ## TYPE	
+#define POP_CONCAT(TYPE)	StackPop 	## _ ## TYPE
 
 #ifdef DEBUG
 	#define ALL_CHECK
@@ -41,9 +41,11 @@
 #ifdef StkElem
 	#define STACK(TYPE) 	STACK_CONCAT(TYPE)
 	#define STK_CTOR(TYPE)	CTOR_CONCAT(TYPE)
+	#define STK_POP(TYPE)	POP_CONCAT(TYPE)
 #else
 	#define STACK(TYPE) 	Stack
 	#define STK_CTOR(TYPE)	StackCtor
+	#define STK_POP(TYPE)	StackPop
 #endif
 
 
@@ -82,6 +84,7 @@ unsigned long long Rol(unsigned long long value);
 
 
 #define CTOR(TYPE, stk, capacity) STK_CTOR(TYPE) (#stk, &stk, capacity);
+#define POP(TYPE, stk)	STK_POP(TYPE) (#stk, &stk)
 
 
 #define FStackDump(result, reason, stk_name, stk_pointer, file, func)													\
@@ -157,11 +160,25 @@ bool isStackOk(STACK(StkElem)* stk)
 	return true;
 }
 
-StkElem STK_POP(const char* stk_name, STACK(StkElem)* stk)
+StkElem STK_POP(StkElem) (const char* stk_name, STACK(StkElem)* stk)
 {
 	assert(stk);
-	CheckStack("Stack is being checked befor POPing", stk_name, stk)
+	CheckStack("Stack is being checked before POPing", stk_name, stk)
 
+	if (stk->size == 0)
+	{
+		printf("Stack is empty!\n");
+		return POSION_VALUE;
+	}
+
+	StkElem value = ((StkElem*)(stk->data))[--stk->size];
+
+	((StkElem*)(stk->data))[stk->size + 1] = POSION_VALUE;
+
+	stk->hash = Hash(stk->data, stk->capacity);
+
+
+	CheckStack("Stack is being checked after POPing", stk_name, stk)
 
 }
 
