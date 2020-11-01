@@ -6,7 +6,7 @@
 #define PROTECT
 
 
-#define NAME_OF_ARG(ARG)	#ARG
+#define	NAME_OF_ARG(ARG)	#ARG
 #define STACK_CONCAT(TYPE) 	Stack ## _ ## TYPE
 #define CTOR_CONCAT(TYPE)	StackCtor ## _ ## TYPE	
 
@@ -23,15 +23,15 @@
 
 
 #ifdef ALL_CHECK
-	#define CheckStack(reason, stk_name, stk_pointer)				 																\
-	{																																\
-	 	if(isStackOk(stk_pointer))																									\
-		{ 																															\
-			const char* file = __FILE__;																							\
-			const char* func = __PRETTY_FUNCTION__;																					\
-			const char* result = "Not OK";																							\
-		 	FStackDump(result, reason, stk_name, (stk_pointer), file, func) /*assert(!"Stack is not OK, check logfile");*/ 			\
-		}																															\
+	#define CheckStack(reason, stk_name, stk_pointer)				 																														\
+	{																																																										\
+	 	if(isStackOk(stk_pointer))																																												\
+		{ 																																																								\
+			const char* file = __FILE__;																																										\
+			const char* func = __PRETTY_FUNCTION__;																																					\
+			const char* result = "Not OK";																																									\
+		 	FStackDump(result, reason, stk_name, (stk_pointer), file, func) /*assert(!"Stack is not OK, check logfile");*/ 	\
+		}																																																									\
 	} 
 #else
 	#define CheckStack(reason, stk_name, stk_pointer)
@@ -84,21 +84,21 @@ unsigned long long Rol(unsigned long long value);
 #define CTOR(TYPE, stk, capacity) STK_CTOR(TYPE) (#stk, &stk, capacity);
 
 
-#define FStackDump(result, reason, stk_name, stk_pointer, file, func)																							\
-	{ 	FILE* fp = fopen("logfile.txt", "a");																													\
-		if(!fp)	assert(!"File was not opened!");																												\
-																																								\
+#define FStackDump(result, reason, stk_name, stk_pointer, file, func)																																											\
+	{ 	FILE* fp = fopen("logfile.txt", "a");																																																								\
+		if(!fp)	assert(!"File was not opened!");																																																							\
+																																																																													\
 		fprintf(fp, "Stack: %s (%s) [%p]\ncalled from : %s;\nreason: %s;\nfile: %s\n{\n", stk_name, result, stk_pointer, __PRETTY_FUNCTION__, reason, file);	\
-		fprintf(fp, "\tsize = %zu\n\tcapacity = %zu\n\tdata [%p]\n\t{\n", stk_pointer->size, stk_pointer->capacity, stk_pointer->data);							\
-																																								\
-		for ( size_t i = 0; i < stk_pointer->capacity; i++)																										\
-			if( ( (StkElem*)(stk_pointer->data) )[i] == POSION_VALUE)																							\
-				fprintf(fp, "\t\t[%2zu] = NAN (POISON!)\n", i);																									\
-			else																																				\
-				{fprintf(fp, "\t\t*[%2zu] = ", i); Print(fp, ( (StkElem*)(stk_pointer->data) )[i]);}																\
-																																								\
-		fprintf(fp, "\n\t}\n}\n============++++===============\n\n\n");																								\
-		fclose(fp);																																				\
+		fprintf(fp, "\tsize = %zu\n\tcapacity = %zu\n\tdata [%p]\n\t{\n", stk_pointer->size, stk_pointer->capacity, stk_pointer->data);												\
+																																																																													\
+		for ( size_t i = 0; i < stk_pointer->capacity; i++)																																																		\
+			if( ( (StkElem*)(stk_pointer->data) )[i] == POSION_VALUE)																																														\
+				fprintf(fp, "\t\t[%2zu] = NAN (POISON!)\n", i);																																																		\
+			else																																																																								\
+				{fprintf(fp, "\t\t*[%2zu] = ", i); Print(fp, ( (StkElem*)(stk_pointer->data) )[i]);}																															\
+																																																																													\
+		fprintf(fp, "\n\t}\n}\n============++++===============\n\n\n");																																												\
+		fclose(fp);																																																																						\
 	}
 
 

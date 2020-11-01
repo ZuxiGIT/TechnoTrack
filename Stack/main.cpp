@@ -6,7 +6,7 @@
 
 
 
-#define NAME_OF_ARG(ARG)	#ARG
+
 
 
 
