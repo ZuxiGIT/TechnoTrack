@@ -10,6 +10,7 @@
 #define STACK_CONCAT(TYPE) 	Stack 		## _ ## TYPE
 #define CTOR_CONCAT(TYPE)	StackCtor 	## _ ## TYPE	
 #define POP_CONCAT(TYPE)	StackPop 	## _ ## TYPE
+#define PUSH_CONCAT(TYPE) 	StackPush	## _ ## TYPE
 
 #ifdef DEBUG
 	#define ALL_CHECK
@@ -23,15 +24,15 @@
 
 
 #ifdef ALL_CHECK
-	#define CheckStack(reason, stk_name, stk_pointer)				 						\
-	{																\
-	 	if(isStackOk(stk_pointer))												\
-		{ 															\
-			const char* file = __FILE__;											\
-			const char* func = __PRETTY_FUNCTION__;										\
-			const char* result = "Not OK";											\
+	#define CheckStack(reason, stk_name, stk_pointer)				 														\
+	{																														\
+	 	if(isStackOk(stk_pointer))																							\
+		{ 																													\
+			const char* file = __FILE__;																					\
+			const char* func = __PRETTY_FUNCTION__;																			\
+			const char* result = "Not OK";																					\
 		 	FStackDump(result, reason, stk_name, (stk_pointer), file, func) /*assert(!"Stack is not OK, check logfile");*/ 	\
-		}															\
+		}																													\
 	} 
 #else
 	#define CheckStack(reason, stk_name, stk_pointer)
@@ -42,10 +43,12 @@
 	#define STACK(TYPE) 	STACK_CONCAT(TYPE)
 	#define STK_CTOR(TYPE)	CTOR_CONCAT(TYPE)
 	#define STK_POP(TYPE)	POP_CONCAT(TYPE)
+	#define STK_PUSH(TYPE)	PUSH_CONCAT(TYPE)
 #else
 	#define STACK(TYPE) 	Stack
 	#define STK_CTOR(TYPE)	StackCtor
 	#define STK_POP(TYPE)	StackPop
+	#define STK_PUSH(TYPE)	StackPush
 #endif
 
 
@@ -83,26 +86,27 @@ unsigned long long Hash(void* buffer, size_t size);
 unsigned long long Rol(unsigned long long value);
 
 
-#define CTOR(TYPE, stk, capacity) STK_CTOR(TYPE) (#stk, &stk, capacity);
-#define POP(TYPE, stk)	STK_POP(TYPE) (#stk, &stk)
+#define CTOR(TYPE, stk, capacity) 	STK_CTOR(TYPE) 	(#stk, &stk, capacity)
+#define POP(TYPE, stk)				STK_POP(TYPE) 	(#stk, &stk)
+#define PUSH(TYPE, stk, value) 		STK_PUSH(TYPE) 	(#stk, &stk, value)
 
 
-#define FStackDump(result, reason, stk_name, stk_pointer, file, func)													\
-	{ 																				\
-		FILE* fp = fopen("logfile.txt", "a");															\
-		if(!fp)	assert(!"File was not opened!");														\
-																					\
+#define FStackDump(result, reason, stk_name, stk_pointer, file, func)																							\
+	{ 																																							\
+		FILE* fp = fopen("logfile.txt", "a");																													\
+		if(!fp)	assert(!"File was not opened!");																												\
+																																								\
 		fprintf(fp, "Stack: %s (%s) [%p]\ncalled from : %s;\nreason: %s;\nfile: %s\n{\n", stk_name, result, stk_pointer, __PRETTY_FUNCTION__, reason, file);	\
-		fprintf(fp, "\tsize = %zu\n\tcapacity = %zu\n\tdata [%p]\n\t{\n", stk_pointer->size, stk_pointer->capacity, stk_pointer->data);				\
-																					\
-		for ( size_t i = 0; i < stk_pointer->capacity; i++)													\
-			if( ( (StkElem*)(stk_pointer->data) )[i] == POSION_VALUE)											\
-				fprintf(fp, "\t\t[%2zu] = NAN (POISON!)\n", i);												\
-			else																		\
-				{fprintf(fp, "\t\t*[%2zu] = ", i); Print(fp, ( (StkElem*)(stk_pointer->data) )[i]);}							\
-																					\
-		fprintf(fp, "\n\t}\n}\n============++++===============\n\n\n");												\
-		fclose(fp);																		\
+		fprintf(fp, "\tsize = %zu\n\tcapacity = %zu\n\tdata [%p]\n\t{\n", stk_pointer->size, stk_pointer->capacity, stk_pointer->data);							\
+																																								\
+		for ( size_t i = 0; i < stk_pointer->capacity; i++)																										\
+			if( ( (StkElem*)(stk_pointer->data) )[i] == POSION_VALUE)																							\
+				fprintf(fp, "\t\t[%2zu] = NAN (POISON!)\n", i);																									\
+			else																																				\
+				{fprintf(fp, "\t\t*[%2zu] = ", i); Print(fp, ( (StkElem*)(stk_pointer->data) )[i]);}															\
+																																								\
+		fprintf(fp, "\n\t}\n}\n============++++===============\n\n\n");																							\
+		fclose(fp);																																				\
 	}
 
 
@@ -163,23 +167,40 @@ bool isStackOk(STACK(StkElem)* stk)
 StkElem STK_POP(StkElem) (const char* stk_name, STACK(StkElem)* stk)
 {
 	assert(stk);
+
 	CheckStack("Stack is being checked before POPing", stk_name, stk)
 
 	if (stk->size == 0)
 	{
 		printf("Stack is empty!\n");
-		return POSION_VALUE;
+		abort();
 	}
 
 	StkElem value = ((StkElem*)(stk->data))[--stk->size];
-
-	((StkElem*)(stk->data))[stk->size + 1] = POSION_VALUE;
+	((StkElem*)(stk->data))[stk->size] = POSION_VALUE;
 
 	stk->hash = Hash(stk->data, stk->capacity);
 
 
 	CheckStack("Stack is being checked after POPing", stk_name, stk)
+	printf("END OF POP\n");
+	return value;
+}
 
+void STK_PUSH(StkElem) (const char* stk_name, STACK(StkElem)* stk, StkElem value)
+{
+	assert(stk);
+
+	CheckStack("Stack is being checked before PUSHing", stk_name, stk)
+
+	printf("size is %zu and capacity is %zu\n", stk->size, stk->capacity);
+	if(stk->size < stk->capacity)
+		((StkElem*)(stk->data))[stk->size++] = value;
+	else printf("Stack %s is full\n", stk_name);
+
+	stk->hash = Hash(stk->data, stk->capacity);
+
+	CheckStack("Stack is being checked after PUSHing", stk_name, stk)
 }
 
 
