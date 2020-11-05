@@ -11,7 +11,7 @@
 
 
 
-int main(int argc, char const *argv[])
+int main()
 {
 	STACK(int) stk = {};
 	CTOR(int, stk, 2);

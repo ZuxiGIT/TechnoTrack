@@ -53,7 +53,9 @@
 #define PUSH(TYPE, stk, value) 		STK_PUSH(TYPE) 		(#stk, &stk, value)
 
 #ifdef ALL_CHECK
-	#define CheckStack(TYPE, reason, stk_name, stk_pointer)	STK_CheckStack(TYPE)	(reason, stk_name, stk_pointer, __FILE__, __PRETTY_FUNCTION__)
+	#define ON_CheckStack(TYPE, reason, stk_name, stk_pointer)	STK_CheckStack(TYPE)	(reason, stk_name, stk_pointer, __FILE__, __PRETTY_FUNCTION__)
+#else 
+	#define ON_CheckStack(TYPE, reason, stk_name, stk_pointer) 
 #endif
 
 #ifndef PARAMETRS
@@ -72,7 +74,7 @@ struct STACK(StkElem)
 	size_t capacity;
 	size_t size;
 	
-	char* data;
+	char* data = nullptr;
 	
 	bool initialized = false;
 	unsigned long long hash;
@@ -82,7 +84,7 @@ struct STACK(StkElem)
 
 #ifndef STACKClEAR
 #define STACKClEAR
-	#define StackClear(stk) if (stk -> initialized) { assert(!"Trying to initialize initialized stack!");}
+	#define StackClear(stk) if (stk->initialized) { assert(!"Trying to initialize initialized stack!");}
 #endif
 
 void STK_CTOR(TYPE) (STACK(StkElem)* stk, size_t capacity = 10);
@@ -131,34 +133,34 @@ void StackDump(	FILE* stream, const char* result, const char* reason, const char
 
 
 
-void STK_CTOR(StkElem) (const char* stk_name, STACK(StkElem)* stk, size_t capacity)
+void STK_CTOR(StkElem) (const char* stk_name, STACK(StkElem)* stk, const size_t capacity)
 {
 	assert(stk && "bad stk pointer in STK_CTOR");
 	StackClear(stk)
 	
-	stk -> initialized 	= true;
-	stk -> size 		= 0;
-	stk -> capacity 	= capacity;
+	stk->initialized 	= true;
+	stk->size 			= 0;
+	stk->capacity 		= capacity;
 
-	stk -> data 		= (char*)calloc(stk->capacity * sizeof(StkElem) + sizeof(StkCanary) * 2, sizeof(char));
+	stk->data 			= (char*)calloc(stk->capacity * sizeof(StkElem) + sizeof(StkCanary) * 2, sizeof(char));
 	
-	assert(stk -> data && "Something wrong with stk's data allocation");
+	assert(stk->data && "Something wrong with stk's data allocation");
 	
 
-	*(StkCanary*)(stk -> data) = CanaryValue;
-	*(StkCanary*)(stk -> data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) = CanaryValue;
+	*(StkCanary*)(stk->data) = CanaryValue;
+	*(StkCanary*)(stk->data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) = CanaryValue;
 	
-	stk -> data += sizeof(StkCanary);
+	stk->data += sizeof(StkCanary);
 
 	for ( size_t i = 0; i < stk->capacity; i++)
-		((StkElem*)(stk -> data))[i] = POSION_VALUE;
+		((StkElem*)(stk->data))[i] = POSION_VALUE;
 
-	stk -> hash = Hash(stk -> data, stk -> capacity * sizeof(StkElem));
+	stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 
-	ON_STACK_PROTECT(stk -> FrontCanary = CanaryValue;)
-	ON_STACK_PROTECT(stk -> BackCanary  = CanaryValue;)
+	ON_STACK_PROTECT(stk->FrontCanary = CanaryValue;)
+	ON_STACK_PROTECT(stk->BackCanary  = CanaryValue;)
 
-	CheckStack(StkElem ,"Stack is beind checked after Constructor", stk_name, stk);
+	ON_CheckStack(StkElem ,"Stack is beind checked after Constructor", stk_name, stk);
 }
 
 void STK_DTOR(StkElem) (const char* stk_name, STACK(StkElem)* stk)
@@ -167,9 +169,9 @@ void STK_DTOR(StkElem) (const char* stk_name, STACK(StkElem)* stk)
 
 	CleanStack(stk);
 	
-	stk -> data -= sizeof(StkCanary);
+	stk->data -= sizeof(StkCanary);
 
-	free(stk -> data);
+	free(stk->data);
 
 }
 
@@ -178,9 +180,9 @@ StkElem STK_POP(StkElem) (const char* stk_name, STACK(StkElem)* stk)
 {
 	assert(stk && "bad stk pointer in STK_POP");
 
-	CheckStack(StkElem, "Stack is being checked before POPing", stk_name, stk);
+	ON_CheckStack(StkElem, "Stack is being checked before POPing", stk_name, stk);
 
-	if (stk -> size == 0)
+	if (stk->size == 0)
 	{
 		printf("Stack is empty!\n");
 		return POSION_VALUE;
@@ -189,21 +191,21 @@ StkElem STK_POP(StkElem) (const char* stk_name, STACK(StkElem)* stk)
 	StkElem value = ((StkElem*)(stk->data))[--stk->size];
 	((StkElem*)(stk->data))[stk->size] = POSION_VALUE;
 
-	if (stk -> size * 3 <= stk -> capacity)
+	if (stk->size * 3 <= stk->capacity)
 		SqueezeStack(stk);
 
-	stk->hash = Hash(stk -> data, stk -> capacity * sizeof(StkElem));
+	stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 
 
-	CheckStack(StkElem, "Stack is being checked after POPing", stk_name, stk);
+	ON_CheckStack(StkElem, "Stack is being checked after POPing", stk_name, stk);
 	return value;
 }
 
-void STK_PUSH(StkElem) (const char* stk_name, STACK(StkElem)* stk, StkElem value)
+void STK_PUSH(StkElem) (const char* stk_name, STACK(StkElem)* stk, const StkElem value)
 {
 	assert(stk && "bad stk pointer in STK_PUSH");
 
-	CheckStack(StkElem, "Stack is being checked before PUSHing", stk_name, stk);
+	ON_CheckStack(StkElem, "Stack is being checked before PUSHing", stk_name, stk);
 
 	printf("size is %zu and capacity is %zu\n", stk->size, stk->capacity);
 	
@@ -216,25 +218,25 @@ void STK_PUSH(StkElem) (const char* stk_name, STACK(StkElem)* stk, StkElem value
 		((StkElem*)(stk->data))[stk->size++] = value;
 	}
 
-	stk -> hash = Hash(stk -> data, stk -> capacity * sizeof(StkElem));
+	stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 
-	CheckStack(StkElem, "Stack is being checked after PUSHing", stk_name, stk);
+	ON_CheckStack(StkElem, "Stack is being checked after PUSHing", stk_name, stk);
 }
 
 
 bool isStackOk(STACK(StkElem)* stk)
 {
-	if (Hash(stk -> data, stk -> capacity * sizeof(StkElem)) != stk->hash)
+	if (Hash(stk->data, stk->capacity * sizeof(StkElem)) != stk->hash)
 		return false;
 
-	stk -> data -= sizeof(StkCanary); 
+	stk->data -= sizeof(StkCanary); 
 	
-	if (*(StkCanary*)(stk -> data) != CanaryValue || (*(StkCanary*)(stk -> data + sizeof(StkCanary) + stk -> capacity * sizeof(StkElem)) != CanaryValue))
+	if (*(StkCanary*)(stk->data) != CanaryValue || (*(StkCanary*)(stk->data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) != CanaryValue))
 		return false;
 
-	stk -> data += sizeof(StkCanary); 
+	stk >data += sizeof(StkCanary); 
 	
-	ON_STACK_PROTECT(if(stk -> FrontCanary != stk -> BackCanary || stk -> FrontCanary != CanaryValue) return false;)
+	ON_STACK_PROTECT(if(stk->FrontCanary != stk->BackCanary || stk->FrontCanary != CanaryValue) return false;)
 	
 	return true;
 }
@@ -242,7 +244,7 @@ bool isStackOk(STACK(StkElem)* stk)
 #ifndef FUNCS_INIT
 #define FUNCS_INIT
 
-unsigned long long Hash(void* buffer, size_t size)
+unsigned long long Hash(void* buffer, const size_t size)
 {
 	unsigned char* buf = (unsigned char*)buffer;
 	unsigned long long hash = Rol(*buf);
@@ -278,20 +280,20 @@ void StackDump(	FILE* stream, const char* result, const char* reason, const char
 		fprintf(stream, "\t\tFrontCanary: %llu\n", *((StkCanary*)(stk_pointer->data-sizeof(StkCanary))) );
 	#endif
 
-	for ( size_t i = 0; i < stk_pointer -> capacity; i++)
-		if( ((StkElem*)( stk_pointer -> data ))[i] == POSION_VALUE)
+	for ( size_t i = 0; i < stk_pointer->capacity; i++)
+		if( ((StkElem*)( stk_pointer->data ))[i] == POSION_VALUE)
 			fprintf(stream, "\t\t[%2zu] = NAN (POISON!)\n", i);
 		else
 		{	
 			fprintf(stream, "\t\t*[%2zu] = ", i); 
-			Print(stream, ((StkElem*)(stk_pointer -> data))[i]);
+			Print(stream, ((StkElem*)(stk_pointer->data))[i]);
 		}
 
 	#ifdef DEBUG
 		fprintf(stream, "\t\tBackCanary:  %llu\n", *((StkCanary*)(stk_pointer->data+sizeof(StkElem)*stk_pointer->capacity)) );
 	#endif
 
-	fprintf(stream, "\n\t}\n\tHash: %llu\n}\n============++++===============\n\n\n", stk_pointer -> hash);
+	fprintf(stream, "\n\t}\n\tHash: %llu\n}\n============++++===============\n\n\n", stk_pointer->hash);
 }
 
 
@@ -300,10 +302,10 @@ void CleanStack(STACK(StkElem)* stk)
 {
 	assert(stk && "bad stk pointer in CleanStack");
 
-	for(size_t i = 0; i < stk -> capacity; i ++)
-		((StkElem*) (stk -> data))[i] = 11111;
+	for(size_t i = 0; i < stk->capacity; i ++)
+		((StkElem*) (stk->data))[i] = POSION_VALUE;
 
-	stk -> hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
+	stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 }
 
 #ifdef RESIZEABLE
@@ -313,23 +315,23 @@ void CleanStack(STACK(StkElem)* stk)
 		printf("================EXPANDING===============\n");
 		assert(stk && "bad stk pointer in ExpandStack");
 
-		stk -> data -= sizeof(StkCanary);
-		stk -> data = (char*)realloc(stk -> data, stk -> capacity * sizeof(StkElem) * 2 + sizeof(StkCanary) * 2);
+		stk->data -= sizeof(StkCanary);
+		stk->data = (char*)realloc(stk->data, stk->capacity * sizeof(StkElem) * 2 + sizeof(StkCanary) * 2);
 
-		assert(stk -> data && "Bad reallocation while expanding");
+		assert(stk->data && "Bad reallocation while expanding");
 
 		
-		stk -> capacity = stk -> capacity * 2;
+		stk->capacity = stk->capacity * 2;
 
-		*(StkCanary*)(stk -> data) = CanaryValue;
-		*(StkCanary*)(stk -> data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) = CanaryValue;
+		*(StkCanary*)(stk->data) = CanaryValue;
+		*(StkCanary*)(stk->data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) = CanaryValue;
 
-		stk -> data += sizeof(StkCanary);
+		stk->data += sizeof(StkCanary);
 
 		for( size_t i = stk->size; i < stk->capacity; i++)
 			((StkElem*)(stk->data))[i] = POSION_VALUE;
 
-		stk -> hash = Hash(stk -> data, stk -> capacity * sizeof(StkElem));
+		stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 	}
 
 	void SqueezeStack(STACK(StkElem)* stk)
@@ -337,19 +339,19 @@ void CleanStack(STACK(StkElem)* stk)
 		printf("================SQUEEZING===============\n");
 		assert(stk && "bad stk pointer in SqueezeStack");
 
-		stk -> data -= sizeof(StkCanary);
-		stk -> data = (char*)realloc(stk -> data, stk -> capacity * sizeof(StkElem) / 2 + sizeof(StkCanary) * 2);
+		stk->data -= sizeof(StkCanary);
+		stk->data = (char*)realloc(stk->data, stk->capacity * sizeof(StkElem) / 2 + sizeof(StkCanary) * 2);
 
-		assert(stk -> data && "Bad reallocation while expanding");
+		assert(stk->data && "Bad reallocation while expanding");
 
-		stk -> capacity = stk -> capacity / 2;
+		stk->capacity = stk->capacity / 2;
 
-		*(StkCanary*)(stk -> data) = CanaryValue;
-		*(StkCanary*)(stk -> data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) = CanaryValue;
+		*(StkCanary*)(stk->data) = CanaryValue;
+		*(StkCanary*)(stk->data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) = CanaryValue;
 
-		stk -> data += sizeof(StkCanary);
+		stk->data += sizeof(StkCanary);
 
-		stk -> hash = Hash(stk -> data, stk -> capacity * sizeof(StkElem));
+		stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 	}
 
 #undef RESIZEABLE
