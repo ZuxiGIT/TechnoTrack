@@ -1,0 +1,24 @@
+in
+pop ax ; edfcadsfCdaFCaFC
+
+in 
+pop bx
+
+in
+pop cx
+
+push bx ;saCFSADCAWSDAWS
+push bx
+mul
+
+push 4 ; awDWDWA
+in
+in
+mul
+mul
+
+sub
+
+out
+
+hlt
