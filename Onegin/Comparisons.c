@@ -1,14 +1,9 @@
 #include "Comparisons.h"
-#include "Lines.h"
+#include "Strings.h"
+#include <stddef.h>
+#include <assert.h>
 
-/** 
-	Function that can compare two Line variables (direct)
 
-	\param[in] a - void pointer to the Line variable
-	\param[in] b - void pointer to the Line variable
-
-	\return 1 if *a > *b else 0
-*/
 int DirectComparisonForLines(const void* a, const void* b)
 {
 	assert(a != NULL);
@@ -23,8 +18,8 @@ int DirectComparisonForLines(const void* a, const void* b)
 
 	while(i < fst.length && j < snd.length)
 	{
-		if (isletter(fst.start[i])) ; else { i++; continue;}
-		if (isletter(snd.start[j])) ; else { j++; continue;}
+		if (isLetter(fst.start[i])) ; else { i++; continue;}
+		if (isLetter(snd.start[j])) ; else { j++; continue;}
 		
 		unsigned char a = toLower(fst.start[i]);
 		unsigned char b = toLower(snd.start[j]);
@@ -36,15 +31,6 @@ int DirectComparisonForLines(const void* a, const void* b)
 
 	return (i - j);
 }
-
-/** 
-	Function that can compare two Line variables (reverse)
-
-	\param[in] a - void pointer to the Line variable
-	\param[in] b - void pointer to the Line variable
-
-	\return 1 if *a > *b else 0
-*/
 
 int ReverseComparisonForLines(const void* a, const void* b)
 {
@@ -59,8 +45,8 @@ int ReverseComparisonForLines(const void* a, const void* b)
 
 	while(i <= fst.length && j <= snd.length)
 	{
-		if (isletter(fst.finish[-i])) ; else { i++; continue;}
-		if (isletter(snd.finish[-j])) ; else { j++; continue;}
+		if (isLetter(fst.finish[-i])) ; else { i++; continue;}
+		if (isLetter(snd.finish[-j])) ; else { j++; continue;}
 
 		unsigned char a = toLower(fst.finish[-i]);
 		unsigned char b = toLower(snd.finish[-j]);

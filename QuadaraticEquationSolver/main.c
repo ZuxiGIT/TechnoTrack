@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
 #include "EqSolver.h"
+#include <assert.h>
+#include <stdio.h>
+#include <malloc.h>
 
 
 
@@ -43,10 +41,10 @@ void PrintResult(double* roots, double* coeff_mass)
 		case NOROOTS:
 			printf("This eq has no roots\n");
 			break;
-		case 1:
+		case ONE_ROOT:
 			printf("This eq has 1 root %lg\n", roots[0]);
 			break;
-		case 2:
+		case TWO_ROOTS:
 			printf("This eq has 2 roots %lg and %lg\n", roots[0], roots[1]);
 			break;
 	}
@@ -58,10 +56,13 @@ int main()
 
 	double* coeff_mass	=	(double*)calloc(3, sizeof(double));
 	double* roots 		=	(double*)calloc(2, sizeof(double));
+	
 	Input(coeff_mass);
+	
 	PrintResult(roots, coeff_mass);
 
 	free(coeff_mass);
 	free(roots);
+
 	return 0;
 }

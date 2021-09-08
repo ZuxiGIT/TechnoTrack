@@ -71,6 +71,27 @@ size_t fsize(const char* name)
 	return stbuf.st_size;
 }
 
+unsigned char* Preprocess(unsigned char* txt)
+{
+
+	size_t len = 0;
+	unsigned char* tmp = txt;
+	
+	while(*tmp++) len++;
+	unsigned char* res = (unsigned char*)calloc(len, sizeof(char));
+	
+	int k = 0;
+
+	for(size_t i = 0; i < len; i++)
+	{
+		if(txt[i] == '\n' || txt[i] == ' ')
+			continue;
+		res[k] = txt[i];
+		k++;
+	}
+	return res;
+
+}
 
 /**
 	Read text from the file
@@ -100,8 +121,10 @@ unsigned char* TextFromFile(const char* name, const size_t size)
 
 	fclose(fp);
 
-	return buff;
+	return Preprocess(buff);
 }
+
+
 
 
 Node* ReadTreeFrom(unsigned char* text)
@@ -121,10 +144,11 @@ Node* ReadTreeFrom(unsigned char* text)
 	Node* tmp = (Node*)calloc(1, sizeof(Node));
 	assert(res && "tmp after calloc in ReadTreeFrom");	 
 	
+	tmp->parent = tmp;	
 	res = tmp;
 
 
-	while(*text++)
+	while(*text)
 	{
 		if(*text == '(')
 			if(!isclosed)
@@ -172,11 +196,16 @@ Node* ReadTreeFrom(unsigned char* text)
 				else
 				{
 					res_of_scan = sscanf((char*)text, "%[^()]%n", buff, &len);
+					printf("read from [");
+					for ( int i = 0; i < len; i ++)
+						printf("%X", buff[i]);
+					printf("]\n");
 					
 					if(res_of_scan == 1)
 						if(len == 1)
 						{
-							if(isalpha(*buff))
+							//printf("VAR OR OP:buff is %s\n", buff);
+							if(isalpha(buff[0]))
 								tmp->type = VARIABLE;
 							else
 								tmp->type = OPERATOR;
@@ -187,13 +216,15 @@ Node* ReadTreeFrom(unsigned char* text)
 						}
 						else 
 						{
+							//printf("FUNC:buff is %s\n", buff);
 							tmp->type = FUNCTION;
 							memcpy(tmp->data.str, buff, 8);
 
 							text += len;
 
 						}
-
+					else
+						text += len; 
 				}
 
 			}
@@ -201,6 +232,33 @@ Node* ReadTreeFrom(unsigned char* text)
 	return res;
 }
 
+
+
+void PrintTree(FILE* stream, Node* head)
+{
+	assert(stream);
+	assert(head);
+
+	fprintf(stream, "(");
+
+	if(head->left != NULL)
+		PrintTree(stream, head->left);
+
+	switch(head->type)
+	{
+		case CONSTANT:
+			fprintf(stream, "%.4lf", head->data.num);
+			break;
+		default:
+			fprintf(stream, "%s", head->data.str);
+			break;
+	}
+
+	if(head->right != NULL)
+		PrintTree(stream, head->right);
+
+	fprintf(stream, ")");
+}
 
 int main(int argc, char* argv [])
 {
@@ -215,7 +273,10 @@ int main(int argc, char* argv [])
 	size_t size = fsize(INPUT);
 	unsigned char* text = TextFromFile(INPUT, size);
 
+
 	Node* head = ReadTreeFrom(text);
+
+	PrintTree(stdout, head);
 
 
 	return 0;

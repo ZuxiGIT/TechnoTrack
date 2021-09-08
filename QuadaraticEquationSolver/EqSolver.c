@@ -1,9 +1,4 @@
-
-//! @file EqSolver.c
-
-#ifndef EqSolver
 #include "EqSolver.h"
-#endif
 #include <math.h>
 #include <assert.h>
 
@@ -12,33 +7,51 @@ static const double precision = 1e-5;
 
 /**
 
-	Compare two double-precision floating-point numbers with certain accuracy
+	\brief Compare two double-precision floating-point numbers with certain accuracy
 	
 	\param[in] num1	- First number
 	\param[in] num2	- Second number
 
-	\return if(num1 > num2) 1 else 0
+	\return if(num1 == num2) return 1 else return  0
 */
 
 char Compare_Doubles(double num1, double num2)
 {
-	if(num1 - num2 > -1 * precision && num1 - num2 < precision)
-		return TRUE;
+	if(fabs(num1 - num2) < precision)
+		return 1;
 	else
-		return FALSE;
+		return 0;
+}
+
+/**
+
+	Compare double-precision floating-point number with zero using IEEE 754-2008 standard 
+
+	\param[in] num  - Double-precision floating-point number 
+
+	\return if (num == 0) 1 else 0
+*/
+
+char double_zero_compare(double num)
+{
+	union
+	{
+		double doub;
+		long long ll;
+	} exp;
+
+	exp.doub = num;
+
+	int res = (exp.ll & (long long) 0xfff << 52 ) >> 52;
+	if (res == 0x0 || res == 0x8000)
+		return 1;
+
+	return 0;
 }
 
 
-/**
-	Solves Linear equation
 
-	\param[in] roots - List of roots, where roots will be written
-	\param[in] a 	 - First 	coefficient
-	\param[in] b 	 - Second coefficient
-		
-	\return Number of roots or other constants (INF -1) (NOROOTS -2)
-		
-*/
+
 char LinearEqSolver(double* roots, double a, double b)
 {
 	assert(roots);
@@ -64,17 +77,7 @@ char LinearEqSolver(double* roots, double a, double b)
 }
 
 
-/**
-	Solves quadratic equation
 
-	\param[in] roots - List of roots, where roots will be written
-	\param[in] a 	 - First coefficient
-	\param[in] b 	 - Second coefficient
-	\param[in] c 	 - Third coefficient
-		
-	\return Number of roots or other constants (INF -1) (NOROOTS -2)
-		
-*/
 char SquareEqSolver(double* roots, double a, double b, double c)
 {
 	assert(roots);
@@ -106,7 +109,7 @@ char SquareEqSolver(double* roots, double a, double b, double c)
 	if(discr < 0)
 		return NOROOTS;
 
-	double sqrt_disc = sqrt(discr);
+	double sqrt_disc = sqrtf(discr);
 	*x1 = (-b + sqrt_disc)/(2*a);
 	*x2 = (-b - sqrt_disc)/(2*a);
 	
@@ -114,29 +117,4 @@ char SquareEqSolver(double* roots, double a, double b, double c)
 		return 1;
 
 	return 2;
-}
-
-/**
-
-	Compare double-precision floating-point number with zero using IEEE 754-2008 standard 
-
-	\param[in] num  - Double-precision floating-point number 
-
-	\return if (num == 0) 1 else 0
-*/
-char double_zero_compare(double num)
-{
-	union
-	{
-		double doub;
-		long long ll;
-	} exp;
-
-	exp.doub = num;
-
-	int res = (exp.ll & (long long) 0xfff << 52 ) >> 52;
-	if (res == 0x0 || res == 0x8000)
-		return 1;
-
-	return 0;
 }
