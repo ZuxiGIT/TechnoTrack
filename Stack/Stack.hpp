@@ -4,8 +4,10 @@
 
 
 #ifndef LOGFILE
-#define LOGFILE
-	const char* FILE_LOG = "logfile.txt";
+#define LOGFILE 
+
+const char* FILE_LOG = "logfile.txt";
+
 #endif
 
 #define DEBUG
@@ -52,10 +54,11 @@
 #define POP(TYPE, stk)				STK_POP(TYPE) 		(#stk, &stk)
 #define PUSH(TYPE, stk, value) 		STK_PUSH(TYPE) 		(#stk, &stk, value)
 
+
 #ifdef ALL_CHECK
-	#define ON_CheckStack(TYPE, reason, stk_name, stk_pointer)	STK_CheckStack(TYPE)	(reason, stk_name, stk_pointer, __FILE__, __PRETTY_FUNCTION__)
+	#define CheckStack(TYPE, reason, stk_name, stk_pointer)	STK_CheckStack(TYPE)	(reason, stk_name, stk_pointer, __FILE__, __PRETTY_FUNCTION__)
 #else 
-	#define ON_CheckStack(TYPE, reason, stk_name, stk_pointer) 
+	#define heckStack(TYPE, reason, stk_name, stk_pointer) 
 #endif
 
 #ifndef PARAMETRS
@@ -69,17 +72,17 @@
 
 struct STACK(StkElem)
 {
-	ON_STACK_PROTECT(StkCanary FrontCanary;)
+	ON_STACK_PROTECT(StkCanary FrontCanary = CanaryValue;)
 
-	size_t capacity;
-	size_t size;
+	size_t capacity = 0;
+	size_t size = 0;
 	
 	char* data = nullptr;
 	
 	bool initialized = false;
-	unsigned long long hash;
+	unsigned long long hash = 0;
 
-	ON_STACK_PROTECT(StkCanary BackCanary;)
+	ON_STACK_PROTECT(StkCanary BackCanary = CanaryValue;)
 };
 
 #ifndef STACKClEAR
@@ -160,7 +163,7 @@ void STK_CTOR(StkElem) (const char* stk_name, STACK(StkElem)* stk, const size_t 
 	ON_STACK_PROTECT(stk->FrontCanary = CanaryValue;)
 	ON_STACK_PROTECT(stk->BackCanary  = CanaryValue;)
 
-	ON_CheckStack(StkElem ,"Stack is beind checked after Constructor", stk_name, stk);
+	CheckStack(StkElem ,"Stack is beind checked after Constructor", stk_name, stk);
 }
 
 void STK_DTOR(StkElem) (const char* stk_name, STACK(StkElem)* stk)
@@ -180,7 +183,7 @@ StkElem STK_POP(StkElem) (const char* stk_name, STACK(StkElem)* stk)
 {
 	assert(stk && "bad stk pointer in STK_POP");
 
-	ON_CheckStack(StkElem, "Stack is being checked before POPing", stk_name, stk);
+	CheckStack(StkElem, "Stack is being checked before POPing", stk_name, stk);
 
 	if (stk->size == 0)
 	{
@@ -197,7 +200,7 @@ StkElem STK_POP(StkElem) (const char* stk_name, STACK(StkElem)* stk)
 	stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 
 
-	ON_CheckStack(StkElem, "Stack is being checked after POPing", stk_name, stk);
+	CheckStack(StkElem, "Stack is being checked after POPing", stk_name, stk);
 	return value;
 }
 
@@ -205,7 +208,7 @@ void STK_PUSH(StkElem) (const char* stk_name, STACK(StkElem)* stk, const StkElem
 {
 	assert(stk && "bad stk pointer in STK_PUSH");
 
-	ON_CheckStack(StkElem, "Stack is being checked before PUSHing", stk_name, stk);
+	CheckStack(StkElem, "Stack is being checked before PUSHing", stk_name, stk);
 
 	printf("size is %zu and capacity is %zu\n", stk->size, stk->capacity);
 	
@@ -220,7 +223,7 @@ void STK_PUSH(StkElem) (const char* stk_name, STACK(StkElem)* stk, const StkElem
 
 	stk->hash = Hash(stk->data, stk->capacity * sizeof(StkElem));
 
-	ON_CheckStack(StkElem, "Stack is being checked after PUSHing", stk_name, stk);
+	CheckStack(StkElem, "Stack is being checked after PUSHing", stk_name, stk);
 }
 
 
@@ -234,7 +237,7 @@ bool isStackOk(STACK(StkElem)* stk)
 	if (*(StkCanary*)(stk->data) != CanaryValue || (*(StkCanary*)(stk->data + sizeof(StkCanary) + stk->capacity * sizeof(StkElem)) != CanaryValue))
 		return false;
 
-	stk >data += sizeof(StkCanary); 
+	stk ->data += sizeof(StkCanary); 
 	
 	ON_STACK_PROTECT(if(stk->FrontCanary != stk->BackCanary || stk->FrontCanary != CanaryValue) return false;)
 	

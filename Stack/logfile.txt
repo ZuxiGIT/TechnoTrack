@@ -1,11 +1,11 @@
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackCtor_int(const char*, Stack_int*, size_t);
 reason: Stack is beind checked after Constructor;
 file: Stack.hpp
 {
 	size = 0
 	capacity = 2
-	data [0x559f0a6102a8]
+	data [0x55b55b8392a8]
 	{
 		FrontCanary: 858777877052518413
 		[ 0] = NAN (POISON!)
@@ -18,14 +18,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 0
 	capacity = 2
-	data [0x559f0a6102a8]
+	data [0x55b55b8392a8]
 	{
 		FrontCanary: 858777877052518413
 		[ 0] = NAN (POISON!)
@@ -38,14 +38,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 1
 	capacity = 2
-	data [0x559f0a6102a8]
+	data [0x55b55b8392a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -58,14 +58,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 1
 	capacity = 2
-	data [0x559f0a6102a8]
+	data [0x55b55b8392a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -78,14 +78,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 2
 	capacity = 2
-	data [0x559f0a6102a8]
+	data [0x55b55b8392a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -98,14 +98,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 2
 	capacity = 2
-	data [0x559f0a6102a8]
+	data [0x55b55b8392a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -118,14 +118,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 4
-	data [0x559f0a6108b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -140,14 +140,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 4
-	data [0x559f0a6108b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -162,14 +162,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 4
-	data [0x559f0a6108b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -184,14 +184,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 4
-	data [0x559f0a6108b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -206,14 +206,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : void StackPush_int(const char*, Stack_int*, int);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 5
 	capacity = 8
-	data [0x559f0a6108b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -232,838 +232,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffef2ea5cf0]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x559f0a6108b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffef2ea5cf0]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x559f0a6108b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffef2ea5cf0]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x559f0a6108b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffef2ea5cf0]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x559f0a6108b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffef2ea5cf0]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x559f0a6108b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffef2ea5cf0]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 8
-	data [0x559f0a6108b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 76826227568
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffef2ea5cf0]
-called from : int main(int, const char**);
-reason: Checking;
-file: main.cpp
-{
-	size = 2
-	capacity = 8
-	data [0x559f0a6108b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 76826227568
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackCtor_int(const char*, Stack_int*, size_t);
-reason: Stack is beind checked after Constructor;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55c0dcaf92a8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55c0dcaf92a8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55c0dcaf92a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55c0dcaf92a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55c0dcaf92a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55c0dcaf92a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 4
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1172336
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fffbc339100]
-called from : int main(int, const char**);
-reason: Checking;
-file: main.cpp
-{
-	size = 2
-	capacity = 4
-	data [0x55c0dcaf98b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1172336
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackCtor_int(const char*, Stack_int*, size_t);
-reason: Stack is beind checked after Constructor;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55f680d0a2a8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55f680d0a2a8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55f680d0a2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55f680d0a2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55f680d0a2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55f680d0a2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55f680d0a8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55f680d0a8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55f680d0a8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55f680d0a8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55f680d0a8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackCtor_double(const char*, Stack_double*, size_t);
 reason: Stack is beind checked after Constructor;
 file: Stack.hpp
 {
 	size = 0
 	capacity = 2
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		[ 0] = NAN (POISON!)
@@ -1076,14 +252,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 0
 	capacity = 2
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		[ 0] = NAN (POISON!)
@@ -1096,14 +272,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 1
 	capacity = 2
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1116,14 +292,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 1
 	capacity = 2
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1136,14 +312,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 2
 	capacity = 2
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1156,14 +332,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 2
 	capacity = 2
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1176,14 +352,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 4
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1198,14 +374,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 4
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1220,14 +396,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 4
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1242,14 +418,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked before PUSHing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 4
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1264,14 +440,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : void StackPush_double(const char*, Stack_double*, double);
 reason: Stack is being checked after PUSHing;
 file: Stack.hpp
 {
 	size = 5
 	capacity = 8
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1290,14 +466,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdf81c1800]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : int StackPop_int(const char*, Stack_int*);
 reason: Stack is being checked before POPing;
 file: Stack.hpp
 {
 	size = 5
 	capacity = 8
-	data [0x55f680d0a8b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -1316,14 +492,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdf81c1800]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : int StackPop_int(const char*, Stack_int*);
 reason: Stack is being checked after POPing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 8
-	data [0x55f680d0a8b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -1342,14 +518,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdf81c1800]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : int StackPop_int(const char*, Stack_int*);
 reason: Stack is being checked before POPing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 8
-	data [0x55f680d0a8b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -1368,14 +544,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdf81c1800]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : int StackPop_int(const char*, Stack_int*);
 reason: Stack is being checked after POPing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 8
-	data [0x55f680d0a8b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -1394,14 +570,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdf81c1800]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : int StackPop_int(const char*, Stack_int*);
 reason: Stack is being checked before POPing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 8
-	data [0x55f680d0a8b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -1420,14 +596,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdf81c1800]
+Stack: stk (OK) [0x7ffdcc70a240]
 called from : int StackPop_int(const char*, Stack_int*);
 reason: Stack is being checked after POPing;
 file: Stack.hpp
 {
 	size = 2
 	capacity = 4
-	data [0x55f680d0a8b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -1442,14 +618,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdf81c1800]
-called from : int main(int, const char**);
+Stack: stk (OK) [0x7ffdcc70a240]
+called from : int main();
 reason: Checking;
 file: main.cpp
 {
 	size = 2
 	capacity = 4
-	data [0x55f680d0a8b8]
+	data [0x55b55b8398b8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -1464,14 +640,14 @@ file: main.cpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : double StackPop_double(const char*, Stack_double*);
 reason: Stack is being checked before POPing;
 file: Stack.hpp
 {
 	size = 5
 	capacity = 8
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1490,14 +666,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : double StackPop_double(const char*, Stack_double*);
 reason: Stack is being checked after POPing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 8
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1516,14 +692,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : double StackPop_double(const char*, Stack_double*);
 reason: Stack is being checked before POPing;
 file: Stack.hpp
 {
 	size = 4
 	capacity = 8
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1542,14 +718,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : double StackPop_double(const char*, Stack_double*);
 reason: Stack is being checked after POPing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 8
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1568,14 +744,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : double StackPop_double(const char*, Stack_double*);
 reason: Stack is being checked before POPing;
 file: Stack.hpp
 {
 	size = 3
 	capacity = 8
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1594,14 +770,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
+Stack: stk_d (OK) [0x7ffdcc70a280]
 called from : double StackPop_double(const char*, Stack_double*);
 reason: Stack is being checked after POPing;
 file: Stack.hpp
 {
 	size = 2
 	capacity = 4
-	data [0x55f680d0a8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7
@@ -1616,1646 +792,14 @@ file: Stack.hpp
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdf81c1840]
-called from : int main(int, const char**);
+Stack: stk_d (OK) [0x7ffdcc70a280]
+called from : int main();
 reason: Checking;
 file: main.cpp
 {
 	size = 2
 	capacity = 4
-	data [0x55f680d0a8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511002497874
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackCtor_int(const char*, Stack_int*, size_t);
-reason: Stack is beind checked after Constructor;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x5561998c32a8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x5561998c32a8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x5561998c32a8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x5561998c32a8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x5561998c32a8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x5561998c32a8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackCtor_double(const char*, Stack_double*, size_t);
-reason: Stack is beind checked after Constructor;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 86866
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 86866
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7769170
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7769170
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7797278
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7797278
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433746
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433746
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433508
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433508
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		*[ 4] =  5.6
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529205137888036
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 4
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1172336
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffc4199cd20]
-called from : int main(int, const char**);
-reason: Checking;
-file: main.cpp
-{
-	size = 2
-	capacity = 4
-	data [0x5561998c38b8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1172336
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		*[ 4] =  5.6
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529205137888036
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529335832400676
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529335832400676
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031530358034617124
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031530358034617124
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 4
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511002497874
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffc4199cd60]
-called from : int main(int, const char**);
-reason: Checking;
-file: main.cpp
-{
-	size = 2
-	capacity = 4
-	data [0x5561998c38f8]
-StkElem	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511002497874
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackCtor_int(const char*, Stack_int*, size_t);
-reason: Stack is beind checked after Constructor;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55a1a211d2a8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55a1a211d2a8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 87408
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55a1a211d2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55a1a211d2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 5488
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55a1a211d2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55a1a211d2a8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 4512
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158000
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1158720
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : void StackPush_int(const char*, Stack_int*, int);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackCtor_double(const char*, Stack_double*, size_t);
-reason: Stack is beind checked after Constructor;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 86866
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 86866
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7769170
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7769170
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7797278
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7797278
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433746
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433746
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433508
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433508
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		*[ 4] =  5.6
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529205137888036
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		*[ 4] =  50
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75939787632
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		*[ 3] =  40
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75933889392
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		*[ 2] =  30
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 75886703472
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : int StackPop_int(const char*, Stack_int*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 4
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1172336
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7fff0e7a0a40]
-called from : int main(int, const char**);
-reason: Checking;
-file: main.cpp
-{
-	size = 2
-	capacity = 4
-	data [0x55a1a211d8b8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  10
-		*[ 1] =  20
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 1172336
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		*[ 4] =  5.6
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529205137888036
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529335832400676
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529335832400676
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031530358034617124
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 8
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031530358034617124
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 4
-	data [0x55a1a211d8f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		[ 2] = NAN (POISON!)
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511002497874
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7fff0e7a0a80]
-called from : int main(int, const char**);
-reason: Checking;
-file: main.cpp
-{
-	size = 2
-	capacity = 4
-	data [0x55a1a211d8f8]
+	data [0x55b55b8398f8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  1.7

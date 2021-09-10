@@ -1,6 +1,3 @@
-#define DEBUG
-#define PROTECT
-
 #define StkElem int
 #include "Stack.hpp"
 
