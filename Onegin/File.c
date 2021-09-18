@@ -1,9 +1,11 @@
 #include "Strings.h"
 #include "File.h"
+#include "logger.h"
 #include <sys/stat.h>
 #include <stdio.h>
 #include <assert.h>
 #include <malloc.h>
+#include <errno.h>
 
 size_t fileSize(const char* name)
 {
@@ -11,27 +13,33 @@ size_t fileSize(const char* name)
 
 	struct stat stbuf = {};
 
-	if (stat(name, &stbuf) == -1)
-	{	
-		fprintf(stderr, "fsize: can't access %s\n", name);
+	// errno = 0;
+	stat(name, &stbuf);
+
+	if(errno)
+	{	 
+		perror(__PRETTY_FUNCTION__); // change to perror
 		return 0;
 	}
+
 	if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
 	{
-		fprintf(stderr, "fsize: can't access %s. It is a directory", name);
+		fprintf(stderr, "%s: can't access %s. It is a directory", __PRETTY_FUNCTION__, name);
 		return 0;
 	}
+
 	return stbuf.st_size;
 }
 
-void filePrint(Line* ind, int num_of_lines)
+void filePrint(Text* text)
 {
 	FILE* fp = fopen("output.txt", "a");
 	
 	assert(fp != NULL);
 
-	for (int i  = 0; i < num_of_lines; i ++)
-		fprintf(fp, "%s\n", ind[i].start);
+	for (int i  = 0; i < text->num_of_lines; i ++)
+		fprintf(fp, "%s\n", text->text[i].start);
+
 	fprintf(fp, "\n============================================\n"
 				"\n============================================\n");
 
@@ -52,8 +60,8 @@ unsigned char* readText(const char* name, const size_t size)
 
 	buff[size] = '\0';
 
-	size_t written_sz = fread(buff, sizeof(unsigned char), size, fp);
-	printf("Declared size (sizeof(char)): %zu Written size (sizeof(char)): %zu\n", size, written_sz);
+	size_t written_sz = fread(buff, sizeof(unsigned char), size, fp); // logging
+	pr_info(LOG_CONSOLE | LOG_FILE, "Declared size (sizeof(char)): %zu Written size (sizeof(char)): %zu\n", size, written_sz);
 
 	fclose(fp);
 

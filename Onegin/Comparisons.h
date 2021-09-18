@@ -1,5 +1,6 @@
 #ifndef Comparisons_hpp
 #define Comparisons_hpp
+/*! \file */
 
 /** 
 	Function that can compare two Line variables (direct)

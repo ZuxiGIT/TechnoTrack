@@ -4,8 +4,9 @@
 typedef struct{ unsigned char* start; unsigned char* finish; int length;} Line;
 
 
+
 /**
-	Convert uppercase to lowercase
+	\brief Convert uppercase to lowercase
 
 	\param[in] symbol - unsigned char
 
@@ -15,7 +16,7 @@ typedef struct{ unsigned char* start; unsigned char* finish; int length;} Line;
 unsigned char toLower(unsigned char symbol); 
 
 /**
-	Checks if the symbol is letter
+	\brief Checks if the symbol is letter
 
 	\param[in] symbol - unsigned char 
 
@@ -25,7 +26,7 @@ unsigned char toLower(unsigned char symbol);
 int isLetter(unsigned char symbol);
 
 /** 
-	Count lines
+	\brief Count lines
 
 	\param[in] text - pointer to the array of unsigned char
 
@@ -35,7 +36,7 @@ int isLetter(unsigned char symbol);
 int numberOfLines(const unsigned char* text);
 
 /**
-	Parse lines from the array of unsigned char
+	\brief Parse lines from the array of unsigned char
 
 	\param[in] text - pointer to the array of unsigned char
 	\param[in] size - number of lines

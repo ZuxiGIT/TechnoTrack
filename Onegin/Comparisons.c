@@ -3,7 +3,6 @@
 #include <stddef.h>
 #include <assert.h>
 
-
 int DirectComparisonForLines(const void* a, const void* b)
 {
 	assert(a != NULL);
@@ -16,7 +15,7 @@ int DirectComparisonForLines(const void* a, const void* b)
 	int i = 0;
 	int j = 0;
 
-	while(i < fst.length && j < snd.length)
+	while(i < fst.length && j < snd.length) // lhs and rhs
 	{
 		if (isLetter(fst.start[i])) ; else { i++; continue;}
 		if (isLetter(snd.start[j])) ; else { j++; continue;}

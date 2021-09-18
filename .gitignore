@@ -51,7 +51,11 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+*.sh
 
+*.txt
 **/html/**
 **/.vscode/**
 **/Doxyfile
+**/latex/**
+**/html/**

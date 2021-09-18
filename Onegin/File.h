@@ -1,9 +1,11 @@
 #ifndef FILE_H
 #define FILE_H
 #include <stddef.h>
+#include "Text.h"
+/*! \file */
 
 /**
-	Calculate the file's size
+	\brief Calculate the file's size
 
 	\param[in] name - the file name
 
@@ -13,22 +15,21 @@
 size_t fileSize(const char* name);
 
 /**
-	Writes the array of Lines to a file
+	\brief Writes the array of Lines to a file
 
-	\param[in] index  - array of structures "Line"
-	\param[in] number - number of lines
+	\param[in] input  - struct Text
 	
 */
 
-void filePrint(Line* ind, int num_of_lines);
+void filePrint(Text* input);
 
 /**
-	Read text from the file
+	@brief Read text from the file
 
-	\param[in] name - the filename
-	\param[in] size - the file's size
+	@param[in] name - the filename
+	@param[in] size - the file's size
 
-	\return pointer to the array of unsigned char
+	@return pointer to the array of unsigned char
 */
 
 unsigned char* readText(const char* name, const size_t size);

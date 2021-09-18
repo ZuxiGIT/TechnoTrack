@@ -1,64 +1,57 @@
 #include "Comparisons.h"
 #include "Strings.h"
 #include "Sort.h"
+#include "logger.h"
+#include "Text.h"
 #include "File.h"
 #include <locale.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
+#include <errno.h>
 
 
 int main(int argc, char* argv[])
 {
 
 	//const char* PROGRAM_NAME = argv[0];
-	if ( argc == 1)
+	if ( argc == 1 )
 	{
-		printf("ERROR: enter the input file\n");
+		pr_err( LOG_CONSOLE | LOG_FILE, "no input file\n");
 		return 1;
-	}
+	} // parse_args
 
-	const char* INPUT = argv[1];
+	const char* input_file = argv[1]; 
 
-	char* current_locale = setlocale(LC_ALL, "");
-	setlocale(LC_ALL, "ru_RU.CP1251"); 
 
-	size_t sz = fileSize(INPUT);
-	printf("sz is %zu\n", sz);
 
-	unsigned char* txt = readText(INPUT, sz);
-	int num_of_lines = numberOfLines(txt);
-
-	printf("\nTotal number of lines is %d\n", num_of_lines);
+	Text* text = text_init(input_file);
+	filePrint(text); // struct Text*
 	
-	printf("read :\n%s\n", txt);
-	printf("\n\n\n");
+	selectionSort(text, DirectComparisonForLines);
+	
+	filePrint(text);
 
+	generalizedSelectionSort(text->text, text->num_of_lines, sizeof(Line), DirectComparisonForLines);
 
-	Line* ind = parseText(txt, num_of_lines);
+	filePrint(text);
+
 	
-	filePrint(ind, num_of_lines);
+	qsort(text->text, text->num_of_lines, sizeof(Line), ReverseComparisonForLines);
 	
-	selectionSort(ind, num_of_lines, DirectComparisonForLines);
-	
-	filePrint(ind, num_of_lines);
-	
-	qsort(ind, num_of_lines, sizeof(Line), ReverseComparisonForLines);
-	
-	filePrint(ind, num_of_lines);
+	filePrint(text);
 	
 	//for ( int j = 0; j < num_of_lines; j++)
 		//printf("j = %d start from %c end with %c length is %d\n%s\n", j, *ind[j].start, *ind[j].finish, ind[j].length, ind[j].start);
 	
-	for (int i = 0; i < num_of_lines; i++)
-		printf("%s\n", ind[i].start);
+	for (int i = 0; i < text->num_of_lines; i++)
+		printf("%s\n", text->text[i].start); // print_lines
 
-	setlocale(LC_ALL, current_locale);
 	
-	free(ind);
-	free(txt);
-	free(current_locale);
+	log_close();
+	text_free(text);
+	free(text);
 	
 	return 0;
 }
