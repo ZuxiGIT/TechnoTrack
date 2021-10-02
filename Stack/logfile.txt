@@ -1,11 +1,11 @@
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackCtor_int(const char*, Stack_int*, size_t);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackCtor_int;
 reason: Stack is beind checked after Constructor;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 0
 	capacity = 2
-	data [0x55b55b8392a8]
+	data [0x56385ace02a8]
 	{
 		FrontCanary: 858777877052518413
 		[ 0] = NAN (POISON!)
@@ -13,19 +13,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 87408
+	hash: 87408
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked before PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 0
 	capacity = 2
-	data [0x55b55b8392a8]
+	data [0x56385ace02a8]
 	{
 		FrontCanary: 858777877052518413
 		[ 0] = NAN (POISON!)
@@ -33,19 +33,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 87408
+	hash: 87408
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked after PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 1
 	capacity = 2
-	data [0x55b55b8392a8]
+	data [0x56385ace02a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -53,19 +53,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 5488
+	hash: 5488
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked before PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 1
 	capacity = 2
-	data [0x55b55b8392a8]
+	data [0x56385ace02a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -73,19 +73,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 5488
+	hash: 5488
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked after PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 2
 	capacity = 2
-	data [0x55b55b8392a8]
+	data [0x56385ace02a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -93,19 +93,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 4512
+	hash: 4512
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked before PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 2
 	capacity = 2
-	data [0x55b55b8392a8]
+	data [0x56385ace02a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -113,19 +113,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 4512
+	hash: 4512
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked after PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 3
 	capacity = 4
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -135,19 +135,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 1158000
+	hash: 1158000
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked before PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 3
 	capacity = 4
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -157,19 +157,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 1158000
+	hash: 1158000
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked after PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 4
 	capacity = 4
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -179,19 +179,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 1158720
+	hash: 1158720
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked before PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 4
 	capacity = 4
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -201,19 +201,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 1158720
+	hash: 1158720
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : void StackPush_int(const char*, Stack_int*, int);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPush_int;
 reason: Stack is being checked after PUSHing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 5
 	capacity = 8
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -227,253 +227,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 75939787632
+	hash: 75939787632
 }
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackCtor_double(const char*, Stack_double*, size_t);
-reason: Stack is beind checked after Constructor;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 86866
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 0
-	capacity = 2
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		[ 0] = NAN (POISON!)
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 86866
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7769170
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 1
-	capacity = 2
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		[ 1] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7769170
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7797278
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 2
-	capacity = 2
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 7797278
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433746
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 3
-	capacity = 4
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		[ 3] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433746
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433508
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked before PUSHing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 4
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 511004433508
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : void StackPush_double(const char*, Stack_double*, double);
-reason: Stack is being checked after PUSHing;
-file: Stack.hpp
-{
-	size = 5
-	capacity = 8
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		*[ 4] =  5.6
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529205137888036
-}
-============++++===============
-
-
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : int StackPop_int(const char*, Stack_int*);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPop_int;
 reason: Stack is being checked before POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 5
 	capacity = 8
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -487,19 +253,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 75939787632
+	hash: 75939787632
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : int StackPop_int(const char*, Stack_int*);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPop_int;
 reason: Stack is being checked after POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 4
 	capacity = 8
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -513,19 +279,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 75933889392
+	hash: 75933889392
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : int StackPop_int(const char*, Stack_int*);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPop_int;
 reason: Stack is being checked before POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 4
 	capacity = 8
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -539,19 +305,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 75933889392
+	hash: 75933889392
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : int StackPop_int(const char*, Stack_int*);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPop_int;
 reason: Stack is being checked after POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 3
 	capacity = 8
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -565,19 +331,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 75886703472
+	hash: 75886703472
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : int StackPop_int(const char*, Stack_int*);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPop_int;
 reason: Stack is being checked before POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 3
 	capacity = 8
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -591,19 +357,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 75886703472
+	hash: 75886703472
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : int StackPop_int(const char*, Stack_int*);
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : StackPop_int;
 reason: Stack is being checked after POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 2
 	capacity = 4
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -613,19 +379,19 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 1172336
+	hash: 1172336
 }
 ============++++===============
 
 
-Stack: stk (OK) [0x7ffdcc70a240]
-called from : int main();
+Stack: stk (OK) [0x7ffc4c7ee9a0]
+called from : main;
 reason: Checking;
-file: main.cpp
+file: main.c
 {
 	size = 2
 	capacity = 4
-	data [0x55b55b8398b8]
+	data [0x56385ace04a8]
 	{
 		FrontCanary: 858777877052518413
 		*[ 0] =  10
@@ -635,77 +401,285 @@ file: main.cpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 1172336
+	hash: 1172336
 }
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked before POPing;
-file: Stack.hpp
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x56445a9152a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x56445a9152a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x56445a9152a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x56445a9152a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x56445a9152a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x56445a9152a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x56445a9154d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x56445a9154d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x56445a9154d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x56445a9154d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
 {
 	size = 5
 	capacity = 8
-	data [0x55b55b8398f8]
+	data [0x56445a9154d8]
 	{
 		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		*[ 4] =  5.6
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
 		[ 5] = NAN (POISON!)
 		[ 6] = NAN (POISON!)
 		[ 7] = NAN (POISON!)
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 18031529205137888036
+	hash: 75939787632
 }
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : double StackPop_double(const char*, Stack_double*);
-reason: Stack is being checked after POPing;
-file: Stack.hpp
-{
-	size = 4
-	capacity = 8
-	data [0x55b55b8398f8]
-	{
-		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
-		[ 4] = NAN (POISON!)
-		[ 5] = NAN (POISON!)
-		[ 6] = NAN (POISON!)
-		[ 7] = NAN (POISON!)
-		BackCanary:  858777877052518413
-
-	}
-	Hash: 18031529335832400676
-}
-============++++===============
-
-
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : double StackPop_double(const char*, Stack_double*);
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPop_int;
 reason: Stack is being checked before POPing;
-file: Stack.hpp
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x56445a9154d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
 {
 	size = 4
 	capacity = 8
-	data [0x55b55b8398f8]
+	data [0x56445a9154d8]
 	{
 		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
-		*[ 3] =  4.5
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
 		[ 4] = NAN (POISON!)
 		[ 5] = NAN (POISON!)
 		[ 6] = NAN (POISON!)
@@ -713,24 +687,50 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 18031529335832400676
+	hash: 75933889392
 }
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : double StackPop_double(const char*, Stack_double*);
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x56445a9154d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPop_int;
 reason: Stack is being checked after POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 3
 	capacity = 8
-	data [0x55b55b8398f8]
+	data [0x56445a9154d8]
 	{
 		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
 		[ 3] = NAN (POISON!)
 		[ 4] = NAN (POISON!)
 		[ 5] = NAN (POISON!)
@@ -739,24 +739,24 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 18031530358034617124
+	hash: 75886703472
 }
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : double StackPop_double(const char*, Stack_double*);
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPop_int;
 reason: Stack is being checked before POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 3
 	capacity = 8
-	data [0x55b55b8398f8]
+	data [0x56445a9154d8]
 	{
 		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
-		*[ 2] =  3.3
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
 		[ 3] = NAN (POISON!)
 		[ 4] = NAN (POISON!)
 		[ 5] = NAN (POISON!)
@@ -765,51 +765,9455 @@ file: Stack.hpp
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 18031530358034617124
+	hash: 75886703472
 }
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdcc70a280]
-called from : double StackPop_double(const char*, Stack_double*);
+Stack: stk (OK) [0x7ffe908b8890]
+called from : StackPop_int;
 reason: Stack is being checked after POPing;
-file: Stack.hpp
+file: Stack.h
 {
 	size = 2
 	capacity = 4
-	data [0x55b55b8398f8]
+	data [0x56445a9154d8]
 	{
 		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
+		*[ 0] =  10
+		*[ 1] =  20
 		[ 2] = NAN (POISON!)
 		[ 3] = NAN (POISON!)
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 511002497874
+	hash: 1172336
 }
 ============++++===============
 
 
-Stack: stk_d (OK) [0x7ffdcc70a280]
+Stack: stk (OK) [0x7ffe908b8890]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x56445a9154d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55dbf22fd2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55dbf22fd2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55dbf22fd2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55dbf22fd2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55dbf22fd2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55dbf22fd2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc30040450]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55dbf22fd4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x561c3867e2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x561c3867e2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x561c3867e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x561c3867e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x561c3867e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x561c3867e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcc69342a0]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x561c3867e4d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55979c4a72a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55979c4a72a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55979c4a72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55979c4a72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55979c4a72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55979c4a72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe41385fe0]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55979c4a74d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x555b00b312a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x555b00b312a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x555b00b312a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x555b00b312a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x555b00b312a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x555b00b312a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc6a17c630]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x555b00b314d8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55a9946802a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55a9946802a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55a9946802a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55a9946802a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55a9946802a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55a9946802a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcad0bd420]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55a9946808e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackCtor_int(Stack_int*, size_t, StackInfo);
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55ddff6442a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55ddff6442a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55ddff6442a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55ddff6442a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55ddff6442a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55ddff6442a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55ddff6448e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8ad6a3a0]
 called from : int main();
 reason: Checking;
-file: main.cpp
+file: main.c
 {
 	size = 2
 	capacity = 4
-	data [0x55b55b8398f8]
+	data [0x55ddff6448e8]
 	{
 		FrontCanary: 858777877052518413
-		*[ 0] =  1.7
-		*[ 1] =  2.2
+		*[ 0] =  10
+		*[ 1] =  20
 		[ 2] = NAN (POISON!)
 		[ 3] = NAN (POISON!)
 		BackCanary:  858777877052518413
 
 	}
-	Hash: 511002497874
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55d2e9dd72a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55d2e9dd72a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55d2e9dd72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55d2e9dd72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55d2e9dd72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55d2e9dd72a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffce69208c0]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55d2e9dd78e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x559016b1e2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x559016b1e2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x559016b1e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x559016b1e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x559016b1e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x559016b1e2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffc329ead10]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x559016b1e8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackCtor_int(Stack_int*, size_t, StackInfo);
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x56418cc012a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x56418cc012a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x56418cc012a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x56418cc012a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x56418cc012a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x56418cc012a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdc508d030]
+called from : int main();
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x56418cc018e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackCtor_int(Stack_int*, size_t, StackInfo);
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x564d7109f2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x564d7109f2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x564d7109f2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x564d7109f2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x564d7109f2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x564d7109f2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdb592b9c0]
+called from : int main();
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x564d7109f8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackCtor_int(Stack_int*, size_t, StackInfo);
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55f1ea4582a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55f1ea4582a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55f1ea4582a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55f1ea4582a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55f1ea4582a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55f1ea4582a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffec9549490]
+called from : int main();
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55f1ea4588e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x559d096ab2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x559d096ab2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x559d096ab2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x559d096ab2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x559d096ab2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x559d096ab2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe92cd0be0]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x559d096ab8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55673bb842a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55673bb842a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55673bb842a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55673bb842a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55673bb842a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55673bb842a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffdfe7d0b50]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55673bb848e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55aef00d42a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55aef00d42a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55aef00d42a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55aef00d42a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55aef00d42a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55aef00d42a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7fffc4747150]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55aef00d48e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackCtor_int(Stack_int*, size_t, StackInfo);
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55e8a31af2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55e8a31af2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55e8a31af2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55e8a31af2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55e8a31af2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55e8a31af2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : void StackPush_int(Stack_int*, int);
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : int StackPop_int(Stack_int*);
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcd15daed0]
+called from : int main();
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55e8a31af8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x557845dff2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x557845dff2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x557845dff2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x557845dff2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x557845dff2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x557845dff2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe8512d8e0]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x557845dff8e8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x4a6dc18]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x4a6dc18]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x4a5b048]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x4a62388]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x4a66d68]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x4a6dc18]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x1ffefffd90]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x4a6dc18]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe065d1340]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55bf7865e2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x5561ccbc32a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x5561ccbc32a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x5561ccbc32a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x5561ccbc32a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x5561ccbc32a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x5561ccbc32a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffcfcf55ff0]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x5561ccbc3ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55f5694c06b8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 0
+	capacity = 2
+	data [0x55f5694c06b8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55f5694c06b8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 1
+	capacity = 2
+	data [0x55f5694c06b8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55f5694c06b8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 2
+	capacity = 2
+	data [0x55f5694c06b8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 3
+	capacity = 4
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+file: Stack.h
+{
+	size = 4
+	capacity = 4
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 5
+	capacity = 8
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 4
+	capacity = 8
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+file: Stack.h
+{
+	size = 3
+	capacity = 8
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+file: Stack.h
+{
+	size = 2
+	capacity = 4
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (OK) [0x7ffe0cd1d1f0]
+called from : main;
+reason: Checking;
+file: main.c
+{
+	size = 2
+	capacity = 4
+	data [0x55f5694c0ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+{	size = 0
+	capacity = 2
+	data [0x561cfe91a2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 0
+	capacity = 2
+	data [0x561cfe91a2a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 1
+	capacity = 2
+	data [0x561cfe91a2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 1
+	capacity = 2
+	data [0x561cfe91a2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 2
+	capacity = 2
+	data [0x561cfe91a2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 2
+	capacity = 2
+	data [0x561cfe91a2a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 3
+	capacity = 4
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 3
+	capacity = 4
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 4
+	capacity = 4
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 4
+	capacity = 4
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 5
+	capacity = 8
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 5
+	capacity = 8
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 4
+	capacity = 8
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 4
+	capacity = 8
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 3
+	capacity = 8
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 3
+	capacity = 8
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 2
+	capacity = 4
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffda0db6060]
+Created in main.c in main at 13 line
+called from : main;
+reason: Checking;
+{	size = 2
+	capacity = 4
+	data [0x561cfe91aac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+{	size = 0
+	capacity = 2
+	data [0x55ab124b52a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 0
+	capacity = 2
+	data [0x55ab124b52a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 1
+	capacity = 2
+	data [0x55ab124b52a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 1
+	capacity = 2
+	data [0x55ab124b52a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 2
+	capacity = 2
+	data [0x55ab124b52a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 2
+	capacity = 2
+	data [0x55ab124b52a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 3
+	capacity = 4
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 3
+	capacity = 4
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 4
+	capacity = 4
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 4
+	capacity = 4
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 5
+	capacity = 8
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 5
+	capacity = 8
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 4
+	capacity = 8
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 4
+	capacity = 8
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 3
+	capacity = 8
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 3
+	capacity = 8
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 2
+	capacity = 4
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7ffdda9e6500]
+Created in main function in main.c file at 13 line
+called from : main;
+reason: Checking;
+{	size = 2
+	capacity = 4
+	data [0x55ab124b5ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackCtor_int;
+reason: Stack is beind checked after Constructor;
+{	size = 0
+	capacity = 2
+	data [0x5635521332a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 0
+	capacity = 2
+	data [0x5635521332a8]
+	{
+		FrontCanary: 858777877052518413
+		[ 0] = NAN (POISON!)
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 87408
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 1
+	capacity = 2
+	data [0x5635521332a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 1
+	capacity = 2
+	data [0x5635521332a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		[ 1] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 5488
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 2
+	capacity = 2
+	data [0x5635521332a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 2
+	capacity = 2
+	data [0x5635521332a8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		BackCanary:  858777877052518413
+
+	}
+	hash: 4512
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 3
+	capacity = 4
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 3
+	capacity = 4
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158000
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 4
+	capacity = 4
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked before PUSHing;
+{	size = 4
+	capacity = 4
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1158720
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPush_int;
+reason: Stack is being checked after PUSHing;
+{	size = 5
+	capacity = 8
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 5
+	capacity = 8
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		*[ 4] =  50
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75939787632
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 4
+	capacity = 8
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 4
+	capacity = 8
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		*[ 3] =  40
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75933889392
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 3
+	capacity = 8
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPop_int;
+reason: Stack is being checked before POPing;
+{	size = 3
+	capacity = 8
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		*[ 2] =  30
+		[ 3] = NAN (POISON!)
+		[ 4] = NAN (POISON!)
+		[ 5] = NAN (POISON!)
+		[ 6] = NAN (POISON!)
+		[ 7] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 75886703472
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : StackPop_int;
+reason: Stack is being checked after POPing;
+{	size = 2
+	capacity = 4
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
+}
+============++++===============
+
+
+Stack: stk (Ok) [0x7fffccaab8a0]
+Created:
+	function: main
+	file: main.c
+	line: 13
+called from : main;
+reason: Checking;
+{	size = 2
+	capacity = 4
+	data [0x563552133ac8]
+	{
+		FrontCanary: 858777877052518413
+		*[ 0] =  10
+		*[ 1] =  20
+		[ 2] = NAN (POISON!)
+		[ 3] = NAN (POISON!)
+		BackCanary:  858777877052518413
+
+	}
+	hash: 1172336
 }
 ============++++===============
 
