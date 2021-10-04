@@ -5,14 +5,21 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdarg.h>
-
+#include <string.h>
 
 static FILE* log_file = NULL;
+static char filepath[256] = "log.txt";
 static char buff[BUFSIZ] = {};
 static int buff_pos = 0;
 
 
-void _checkErrors(const char* str);
+
+void log_set_path(const char* path)
+{
+    memccpy(filepath, path, '\0', sizeof(filepath));
+}
+
+static void _checkErrors(const char* str);
 
 void log_close()
 {
@@ -24,13 +31,13 @@ void log_init(const char* path)
 {
     if (!path)
     {
-        log_file = fopen("log.txt", "a");
+        log_file = fopen(filepath, "a");
 
         assert(log_file != NULL);
         
         if(errno || !log_file)
         {
-            perror("LOG_INIT: ");
+            perror(__PRETTY_FUNCTION__);
             errno = 0;
         }
     }
@@ -40,13 +47,13 @@ void log_init(const char* path)
 
         if(errno || !log_file)
         {
-            perror("LOG_INIT: ");
+            perror(__PRETTY_FUNCTION__);
             errno = 0;
         }
     }
 }
 
-void pr_warn(int log_level)
+static void _pr_warn(int log_level)
 {
     int ret = 0;
     if (log_level == LOG_ERR)
@@ -57,6 +64,11 @@ void pr_warn(int log_level)
     if (log_level == LOG_INFO)
     {
         ret = sprintf(buff + buff_pos, "INFO: ");
+        buff_pos += ret;
+    }
+    if (log_level == LOG_WARN)
+    {
+        ret = sprintf(buff + buff_pos, "WARN: ");
         buff_pos += ret;
     }
 }
@@ -70,7 +82,7 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
         log_init(NULL);
     }
 
-    pr_warn(log_level);
+    _pr_warn(log_level);
     
     va_list params;
     va_start(params, fmt);
@@ -106,7 +118,10 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
             setColor(FG_RED);
         
         fwrite(buff, sizeof(char), buff_pos, stdout);
+        fflush(stdout);
+        
         _checkErrors("Console logging: ");
+        
         resetColor();
     }
     
@@ -120,7 +135,7 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
 }
 
 
-void _checkErrors(const char* str)
+static void _checkErrors(const char* str)
 {
     if(errno)
     {

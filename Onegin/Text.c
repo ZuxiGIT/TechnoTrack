@@ -7,7 +7,14 @@ static unsigned char* txt = NULL;
 
 Text* text_init(const char* path)
 {
-    size_t sz = fileSize(path);
+    int sz = fileSize(path);
+    
+    if(sz < 0)
+    {
+        pr_err(LOG_CONSOLE, "Wrong file path\n");
+        return NULL;
+    }
+
 	pr_info(LOG_CONSOLE, "sz is %zu\n", sz);
 
 	txt = readText(path, sz);

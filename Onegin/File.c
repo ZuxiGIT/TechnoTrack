@@ -1,11 +1,12 @@
-#include "Strings.h"
-#include "File.h"
-#include "logger.h"
 #include <sys/stat.h>
 #include <stdio.h>
 #include <assert.h>
 #include <malloc.h>
 #include <errno.h>
+
+#include "Strings.h"
+#include "File.h"
+#include "logger.h"
 
 size_t fileSize(const char* name)
 {
@@ -19,13 +20,13 @@ size_t fileSize(const char* name)
 	if(errno)
 	{	 
 		perror(__PRETTY_FUNCTION__); // change to perror
-		return 0;
+		return -1;
 	}
 
 	if ((stbuf.st_mode & S_IFMT) == S_IFDIR)
 	{
-		fprintf(stderr, "%s: can't access %s. It is a directory", __PRETTY_FUNCTION__, name);
-		return 0;
+		pr_err(LOG_CONSOLE, "%s: can't access %s. It is a directory", __PRETTY_FUNCTION__, name);
+		return -2;
 	}
 
 	return stbuf.st_size;
@@ -49,11 +50,23 @@ void filePrint(Text* text)
 unsigned char* readText(const char* name, const size_t size)
 {
 	assert(name != NULL);
+	
+	if(!name)
+	{
+		pr_warn(LOG_CONSOLE, "No file path given\n");
+		return NULL;
+	}
 
 	FILE* fp = fopen(name, "r");
 	
 	assert(fp != NULL);
 	
+	if(!fp)
+	{
+		pr_warn(LOG_CONSOLE, "Wrong file path\n");
+		return NULL;
+	}
+
 	unsigned char* buff = (unsigned char*)calloc(size + 1, sizeof(unsigned char));
 	
 	assert(buff != NULL);
