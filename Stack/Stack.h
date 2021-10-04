@@ -8,6 +8,11 @@
 #include "Print.h"
 #include "logger.h"
 
+//TODO
+// User data printing
+// dumping through logger
+// determine defines ( lots of useless defines)
+
 #define _CONCAT_PROXY(LEFT, RIGHT)		LEFT ## _ ## RIGHT
 #define CONCAT(LEFT, RIGHT)				_CONCAT_PROXY(LEFT, RIGHT)
 #ifndef LOGFILE
@@ -82,12 +87,17 @@ do{																					\
 #endif
 
 #define	NAME_OF_ARG(ARG)		#ARG
-#define STACK_CONCAT(TYPE) 		Stack 		## _ ## TYPE
-#define CTOR_CONCAT(TYPE)		StackCtor 	## _ ## TYPE	
-#define DTOR_CONCAT(TYPE)		StackDtor	## _ ## TYPE 
-#define POP_CONCAT(TYPE)		StackPop 	## _ ## TYPE
-#define PUSH_CONCAT(TYPE) 		StackPush	## _ ## TYPE
-#define CheckStack_CONCAT(TYPE)	CheckStack  ## _ ## TYPE
+#define STACK_CONCAT(TYPE) 			Stack 		## _ ## TYPE
+#define CTOR_CONCAT(TYPE)			StackCtor 	## _ ## TYPE	
+#define DTOR_CONCAT(TYPE)			StackDtor	## _ ## TYPE 
+#define POP_CONCAT(TYPE)			StackPop 	## _ ## TYPE
+#define PUSH_CONCAT(TYPE) 			StackPush	## _ ## TYPE
+#define checkStack_CONCAT(TYPE)		checkStack  ## _ ## TYPE
+#define isStackOK_CONCAT(TYPE)		isStackOK	## _ ## TYPE
+#define cleanStack_CONCAT(TYPE)		cleanStack	## _ ## TYPE
+#define stackDump_CONCAT(TYPE)		stackDump 	## _ ## TYPE
+#define expandStack_CONCAT(TYPE)	expandStack ## _ ## TYPE
+#define squeezeStack_CONCAT(TYPE) 	squeezeStack ## _ ## TYPE
 
 #ifdef StkElem
 	#define STACK(TYPE) 			STACK_CONCAT(TYPE)
@@ -95,7 +105,12 @@ do{																					\
 	#define STK_DTOR(TYPE)			DTOR_CONCAT(TYPE)
 	#define STK_POP(TYPE)			POP_CONCAT(TYPE)
 	#define STK_PUSH(TYPE)			PUSH_CONCAT(TYPE)
-	#define STK_CheckStack(TYPE) 	CheckStack_CONCAT(TYPE)
+	#define STK_checkStack(TYPE)	checkStack_CONCAT(TYPE)
+	#define STK_isStackOk(TYPE)		isStackOK_CONCAT(TYPE)
+	#define STK_cleanStack(TYPE)	cleanStack_CONCAT(TYPE)
+	#define STK_stackDump(TYPE)		stackDump_CONCAT(TYPE)
+	#define STK_expandStack(TYPE) 	expandStack_CONCAT(TYPE)
+	#define STK_squeezeStack(TYPE)	squeezeStack_CONCAT(TYPE)
 #else
 	#define StkElem 				int
 	#define STACK(TYPE) 			Stack
@@ -115,27 +130,31 @@ do{																					\
 
 
 #ifdef ALL_CHECK
-	#define CheckStack(TYPE, reason, stk_pointer)											\
-				STK_CheckStack(TYPE) 														\
-				(reason, stk_pointer, Location{__FILE__, __PRETTY_FUNCTION__, __LINE__})
+	#define checkStack(TYPE, reason, stk_pointer)											\
+				STK_checkStack(TYPE) 														\
+				(reason, stk_pointer, (Location){__FILE__, __PRETTY_FUNCTION__, __LINE__})
 #else 
-	#define CheckStack(TYPE, reason, stk_name, stk_pointer) 
+	#define checkStack(TYPE, reason, stk_name, stk_pointer) 
 #endif
 
 
-//// ------------ default ctor ( == 0)
-typedef struct
-{
-	const char* File;
-	const char* Function;
-	int Line;
-} Location;
-typedef struct
-{
-	const char* name;
-	
-	Location location;
-} StackInfo;
+#ifndef STRUCTS_INIT
+	#define STRUCTS_INIT
+	typedef struct
+	{
+		const char* File;
+		const char* Function;
+		int Line;
+
+	} Location;
+
+	typedef struct
+	{
+		const char* name;
+		Location location;
+
+	} StackInfo;
+#endif
 
 typedef struct 
 {
@@ -151,29 +170,33 @@ typedef struct
 	StackInfo* info;
 
 	ON_STACK_PROTECT(StkCanary BackCanary;)
+
 } STACK(StkElem);
 
 #ifndef STACKClEAR
 #define STACKClEAR
-	#define StackClear(stk)													\
-	do{																		\
-		if (stk->initialized) 												\
-		{																	\
-			pr_warn(LOG_CONSOLE, "Trying to initialize initialized stack!");\
-			assert(!"Trying to initialize initialized stack!");				\
-			return;															\
-		}																	\
+	#define StackClear(stk)														\
+	do{																			\
+		if (stk->initialized) 													\
+		{																		\
+			pr_warn(LOG_CONSOLE, "Trying to initialize initialized stack!\n");	\
+			assert(!"Trying to initialize initialized stack");					\
+			return;																\
+		}																		\
 	}while(0)
 #endif
 
 void STK_CTOR(StkElem) (STACK(StkElem)* stk, const size_t capacity, StackInfo info);
 void STK_DTOR(StkElem) (STACK(StkElem)* stk);
 void STK_PUSH(StkElem) (STACK(StkElem)* stk, StkElem value);
+
 StkElem STK_POP(StkElem) (STACK(StkElem)* stk);
-bool isStackOk(STACK(StkElem)* stk);
-void cleanStack(STACK(StkElem)* stk);
-void stackDump(	const char* result, const char* reason,
-				STACK(StkElem)* stk_pointer, Location loc);
+
+bool STK_isStackOk(StkElem)(STACK(StkElem)* stk);
+
+void STK_cleanStack(StkElem)(STACK(StkElem)* stk);
+void STK_stackDump(StkElem)(const char* result, const char* reason,
+							STACK(StkElem)* stk_pointer, Location loc);
 
 
 #ifndef FUNCS_INIT
@@ -183,25 +206,24 @@ void stackDump(	const char* result, const char* reason,
 
 
 #ifdef RESIZEABLE
-	void CONCAT(expandStack,  StkElem)(STACK(StkElem)* stk);
-	void CONCAT(squeezeStack, StkElem)(STACK(StkElem)* stk);
+	void STK_expandStack(StkElem)(STACK(StkElem)* stk);
+	void STK_squeezeStack(StkElem)(STACK(StkElem)* stk);
 #endif
 
 
 
 
 #ifdef ALL_CHECK		
-	void STK_CheckStack(StkElem) (	const char* reason, const char* stk_name, STACK(StkElem)* stk_pointer,\
-									const char* file, Location loc)
+	void STK_checkStack(StkElem) (	const char* reason,STACK(StkElem)* stk_pointer, Location loc)
 	{
 		FILE* fp = fopen(FILE_LOG, "a");
 
-	 	if(!isStackOk(stk_pointer))
+	 	if(!STK_isStackOk(StkElem)(stk_pointer))
 		{
 
-			stackDump("Not Ok", reason, stk_pointer, loc);
+			STK_stackDump(StkElem)("Not Ok", reason, stk_pointer, loc);
 			
-			fprintf(stdout, "%s", dump_buffer);
+			// fprintf(stdout, "%s", dump_buffer);
 			fprintf(fp, "%s", dump_buffer);
 			
 			bzero(dump_buffer, BUFSIZ);
@@ -212,14 +234,15 @@ void stackDump(	const char* result, const char* reason,
 			return;
 		}
 		
-		stackDump("Ok", reason, stk_pointer, loc);
+		STK_stackDump(StkElem)("Ok", reason, stk_pointer, loc);
 		
 		fprintf(fp, "%s", dump_buffer);
-		fprintf(stdout, "%s", dump_buffer);
+		// fprintf(stdout, "%s", dump_buffer);
+		
+		bzero(dump_buffer, BUFSIZ);
 		
 		fclose(fp);
 		
-		bzero(dump_buffer, BUFSIZ);
 		
 		return;
 	}
@@ -242,10 +265,10 @@ void STK_CTOR(StkElem) (STACK(StkElem)* stk, const size_t capacity, StackInfo in
 
 	stk->info 			= (StackInfo*)calloc(1, sizeof(StackInfo));
 	
-	stk->info->name 			= info.name;
-	stk->info->location.File 	= info.location.File;
-	stk->info->location.Function = info.location.Function;
-	stk->info->location.File 	= info.location.Line;
+	stk->info->name 				= info.name;
+	stk->info->location.File 		= info.location.File;
+	stk->info->location.Function 	= info.location.Function;
+	stk->info->location.Line 		= info.location.Line;
 
 
 	assert(stk->data && "Something wrong with stk's data allocation");
@@ -260,19 +283,20 @@ void STK_CTOR(StkElem) (STACK(StkElem)* stk, const size_t capacity, StackInfo in
 	for ( size_t i = 0; i < stk->capacity; i++)
 		((StkElem*)(stk->data))[i] = POSION_VALUE;
 
-	stk->hash = hash(stk->data, stk->capacity * sizeof(StkElem));
+	stk->hash = hash(stk->data - sizeof(StkCanary),
+					 stk->capacity * sizeof(StkElem) + 2 * sizeof(StkCanary));
 
 	ON_STACK_PROTECT(stk->FrontCanary = CanaryValue;)
 	ON_STACK_PROTECT(stk->BackCanary  = CanaryValue;)
 
-	CheckStack(StkElem ,"Stack is beind checked after Constructor", stk);
+	checkStack(StkElem ,"Stack is beind checked after Constructor", stk);
 }
 
 void STK_DTOR(StkElem) (STACK(StkElem)* stk)
 {
 	assert(stk && "bad stk pointer in STK_DTOR");
 
-	cleanStack(stk);
+	STK_cleanStack(StkElem)(stk);
 	
 	stk->data -= sizeof(StkCanary);
 
@@ -287,12 +311,13 @@ StkElem STK_POP(StkElem) (STACK(StkElem)* stk)
 	assert(stk && "bad stk pointer in STK_POP");
 
 
-	CheckStack(StkElem, "Stack is being checked before POPing", stk);
+	checkStack(StkElem, "Stack is being checked before POPing", stk);
 
 
 	if (stk->size == 0)
 	{
-		printf("Stack is empty!\n");
+		pr_warn(LOG_CONSOLE, "Stack is empty!\n");
+		// printf("Stack is empty!\n");
 		return POSION_VALUE;
 	}
 
@@ -301,14 +326,15 @@ StkElem STK_POP(StkElem) (STACK(StkElem)* stk)
 
 
 	if (stk->size * 3 <= stk->capacity)
-		CONCAT(squeezeStack, StkElem)(stk);
+		STK_squeezeStack(StkElem)(stk);
 
 
-	stk->hash = hash(stk->data, stk->capacity * sizeof(StkElem));
+	stk->hash = hash(stk->data - sizeof(StkCanary),
+					 stk->capacity * sizeof(StkElem) + 2 * sizeof(StkCanary));
 
 
 
-	CheckStack(StkElem, "Stack is being checked after POPing", stk->info->name, stk);
+	checkStack(StkElem, "Stack is being checked after POPing", stk);
 
 	
 	return value;
@@ -318,7 +344,7 @@ void STK_PUSH(StkElem) (STACK(StkElem)* stk, const StkElem value)
 {
 	assert(stk && "bad stk pointer in STK_PUSH");
 
-	CheckStack(StkElem, "Stack is being checked before PUSHing", stk->info->name, stk);
+	checkStack(StkElem, "Stack is being checked before PUSHing", stk);
 
 	printf("size is %zu and capacity is %zu\n", stk->size, stk->capacity);
 	
@@ -331,15 +357,17 @@ void STK_PUSH(StkElem) (STACK(StkElem)* stk, const StkElem value)
 		((StkElem*)(stk->data))[stk->size++] = value;
 	}
 
-	stk->hash = hash(stk->data, stk->capacity * sizeof(StkElem));
+	stk->hash = hash(stk->data - sizeof(StkCanary),
+					 stk->capacity * sizeof(StkElem) + 2 * sizeof(StkCanary));
 
-	CheckStack(StkElem, "Stack is being checked after PUSHing", stk->info->name, stk);
+	checkStack(StkElem, "Stack is being checked after PUSHing", stk);
 }
 
 
-bool isStackOk(STACK(StkElem)* stk)
+bool STK_isStackOk(StkElem)(STACK(StkElem)* stk)
 {
-	if (hash(stk->data, stk->capacity * sizeof(StkElem)) != stk->hash)
+	if (hash(stk->data - sizeof(StkCanary),
+			 stk->capacity * sizeof(StkElem) + 2 * sizeof(StkCanary)) != stk->hash)
 		return false;
 
 	stk->data -= sizeof(StkCanary); 
@@ -376,10 +404,10 @@ unsigned long long rol(unsigned long long value)
 #endif
 
 
-void stackDump(	const char* result, const char* reason, \
-				STACK(StkElem)* stk, Location loc) 
+void STK_stackDump(StkElem)(const char* result, const char* reason,
+							STACK(StkElem)* stk, Location loc) 
 {						
-	printf("\n%s\n", __PRETTY_FUNCTION__);
+	// printf("\n%s\n", __PRETTY_FUNCTION__);
 
 	// fprintf(stream, "Stack: %s (%s) [%p]\n"
 					// "called from : %s;\n"
@@ -392,15 +420,15 @@ void stackDump(	const char* result, const char* reason, \
 		"\tfunction: %s\n"
 		"\tfile: %s\n"
 		"\tline: %d\n"
-		"Dump called from:"
+		"Dump called from:\n"
 		"\tfunction: %s;\n"
 		"\tfile: %s\n"
 		"\tline: %d\n"
 		"reason: %s;\n{",
 		stk->info->name, result, stk, 
-		stk->info->creationFunction, stk->info->creationFile, stk->info->creationLine,
-		
-		func, reason
+		stk->info->location.Function, stk->info->location.File, stk->info->location.Line,
+		loc.Function, loc.File, loc.Line,
+		reason
 	);
 
 	// fprintf(stream, "\tsize = %zu\n"
@@ -420,7 +448,7 @@ void stackDump(	const char* result, const char* reason, \
 	#ifdef DEBUG
 		_STK_DUMP
 		(
-			"\t\tFrontCanary: %llu\n",
+			"\t\tFrontCanary: 0x%llx\n",
 			*((StkCanary*)(stk->data-sizeof(StkCanary))) 
 		);
 	#endif
@@ -450,7 +478,7 @@ void stackDump(	const char* result, const char* reason, \
 		// fprintf(stream, "\t\tBackCanary:  %llu\n", *((StkCanary*)(stk_pointer->data+sizeof(StkElem)*stk_pointer->capacity)) );
 		_STK_DUMP
 		(
-			"\t\tBackCanary:  %llu\n", 
+			"\t\tBackCanary:  0x%llx\n", 
 			*((StkCanary*)(stk->data+sizeof(StkElem)*stk->capacity))
 		);
 	#endif
@@ -458,7 +486,7 @@ void stackDump(	const char* result, const char* reason, \
 	// fprintf(stream, "\n\t}\n\thash: %llu\n}\n============++++===============\n\n\n", stk_pointer->hash);
 	_STK_DUMP
 	(
-		"\n\t}\n\thash: %llu\n}\n============++++===============\n\n\n",
+		"\n\t}\n\thash: 0x%llx\n}\n============++++===============\n\n\n",
 		stk->hash
 	);
 
@@ -467,7 +495,7 @@ void stackDump(	const char* result, const char* reason, \
 
 
 
-void cleanStack(STACK(StkElem)* stk)
+void STK_cleanStack(StkElem)(STACK(StkElem)* stk)
 {
 	assert(stk && "bad stk pointer in cleanStack");
 
@@ -478,10 +506,11 @@ void cleanStack(STACK(StkElem)* stk)
 }
 
 #ifdef RESIZEABLE
-	void CONCAT(expandStack, StkElem)(STACK(StkElem)* stk)
+	void STK_expandStack(StkElem)(STACK(StkElem)* stk)
 	{
 		
-		printf("================EXPANDING===============\n");
+		// printf("================EXPANDING===============\n");
+		pr_warn(LOG_CONSOLE, "Expanding stack \"%s\"\n", stk->info->name);
 		assert(stk && "bad stk pointer in expandStack");
 
 		stk->data -= sizeof(StkCanary);
@@ -503,9 +532,11 @@ void cleanStack(STACK(StkElem)* stk)
 		stk->hash = hash(stk->data, stk->capacity * sizeof(StkElem));
 	}
 
-	void CONCAT(squeezeStack, StkElem)(STACK(StkElem)* stk)
+	void STK_squeezeStack(StkElem)(STACK(StkElem)* stk)
 	{
-		printf("================SQUEEZING===============\n");
+		// printf("================SQUEEZING===============\n");
+		pr_warn(LOG_CONSOLE, "Squeezing stack \"%s\"\n", stk->info->name);
+
 		assert(stk && "bad stk pointer in squeezeStack");
 
 		stk->data -= sizeof(StkCanary);

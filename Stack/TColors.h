@@ -29,11 +29,13 @@ enum  {
 void resetColor()
 {
     printf("\033[0;0m");
+    fflush(stdout);
 }
 
 void setColor(int color)
 {
     printf("\033[%dm", color);
+    fflush(stdout);
 }
 
 #endif /* TCOLORS_H */

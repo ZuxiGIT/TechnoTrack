@@ -37,7 +37,7 @@ void log_init(const char* path)
         
         if(errno || !log_file)
         {
-            perror("LOG_INIT: ");
+            perror(__PRETTY_FUNCTION__);
             errno = 0;
         }
     }
@@ -47,7 +47,7 @@ void log_init(const char* path)
 
         if(errno || !log_file)
         {
-            perror("LOG_INIT: ");
+            perror(__PRETTY_FUNCTION__);
             errno = 0;
         }
     }
@@ -118,7 +118,10 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
             setColor(FG_RED);
         
         fwrite(buff, sizeof(char), buff_pos, stdout);
+        fflush(stdout);
+        
         _checkErrors("Console logging: ");
+        
         resetColor();
     }
     

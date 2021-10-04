@@ -1,15 +1,15 @@
 #define StkElem int
 #include "Stack.h"
 
-// #define StkElem double
-// #include "Stack.h"
+#define StkElem double
+#include "Stack.h"
 
 
 
 
 int main()
 {
-	STACK(int) stk = {};
+	STACK(int) stk = {};	
 	CTOR(int, stk, 2);
 	CTOR(int, stk, 2);
 	PUSH(int, stk, 10);
@@ -19,13 +19,13 @@ int main()
 	PUSH(int, stk, 50);
 
 
-	// STACK(double) stk_d = {};
-	// CTOR(double, stk_d, 2);
-	// PUSH(double, stk_d, 1.7);
-	// PUSH(double, stk_d, 2.2);
-	// PUSH(double, stk_d, 3.3);
-	// PUSH(double, stk_d, 4.5);
-	// PUSH(double, stk_d, 5.6);
+	STACK(double) stk_d = {};
+	CTOR(double, stk_d, 2);
+	PUSH(double, stk_d, 1.7);
+	PUSH(double, stk_d, 2.2);
+	PUSH(double, stk_d, 3.3);
+	PUSH(double, stk_d, 4.5);
+	PUSH(double, stk_d, 5.6);
 
 
 	int val = POP(int, stk);
@@ -44,7 +44,7 @@ int main()
 	// printf("checking--------\n");
 	printf("line: %d\n", __LINE__);
 	
-	CheckStack(int, "Checking", NAME_OF_ARG(stk), &stk);
+	checkStack(int, "Checking", &stk);
 	printf("line: %d\n", __LINE__);
 	DTOR(int, stk);
 	
