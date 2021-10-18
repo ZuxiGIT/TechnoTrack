@@ -52,8 +52,10 @@ Mkfile.old
 dkms.conf
 
 *.sh
-
+*.s
+*.ss
 *.txt
+!CMakeLists.txt
 **/html/**
 **/.vscode/**
 **/Doxyfile

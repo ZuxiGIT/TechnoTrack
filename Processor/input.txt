@@ -1,24 +1,11 @@
-in
-pop ax ; edfcadsfCdaFCaFC
-
-in 
-pop bx
-
-in
-pop cx
-
-push bx ;saCFSADCAWSDAWS
-push bx
+push 10
+push 20
+add
+push 10
 mul
-
-push 4 ; awDWDWA
-in
-in
-mul
-mul
-
+push 12
+push 1
 sub
-
+add
 out
-
 hlt
