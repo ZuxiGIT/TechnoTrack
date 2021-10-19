@@ -60,4 +60,5 @@ dkms.conf
 **/.vscode/**
 **/Doxyfile
 **/latex/**
+**/build/**
 **/html/**

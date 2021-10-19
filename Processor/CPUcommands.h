@@ -1,6 +1,3 @@
-#ifndef CPUcommands_hpp
-#define CPUcommands_hpp
-
 // typedef struct {	const char* asm_code;
 // 					int 		cpu_code;
 // 					size_t 		num_of_args;
@@ -20,13 +17,10 @@
 
 
 CPU_COMMAND(
-	PUSH,
+	push,
+	0x1,
 	1,
-	0,
 	{
-		
+		;
 	}
-	
 )
-
-#endif /* CPUcommands_hpp */

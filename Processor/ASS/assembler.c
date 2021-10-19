@@ -1,4 +1,5 @@
 #include "assembler.h"
+#include <string.h>
 #include <assert.h>
 #include <malloc.h>
 
@@ -13,14 +14,17 @@ Text* compilation(Text* src)
 
     for(int i = 0; i < src->num_of_lines; i++)
     {
-        int param = 0;
-        char cmd[20] = {};
-
-        int ret = sscanf(src->text[i].start, "%s %d", cmd, &param);
         
-        if(ret == 2)
-            if(!strcmp("push", cmd))
-                sprintf(compiled_line, )
-                
+        char output[3] = {};
+        char cmd[10] = {};
+
+        sscanf(src->text[i].start, "%s", cmd);
+        
+        #define CPU_COMMAND(name, opcode, argc, code) \
+        if (!strcmp(#name, cmd)) output[0] |= opcode;
+
+        #include "../CPUcommands.h"
+
+        #undef CPU_COMMAND
     }
 }

@@ -4,17 +4,15 @@ project(SoftProccessot VERSION 1.0 LANGUAGES C  )
 
 add_subdirectory(lib EXCLUDE_FROM_ALL)
 
-add_executable(myExe 
+add_executable(proc EXCLUDE_FROM_ALL
     proc.c
 )
 
-target_link_libraries(myExe
+
+add_subdirectory(ASS EXCLUDE_FROM_ALL)
+
+target_link_libraries(proc
     PRIVATE stack
     PRIVATE logger
     PRIVATE text
 )
-    # ./lib/Stack/Print.c
-    # ./lib/TextLib/Text.c
-    # ./lib/logger/logger.c
-    # ./lib/TextLib/File.c
-    # ./lib/TextLib/Strings.c)
