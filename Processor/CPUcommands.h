@@ -18,7 +18,7 @@
 
 CPU_COMMAND(
 	push,
-	0x1,
+	0b1,
 	1,
 	{
 		;
