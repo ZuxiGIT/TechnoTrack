@@ -1,7 +1,12 @@
+#include <stdio.h>
+#include "assembler.h"
+#include <ctype.h>
 
-
-int fff(int argc, char const *argv[])
+int main(int argc, char const *argv[])
 {
 
-	return 0;	
+	compilation(text_init(argv[1]));
+    //printf("isalpha(\'c\') = %d\nisalpha(\'0\') = %d\n", isalpha('c'), isalpha('0'));
+    
+	return 0;
 }

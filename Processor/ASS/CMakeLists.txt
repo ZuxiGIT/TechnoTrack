@@ -6,9 +6,3 @@ add_library(ass_lib
 
 target_link_libraries(ass_lib
     PUBLIC text)
-
-add_executable(ass
-    Ass_main.c)
-
-target_link_libraries(ass
-    PRIVATE ass_lib)

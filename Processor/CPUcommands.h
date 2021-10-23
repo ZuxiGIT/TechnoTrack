@@ -16,11 +16,10 @@
 
 
 
-CPU_COMMAND(
-	push,
-	0x1,
-	1,
+CPU_COMMAND( push, 0b1, 1,
 	{
 		;
 	}
 )
+
+CPU_REG(abx, 0b10)
