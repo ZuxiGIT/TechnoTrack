@@ -16,10 +16,20 @@
 
 
 
+<<<<<<< HEAD
 CPU_COMMAND( push, 0b1, 1,
+=======
+CPU_COMMAND(
+	push,
+	0b1,
+	1,
+>>>>>>> 7d853e484877dca50bc5ab003bd85c5a0f41fc3e
 	{
 		;
 	}
 )
+<<<<<<< HEAD
 
 CPU_REG(abx, 0b10)
+=======
+>>>>>>> 7d853e484877dca50bc5ab003bd85c5a0f41fc3e

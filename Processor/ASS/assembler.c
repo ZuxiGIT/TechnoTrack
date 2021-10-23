@@ -1,5 +1,6 @@
 #include "assembler.h"
 #include "../lib/logger/logger.h"
+
 #include <ctype.h>
 #include <string.h>
 #include <assert.h>
@@ -41,9 +42,11 @@ Text* compilation(Text* src)
         
         char output_line[3] = {};
         char cmd[10] = {};
+
 		char* line = src->text[i].start;
 
         printf("[%d] line is \"%s\"\n", __LINE__, line);
+
         sscanf(line, "%s", cmd);
         
         #define CPU_COMMAND(name, opcode, argc, code) \
@@ -115,5 +118,6 @@ Text* compilation(Text* src)
 			continue;
 
 		*/
+
     }
 }
