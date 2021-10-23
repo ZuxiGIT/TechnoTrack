@@ -7,7 +7,10 @@
 #include <malloc.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
+
+enum ASMERR asmerr;
 
 bool hasArg(const char* cmd)
 {
@@ -34,8 +37,10 @@ Text* compilation(Text* src)
 {
     assert(src);
 
-    Text* output = (Text*)calloc(src->num_of_lines, sizeof(Line));
+    Text* output = (Text*)calloc(src->num_of_lines, sizeof(Text));
 
+	output->text = (Line*)calloc(src->num_of_lines, sizeof(Line));
+	output->num_of_lines = src->num_of_lines;
 
     for(int i = 0; i < src->num_of_lines; i++)
     {
@@ -58,6 +63,13 @@ Text* compilation(Text* src)
 
         #undef CPU_COMMAND
 		#undef CPU_REG
+
+		if(output_line[0] == 0)
+		{
+			pr_err(LOG_CONSOLE, "Syntax error: Unknown command\n[Line:%d]-->%s\n", i, src->text[i].start);
+			asmerr = UNKNOWN_COMMAND;
+			continue;
+		}
 
         printf("[%d] line is \"%s\"\n", __LINE__, line);
 
@@ -85,9 +97,14 @@ Text* compilation(Text* src)
 			{ \
 				output_line[0] |= 0x10;\
 				output_line[1] = number;\
+				while(isalpha(*line)) line++;\
 				skipSpaces(&line);\
 				if(*line++ != '+')\
-					pr_err(LOG_CONSOLE, "line %d\n\t%s\n", i, src->text[i].start);\
+				{\
+					pr_err(LOG_CONSOLE, "Error ocurred: expected \'+\' but got %c\n"\
+										"[Line:%d]--->%s\n", *line, i, src->text[i].start);\
+				continue;\
+				}\
 				skipSpaces(&line);\
 			}
 
@@ -104,11 +121,33 @@ Text* compilation(Text* src)
 					output_line[2] = arg;	
 				else
 					output_line[1] = arg;
+
                 printf("arg is %hhd\n", arg);
+
 				output_line[0] |= 0x20;
+
+				while(isdigit(*line)) line++;
 			}
-	
-            //printf("entered line: %s\n\toutputline: 0x%X 0x%X 0x%X\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
+
+			skipSpaces(&line);
+
+        	printf("[%d] line is \"%s\"\n", __LINE__, line);
+
+			if((output_line[0] & 0x40) && *line != ']') 
+			{
+				pr_err(LOG_CONSOLE, "Syntax error: expected \']\' but got %c\n", *line);
+				continue;
+			}
+			else
+				line++;
+
+			skipSpaces(&line);
+
+        	printf("[%d] line is \"%s\"\n", __LINE__, line);
+			if(*line != '\0' && *line != ';')
+				pr_err(LOG_CONSOLE, "Syntax error\n[Line:%d]-->%s\n", i, src->text[i].start);
+
+            printf("entered line: %s\n\toutputline: 0x%X 0x%X 0x%X\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
 
 		}
 		/*
@@ -120,4 +159,6 @@ Text* compilation(Text* src)
 		*/
 
     }
+	if(asmerr != OK)
+		text_free(output);
 }

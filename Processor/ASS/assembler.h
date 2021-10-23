@@ -2,6 +2,14 @@
 #define ASSEMBLER_H
 #include "../lib/TextLib/Text.h"
 
+enum ASMERR
+{
+    OK,
+    UNKNOWN_COMMAND
+};
+
+extern enum ASMERR asmerr;
+
 enum Commands
 {
     #define CPU_COMMAND(name, opcode, argc, code) CMD_##name = opcode,
