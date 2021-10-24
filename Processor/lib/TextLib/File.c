@@ -32,20 +32,6 @@ size_t fileSize(const char* name)
 	return stbuf.st_size;
 }
 
-void filePrint(Text* text)
-{
-	FILE* fp = fopen("output.txt", "a");
-	
-	assert(fp != NULL);
-
-	for (int i  = 0; i < text->num_of_lines; i ++)
-		fprintf(fp, "%s\n", text->text[i].start);
-
-	fprintf(fp, "\n============================================\n"
-				"\n============================================\n");
-
-	fclose(fp); 
-}
 
 unsigned char* readText(const char* name, const size_t size)
 {

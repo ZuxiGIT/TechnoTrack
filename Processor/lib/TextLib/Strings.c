@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <assert.h>
+#include <memory.h>
 
 typedef unsigned char uc;
 
 int isLetter(unsigned char symbol)
 {
 
-	return ((uc)'à' <= symbol && symbol <= (uc)'ÿ')  ||\
-			((uc)'À' <= symbol && symbol <= (uc)'ß') ||\
+	return ((uc)'À' <= symbol && symbol <= (uc)'ß')  ||\
+			((uc)'à' <= symbol && symbol <= (uc)'ÿ') ||\
 			isalpha(symbol);
 }
 
@@ -58,9 +59,12 @@ Line* parseText(unsigned char* lines, int size)
 		
 		*end = '\0';
 
-		index[i].start 	= begin;
-		index[i].finish = end;
+
 		index[i].length = (end - begin);
+		index[i].start 	= strndup(begin, end - begin);
+		index[i].finish = index[i].start + index[i].length;
+		// memcpy(index[i].start, begin, index[i].length);
+		// index[i].finish = index[i].start + begin;
 
 		begin = end + 1;
 		end = begin;	

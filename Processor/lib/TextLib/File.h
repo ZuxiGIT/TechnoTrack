@@ -1,7 +1,6 @@
 #ifndef FILE_H
 #define FILE_H
 #include <stddef.h>
-#include "Text.h"
 /*! \file */
 
 /**
@@ -14,14 +13,6 @@
 
 size_t fileSize(const char* name);
 
-/**
-	\brief Writes the array of Lines to a file
-
-	\param[in] input  - struct Text
-	
-*/
-
-void filePrint(Text* input);
 
 /**
 	@brief Read text from the file
