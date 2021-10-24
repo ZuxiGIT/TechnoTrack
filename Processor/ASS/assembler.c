@@ -9,6 +9,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#define RAM 	0x80
+#define REG 	0x40
+#define CONST 	0x20
 
 enum ASMERR asmerr;
 
@@ -32,6 +35,7 @@ void skipSpaces(char** str)
 	while(isspace(*(*str))) (*str)++ ;
 }
 
+#define printf //printf
 
 Text* compilation(Text* src)
 {
@@ -41,6 +45,8 @@ Text* compilation(Text* src)
 
 	output->text = (Line*)calloc(src->num_of_lines, sizeof(Line));
 	output->num_of_lines = src->num_of_lines;
+
+	asmerr = OK;
 
     for(int i = 0; i < src->num_of_lines; i++)
     {
@@ -84,10 +90,9 @@ Text* compilation(Text* src)
 
 			if(*line == '[')
 			{
-				output_line[0] |= 0x40;
+				output_line[0] |= RAM;
 				line++;
 			}
-
 
             printf("line before parsing reg \"%s\"\n", line);
 
@@ -95,7 +100,7 @@ Text* compilation(Text* src)
 			#define CPU_REG(name, number) \
 			if (!strncmp(#name, line, sizeof(#name) - 1))\
 			{ \
-				output_line[0] |= 0x10;\
+				output_line[0] |= REG;\
 				output_line[1] = number;\
 				while(isalpha(*line)) line++;\
 				skipSpaces(&line);\
@@ -117,14 +122,14 @@ Text* compilation(Text* src)
 			char arg = 0;	
 			if(sscanf(line, "%hhd", &arg))
 			{
-				if(output_line[0] & 0x10)
+				if(output_line[0] & REG)
 					output_line[2] = arg;	
 				else
 					output_line[1] = arg;
 
                 printf("arg is %hhd\n", arg);
 
-				output_line[0] |= 0x20;
+				output_line[0] |= CONST;
 
 				while(isdigit(*line)) line++;
 			}
@@ -133,7 +138,7 @@ Text* compilation(Text* src)
 
         	printf("[%d] line is \"%s\"\n", __LINE__, line);
 
-			if(output_line[0] & 0x40)
+			if(output_line[0] & RAM)
 				if(*line != ']') 
 				{
 					pr_err(LOG_CONSOLE, "Syntax error: expected \']\' but got %c\n", *line);
@@ -149,19 +154,35 @@ Text* compilation(Text* src)
 				pr_err(LOG_CONSOLE, "Syntax error\n[Line:%d]-->%s\n", i, src->text[i].start);
 		}
 
-        printf("entered line: %s\n\toutputline: 0x%X 0x%X 0x%X\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
-		/*
+        printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
+	
+		if(output_line[0] & REG && output_line[0] & CONST)
+		{
+			output->text[i].start = strndup(output_line, 3);
+			output->text[i].length = 3;
+			output->text[i].finish = output->text[i].start + 3;
+		}
+		else if((output_line[0] & REG) | (output_line[0] & CONST))
+		{		
+			output->text[i].start = strndup(output_line, 2);
+			output->text[i].length = 2;
+			output->text[i].finish = output->text[i].start + 2;
+		}		
+		else
+		{
 			output->text[i].start = strndup(output_line, 1);
 			output->text[i].length = 1;
 			output->text[i].finish = output->text[i].start + 1;
-			continue;
 
-		*/
-
+		}
     }
 	
 	log_close();
 	
 	if(asmerr != OK)
+	{
 		text_free(output);
+		return NULL;
+	}
+	return output;
 }

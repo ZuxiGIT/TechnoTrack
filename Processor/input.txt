@@ -1,4 +1,4 @@
-push [ax + 10]
+push [ax + 10]   ; testetstet
 push 20
 add
 push 10
