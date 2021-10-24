@@ -133,23 +133,23 @@ Text* compilation(Text* src)
 
         	printf("[%d] line is \"%s\"\n", __LINE__, line);
 
-			if((output_line[0] & 0x40) && *line != ']') 
-			{
-				pr_err(LOG_CONSOLE, "Syntax error: expected \']\' but got %c\n", *line);
-				continue;
-			}
-			else
-				line++;
+			if(output_line[0] & 0x40)
+				if(*line != ']') 
+				{
+					pr_err(LOG_CONSOLE, "Syntax error: expected \']\' but got %c\n", *line);
+					continue;
+				}
+				else
+					line++;
 
 			skipSpaces(&line);
 
         	printf("[%d] line is \"%s\"\n", __LINE__, line);
 			if(*line != '\0' && *line != ';')
 				pr_err(LOG_CONSOLE, "Syntax error\n[Line:%d]-->%s\n", i, src->text[i].start);
-
-            printf("entered line: %s\n\toutputline: 0x%X 0x%X 0x%X\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
-
 		}
+
+        printf("entered line: %s\n\toutputline: 0x%X 0x%X 0x%X\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
 		/*
 			output->text[i].start = strndup(output_line, 1);
 			output->text[i].length = 1;
@@ -159,6 +159,9 @@ Text* compilation(Text* src)
 		*/
 
     }
+	
+	log_close();
+	
 	if(asmerr != OK)
 		text_free(output);
 }
