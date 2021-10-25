@@ -26,8 +26,8 @@ bool hasArg(const char* cmd)
 
 	#undef CPU_COMMAND
 	#undef CPU_REG
-	return 0;
 	
+	return 0;
 }
 
 void skipSpaces(char** str)
@@ -35,7 +35,7 @@ void skipSpaces(char** str)
 	while(isspace(*(*str))) (*str)++ ;
 }
 
-#define printf //printf
+#define printf printf
 
 Text* compilation(Text* src)
 {
@@ -46,10 +46,10 @@ Text* compilation(Text* src)
 	output->text = (Line*)calloc(src->num_of_lines, sizeof(Line));
 	output->num_of_lines = src->num_of_lines;
 
-	asmerr = OK;
 
     for(int i = 0; i < src->num_of_lines; i++)
     {
+		asmerr = OK;
         
         char output_line[3] = {};
         char cmd[10] = {};
@@ -58,32 +58,50 @@ Text* compilation(Text* src)
 
         printf("[%d] line is \"%s\"\n", __LINE__, line);
 
-        sscanf(line, "%s", cmd);
+        sscanf(line, "%10s", cmd);
         
-        #define CPU_COMMAND(name, opcode, argc, code) \
-        if (!strcmp(#name, cmd)) output_line[0] |= opcode;
+        printf("[%d] cmd is \"%s\"\n", __LINE__, cmd);
 
-		#define CPU_REG(name, number)
+        #define CPU_COMMAND(name, opcode, argc, code) \
+        if (!strcmp(#name, cmd))\
+		{\
+			output_line[0] |= opcode;\
+			printf("cmd = %3s and name = %3s\n", cmd, #name);\
+		}
+        #define CPU_REG(name, number)
 
         #include "../CPUcommands.h"
 
         #undef CPU_COMMAND
 		#undef CPU_REG
 
-		if(output_line[0] == 0)
-		{
-			pr_err(LOG_CONSOLE, "Syntax error: Unknown command\n[Line:%d]-->%s\n", i, src->text[i].start);
-			asmerr = UNKNOWN_COMMAND;
-			continue;
-		}
+		printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
+		fflush(stdout);
 
-        printf("[%d] line is \"%s\"\n", __LINE__, line);
+		if(isalpha(*line))	
+			if(output_line[0] == 0)
+			{
+				printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
+				fflush(stdout);
+				pr_err(LOG_CONSOLE, "Syntax error: Unknown command\n[Line:%d]-->%s\n", i, src->text[i].start);
+				printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
+				fflush(stdout);
+				asmerr = UNKNOWN_COMMAND;
+				printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
+				fflush(stdout);
+				// continue;
+			}
 
 		while(isalpha(*line)) line++;
 
 		skipSpaces(&line);
 
+
         printf("[%d] line is \"%s\"\n", __LINE__, line);
+
+
+
+        printf("[%d] line is \"%s\"\n", __LINE__, line); // define
 
 		if(hasArg(cmd))
 		{
@@ -150,9 +168,11 @@ Text* compilation(Text* src)
 			skipSpaces(&line);
 
         	printf("[%d] line is \"%s\"\n", __LINE__, line);
-			if(*line != '\0' && *line != ';')
-				pr_err(LOG_CONSOLE, "Syntax error\n[Line:%d]-->%s\n", i, src->text[i].start);
 		}
+
+
+		if(*line != '\0' && *line != ';' && asmerr == OK)
+			pr_err(LOG_CONSOLE, "Syntax error\n[Line:%d]-->%s\n", i, src->text[i].start);
 
         printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
 	
@@ -168,11 +188,18 @@ Text* compilation(Text* src)
 			output->text[i].length = 2;
 			output->text[i].finish = output->text[i].start + 2;
 		}		
-		else
+		else if (output_line[0] & 0x1f)
 		{
 			output->text[i].start = strndup(output_line, 1);
 			output->text[i].length = 1;
 			output->text[i].finish = output->text[i].start + 1;
+
+		}
+		else
+		{
+			output->text[i].start = NULL;
+			output->text[i].length = 0;
+			output->text[i].finish = NULL;
 
 		}
     }

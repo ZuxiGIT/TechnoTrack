@@ -66,7 +66,8 @@ void fprintTextBinary(Text* input)
         char format[10] = {};
         snprintf(format, 10, "%%%ds", input->text[i].length);
         // printf("----------->format is %s\n", format);
-    	fprintf(fp, format, input->text[i].start);
+        if(input->text[i].start)
+    	    fprintf(fp, format, input->text[i].start);
     }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
 
@@ -106,4 +107,14 @@ void printTextWithDelimeters(Text* src, char delim)
 
     for(int i = 0; i < src->num_of_lines; i++)
         printf("%s%c", src->text[i].start, delim);
+}
+
+
+int textBinaryLength(Text* txt)
+{
+    int res = 0;
+    for(int i = 0; i < txt->num_of_lines; i++)
+        res += txt->text[i].length;
+    
+    return res;
 }

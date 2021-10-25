@@ -33,6 +33,7 @@ void printText(Text* src);
 
 void printTextWithDelimeters(Text* src, char delim);
 
+int textBinaryLength(Text* txt);
 
 
 #endif /* TEXT_H */

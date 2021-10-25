@@ -5,7 +5,7 @@ project(SoftProccessot VERSION 1.0 LANGUAGES C  )
 add_subdirectory(lib EXCLUDE_FROM_ALL)
 
 add_executable(proc EXCLUDE_FROM_ALL
-    proc.c
+    CPU/proc.c
 )
 
 
@@ -20,7 +20,11 @@ target_link_libraries(ass
     PRIVATE logger
     PRIVATE text)
 
+
+add_subdirectory(CPU EXCLUDE_FROM_ALL)
+
 target_link_libraries(proc 
+    PRIVATE proc_lib
     PRIVATE stack
     PRIVATE logger
     PRIVATE text
