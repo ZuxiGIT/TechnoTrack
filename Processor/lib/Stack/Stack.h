@@ -491,6 +491,7 @@ void STK_stackDump(StkElem)(const char* result, const char* reason,
 	);
 
 	dump_buff_pos = 0;
+	memset(dump_buffer, 0, BUFSIZ);
 }
 
 

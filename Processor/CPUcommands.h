@@ -18,6 +18,7 @@
 CPU_COMMAND(hlt, 0b1000, 0,
 	{
 		printf("Stopping CPU\n");
+		DTOR(int, stk);
 		return;
 	}
 )

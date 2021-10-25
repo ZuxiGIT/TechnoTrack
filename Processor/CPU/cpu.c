@@ -17,7 +17,7 @@ void exec(CPU* cpu, int length)
     STACK(int) stk = {};
     CTOR(int, stk, 10);
 
-    for(cpu->ip = 0; cpu->ip < length;)
+    for(cpu->ip = 0; cpu->ip < length ;)
     {
         int type = cpu->bytecode[cpu->ip] & 0xE0;
         int code = cpu->bytecode[cpu->ip] & 0x1f;
@@ -32,5 +32,7 @@ void exec(CPU* cpu, int length)
         #undef CPU_REG 
     }
 
-    DTOR(int, stk);
+    pr_err(LOG_CONSOLE, "Runtime error occured (no hlt)\n");
+    abort();
+
 }

@@ -32,6 +32,7 @@ int main(int argc, const char** argv)
     $
     exec(&cpu, fileSize(argv[1]));
     $
+    free(cpu.bytecode);
     // text_free(txt);
     log_close();
     
