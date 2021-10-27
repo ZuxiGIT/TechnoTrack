@@ -16,9 +16,24 @@
 
 enum ASMERR asmerr;
 
-void fillMissedAddresses()
+void fillMissedAddresses(FUrecord* table, Label* labels, Text* txt)
 {
-        
+    for(int i = 0; i < 10; i ++)
+        if(table[i].addr)
+        {
+            int addr = table[i].addr;
+            for(int j = 0; j < txt->num_of_lines; j++)
+                if(addr > txt->text[j].length)
+                {
+                    addr -= txt->text[j].length;
+                }
+                else
+                {
+                    printf("adding address %d for %s on %d\n", labels[table[i].label_num].addr, labels[table[i].label_num].name, table[i].addr);
+                    txt->text[j].start[addr] = labels[table[i].label_num].addr;
+                    break;
+                }
+        }
 }
 
 void addFixUpsTableRecord(FUrecord* table, int addr, int label_num)
@@ -124,7 +139,7 @@ Text* compilation(Text* src)
 
             if(label_num != -1)
             {
-                printf("label address was changed from %d to %d\n", labels[label_num].addr, current_address); 
+                printf("label address was changed from %d to %d in \'labels\'\n", labels[label_num].addr, current_address); 
                 labels[label_num].addr = current_address;
             }
             else
@@ -153,6 +168,7 @@ Text* compilation(Text* src)
         #undef CPU_COMMAND
 		#undef CPU_REG
 
+        //processing JMP command
         if(output_line[0] & JMP_COMMAND)
         {
             printf("parsing cmd:%s arg\n", cmd);
@@ -163,10 +179,13 @@ Text* compilation(Text* src)
 
             bool label_was_found = false;
 
+            //searching label
             for(int j =  0; j < current_label; j ++)
             {
                 printf("label is %s\n", labels[j].name);
+                
                 if(!strncmp(labels[j].name, line, strlen(labels[j].name)))
+                //label was found
                 {
                     printf("label was found\n");
                     label_was_found = true;
@@ -183,6 +202,7 @@ Text* compilation(Text* src)
                 }
             }
 
+            //label was not found
             if(!label_was_found)
             {
                 current_address++;
@@ -333,7 +353,7 @@ Text* compilation(Text* src)
 	
 	log_close();
 	
-    fillMissedAddresses();
+    fillMissedAddresses(tableFU, labels, output);
     freeLabelTable(labels);
 
 	if(asmerr != OK)
