@@ -21,6 +21,12 @@ enum Commands
 	#undef CPU_REG
 };
 
+typedef struct
+{
+    int addr;
+    char* name;
+} Label;
+
 //const char* const sCommands[] = 
 //{
 //    #define CPU_COMMAND(name, opcode, argc, code) #name,

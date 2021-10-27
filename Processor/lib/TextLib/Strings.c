@@ -27,16 +27,19 @@ int numberOfLines(const unsigned char* text)
 	assert(text != NULL);
 
 	int i = 0;
+
 	const unsigned char* beginning = text;
+
 	while (*text != '\0')
 	{
 		if (*text == '\n')
 			i++;
 		text++;
 	}
-
-	if (beginning != text)
-		i++;
+    
+    //why i wrote this?????????
+	//if (beginning != text)
+	//	i++;
 		
 	return i;
 }

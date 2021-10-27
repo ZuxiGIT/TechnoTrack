@@ -127,5 +127,10 @@ CPU_COMMAND(out, 0b111, 0,
 	}
 )
 
+CPU_COMMAND(jmp, 0b10000, 0,
+	{
+	    ;
+	}
+)
 // CPU_REG(name, number)
 CPU_REG(ax, 0b1)
