@@ -27,6 +27,12 @@ typedef struct
     char* name;
 } Label;
 
+typedef struct 
+{
+    int addr;
+    int label_num;
+} FUrecord;
+
 //const char* const sCommands[] = 
 //{
 //    #define CPU_COMMAND(name, opcode, argc, code) #name,

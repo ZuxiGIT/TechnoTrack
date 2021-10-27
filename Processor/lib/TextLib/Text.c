@@ -56,16 +56,18 @@ void fprintText(Text* text)
 
 void fprintTextBinary(Text* input)
 {
+    assert(input != NULL);
+
 	FILE* fp = fopen("output.txt", "wb");
 	
 	assert(fp != NULL);
 
-////------____!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+////------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	for (int i  = 0; i < input->num_of_lines; i ++)
 	{
         char format[10] = {};
         snprintf(format, 10, "%%%ds", input->text[i].length);
-        // printf("----------->format is %s\n", format);
+        printf("----------->format is %s\n", format);
         if(input->text[i].start)
     	    fprintf(fp, format, input->text[i].start);
     }

@@ -16,6 +16,30 @@
 
 enum ASMERR asmerr;
 
+void fillMissedAddresses()
+{
+        
+}
+
+void addFixUpsTableRecord(FUrecord* table, int addr, int label_num)
+{
+    static int current_record = 0;
+    table[current_record++] = (FUrecord) { addr, label_num };
+}
+
+int labelExists(Label* table, char* label)
+{
+    printf("searching label \'%s(%ld)\'\n", label, strlen(label));
+
+    for(int i = 0; i < 10; i ++)
+        if(table[i].addr)    
+            if(!strncmp(table[i].name, label, strlen(label)))
+                return i;
+
+    return -1;
+
+}
+
 void freeLabelTable(Label* table)
 {
     for(int i = 0; i < 10; i ++)
@@ -60,6 +84,7 @@ Text* compilation(Text* src)
 	output->num_of_lines = src->num_of_lines;
 
     Label labels[10] = {};
+    FUrecord tableFU [10] = {};
 
     int current_address = 0;
     int current_label = 0;
@@ -84,12 +109,30 @@ Text* compilation(Text* src)
         {
             char format[10] = {};
             int offset = strchr(line, ':') - line;
+
             printf("------------->offset id %d\n", offset);
+
             sprintf(format, "%%%ds", offset);
+
             sscanf(line, format, cmd);
+
             printf("label is %s\n", cmd);
-            labels[current_label++] = (Label){current_address, strndup(cmd, offset)};
-            printf("label \'%s\' with %d address was added\n", cmd, current_address);
+
+            int label_num = labelExists(labels, cmd);
+
+            printf("label_num is %d\n", label_num);
+
+            if(label_num != -1)
+            {
+                printf("label address was changed from %d to %d\n", labels[label_num].addr, current_address); 
+                labels[label_num].addr = current_address;
+            }
+            else
+            {
+                labels[current_label++] = (Label){current_address, strndup(cmd, offset)};
+                printf("label \'%s\' with %d address was added\n", cmd, current_address);
+            }
+
             continue;
         }
         else
@@ -114,9 +157,11 @@ Text* compilation(Text* src)
         {
             printf("parsing cmd:%s arg\n", cmd);
 
-            while(isalpha(*line)) line++;
-            
+            skipAlphas(&line);
+
             skipSpaces(&line);
+
+            bool label_was_found = false;
 
             for(int j =  0; j < current_label; j ++)
             {
@@ -124,6 +169,7 @@ Text* compilation(Text* src)
                 if(!strncmp(labels[j].name, line, strlen(labels[j].name)))
                 {
                     printf("label was found\n");
+                    label_was_found = true;
 
                     output_line[1] = labels[j].addr;        
 
@@ -133,11 +179,31 @@ Text* compilation(Text* src)
 
                     current_address += 2;
                     
-                    printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
-
                     break;
                 }
             }
+
+            if(!label_was_found)
+            {
+                current_address++;
+
+                labels[current_label++] = (Label){ -1, strndup(line, strlen(line))};
+
+                printf("added %s label with address -1 in \'labels\'\n", line);
+
+                addFixUpsTableRecord(tableFU, current_address++, current_label - 1 );
+
+                printf("added record with \'addres\':%d and \'label_num\':%d params\n", current_address - 1, current_label - 1); 
+
+                output_line[1] = -1;        
+
+                output->text[i].start = strndup(output_line, 2);
+                output->text[i].length = 2;
+                output->text[i].finish = output->text[i].start + 2; 
+            }
+
+            printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
+            
             continue; 
         }
 
@@ -155,7 +221,7 @@ Text* compilation(Text* src)
 				asmerr = UNKNOWN_COMMAND;
 				printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
 				fflush(stdout);
-				// continue;
+				continue;
 			}
 
 		while(isalpha(*line)) line++;
@@ -267,6 +333,7 @@ Text* compilation(Text* src)
 	
 	log_close();
 	
+    fillMissedAddresses();
     freeLabelTable(labels);
 
 	if(asmerr != OK)
@@ -274,5 +341,6 @@ Text* compilation(Text* src)
 		text_free(output);
 		return NULL;
 	}
+
 	return output;
 }
