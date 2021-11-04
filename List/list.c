@@ -9,7 +9,7 @@ int _findEmptyCell(List* list)
     int i = 0;
 
     while((list->next[i] != -1) && ( i < list->capacity)) i++;
-    printf("_findEmptyCell has i = %d\n", i);
+
     if(list->next[i] != -1)
         return -1;
     
@@ -50,7 +50,7 @@ int ListInsertBack(List* list, int num)
 
     int found = _findEmptyCell(list);
 
-    if(found == -1)
+    if(found != -1)
     {
         printf("Found empty cell %d\n", found);
 
@@ -67,7 +67,17 @@ int ListInsertBack(List* list, int num)
 
 int ListInsertAfter(List* list, int location, int num)
 {
+    int found = _findEmptyCell(list);
+    if(found != -1)
+    {
+        list->next[found] = list->next[location];
+        list->next[location] = found;
+        list->data[found] = num;
+    }
+    else
+        pr_err(LOG_CONSOLE, "List is full\n");
     
+    return found;    
 } 
 
 void PrintList(List* list)
