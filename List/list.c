@@ -6,6 +6,20 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
+#define VERIFY_CELL\
+    if(list->cells[location].prev == -1)\
+    {\
+        pr_err(LOG_CONSOLE, "Bad location (cell with %d address does not exist\n",\
+                location);\
+        return -1;\
+    }\
+\
+    if(!location)\
+    {\
+        pr_err(LOG_CONSOLE, "Bad location (location can not be equal 0)\n");\
+        return -1;\
+    }\
+
 static int _findEmptyCell(List* list)
 {
 
@@ -28,6 +42,7 @@ void ListCtor(List* list, int capacity)
         list->cells[i].next = i + 1;
         list->cells[i].prev = -1;
     }
+
     list->cells[capacity - 1].next = 0;
     list->cells[capacity - 1].prev = -1;
 
@@ -45,17 +60,17 @@ void ListDtor(List* list)
 
 int ListInsertBack(List* list, int num)
 {
-    /*if(!list->head)
+    if(!list->head)
     {
         list->cells[1].data = num;
         list->head = list->tail = 1;
         list->cells[1].next = 0;
-        list->cells[1]
+        list->cells[1].prev = 0;
         list->free = 2;
         return 1; 
     }
-    */
     
+    /*
     printf("searching new cell\n");
 
     int found = _findEmptyCell(list);
@@ -78,39 +93,122 @@ int ListInsertBack(List* list, int num)
         pr_err(LOG_CONSOLE, "List is full\n");
 
     return found;
+    */
+    return ListInsertAfter(list, list->tail, num);
+}
+
+int ListInsertFront(List* list, int num)
+{
+    if(!list->head)
+    {
+        list->cells[1].data = num;
+        list->head = list->tail = 1;
+        list->cells[1].next = 0;
+        list->cells[1].prev = 0;
+        list->free = 2;
+        return 1; 
+    }
+    /*
+    int found = _findEmptyCell(list);
+
+    if(found)
+    {
+        list->cells[found].data = num;
+        list->cells[found].prev = 0;
+        list->cells[found].next = list->head;
+        if(list->head)
+            list->cells[list->head].prev = found;
+        if(!list->tail)
+           list->tail = found;
+        list->head = found;
+    }
+    else
+        pr_err(LOG_CONSOLE, "List is full\n");
+
+    return found;
+    */
+
+    return ListInsertBefore(list, list->head, num);
 }
 
 int ListInsertAfter(List* list, int location, int num)
 {
-    if(list->cells[location].prev == -1)
-    {
-        pr_err(LOG_CONSOLE, "Bad location (cell with %d does not exist\n",
-                location);
-        return -1;
-    }
-
-    if(!location)
-    {
-        pr_err(LOG_CONSOLE, "Bad location (location can be equal 0)\n");
-        return -1;
-    }
+    VERIFY_CELL;
 
     int found = _findEmptyCell(list);
 
+    printf("found cell with %d address (location = %d, num = %d)\n",
+            found, location, num);
 
     if(found)
     {
-        list->cells[found].next = list->cells[location].next;
-        list->cells[list->cells[location].next].prev = found;
-        list->cells[location].next = found;
         list->cells[found].data = num;
+
         list->cells[found].prev = location;
+        printf("[1]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                list->cells[found].next);
+        list->cells[location].next = found;
+        printf("[2]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                list->cells[found].next);
+        list->cells[list->cells[location].next].prev = found;
+        printf("[3]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                list->cells[found].next);
+        list->cells[found].next = list->cells[location].next;
+        printf("[4]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                list->cells[found].next);
+
+        if(list->tail == location)
+            list->tail = found;
     }
     else
         pr_err(LOG_CONSOLE, "List is full\n");
     
-    return found;    
+    return found;
 } 
+
+int ListInsertBefore(List* list, int location, int num)
+{
+    VERIFY_CELL;
+
+    int found = _findEmptyCell(list);
+
+    if(found)
+    {
+        list->cells[found].data = num;
+        list->cells[found].next = location;
+        list->cells[location].prev = found;
+        list->cells[found].prev = list->cells[location].prev;
+        list->cells[list->cells[location].prev].next = found;
+
+        if(list->head == location)
+            list->head = found;
+    }
+    else
+        pr_err(LOG_CONSOLE, "List is full\n");
+
+    return found;
+}
+
+int ListDelete(List* list, int location)
+{
+    VERIFY_CELL;
+
+    if(!list->cells[location].next)
+        list->cells[list->cells[location].prev].next = 0;
+    else
+        list->cells[list->cells[location].prev].next = list->cells[location].next;
+    if(!list->cells[location].prev)
+        list->cells[list->cells[location].next].prev = 0;
+    else
+        list->cells[list->cells[location].next].prev = list->cells[location].prev;
+
+    list->cells[location].next = list->free;
+    list->free = location;
+
+    list->cells[location].prev = -1;
+    
+    return list->cells[location].data;
+}
 
 void PrintList(List* list)
 {
@@ -123,6 +221,7 @@ void PrintList(List* list)
                 list->cells[i].prev);
     }
 }
+
 static int _shift(char* buff, int shift)
 {
     for(int i = 0; i < shift; i++)
@@ -200,9 +299,10 @@ void LogList(const char* pathname, List* list)
 
     system(dot_cmd);
 
-    sprintf(dot_clear, "rm %s", pathname);
+    //sprintf(dot_clear, "rm %s", pathname);
 
     system(dot_clear);
 
     memset(log_buffer, '\0', sizeof(log_buffer));
+    buff_pos = 0;
 }

@@ -21,7 +21,10 @@ typedef struct
 void ListCtor(List* list, int size);
 void ListDtor(List* list);
 int ListInsertBack(List* list, int num);
+int ListInsertFront(List* list, int num);
 int ListInsertAfter(List* list, int location, int num);
+int ListInsertBefore(List* list, int location, int num);
+int ListDelete(List* list, int location);
 void PrintList(List* list);
 void LogList(const char* pathname, List* list);
 
