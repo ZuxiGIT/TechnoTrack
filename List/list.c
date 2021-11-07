@@ -145,15 +145,18 @@ int ListInsertAfter(List* list, int location, int num)
         list->cells[found].data = num;
 
         list->cells[found].prev = location;
+
         printf("[1]\t.prev = %d .next = %d\n", list->cells[found].prev,
                 list->cells[found].next);
-        list->cells[location].next = found;
+        list->cells[found].next = list->cells[location].next;
         printf("[2]\t.prev = %d .next = %d\n", list->cells[found].prev,
                 list->cells[found].next);
-        list->cells[list->cells[location].next].prev = found;
+        if(list->cells[location].next)
+            list->cells[list->cells[location].next].prev = found;
+
         printf("[3]\t.prev = %d .next = %d\n", list->cells[found].prev,
                 list->cells[found].next);
-        list->cells[found].next = list->cells[location].next;
+        list->cells[location].next = found;
         printf("[4]\t.prev = %d .next = %d\n", list->cells[found].prev,
                 list->cells[found].next);
 
@@ -192,6 +195,9 @@ int ListInsertBefore(List* list, int location, int num)
 int ListDelete(List* list, int location)
 {
     VERIFY_CELL;
+
+    if(list->tail == location)
+        list->tail = list->cells[location].prev;
 
     if(!list->cells[location].next)
         list->cells[list->cells[location].prev].next = 0;
