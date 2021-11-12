@@ -23,7 +23,10 @@ static void _checkErrors(const char* str);
 
 void log_close()
 {
+    if(!log_file)
+        return;
     fclose(log_file);
+    log_file = NULL;
 }
 
 

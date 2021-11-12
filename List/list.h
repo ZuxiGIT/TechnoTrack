@@ -25,6 +25,10 @@ int ListInsertFront(List* list, int num);
 int ListInsertAfter(List* list, int location, int num);
 int ListInsertBefore(List* list, int location, int num);
 int ListDelete(List* list, int location);
+int ListPopBack(List* list);
+int ListPopFront(List* list);
+int ListDeleteAfter(List* list, int location);
+int ListDeleteBefore(List* list, int location);
 void PrintList(List* list);
 void LogList(const char* pathname, List* list);
 

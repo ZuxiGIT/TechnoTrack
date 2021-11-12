@@ -6,15 +6,15 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-#define VERIFY_CELL\
-    if(list->cells[location].prev == -1)\
+#define VERIFY_CELL(loc)\
+    if(list->cells[loc].prev == -1)\
     {\
         pr_err(LOG_CONSOLE, "Bad location (cell with %d address does not exist\n",\
-                location);\
+                loc);\
         return -1;\
     }\
 \
-    if(!location)\
+    if(!loc)\
     {\
         pr_err(LOG_CONSOLE, "Bad location (location can not be equal 0)\n");\
         return -1;\
@@ -56,6 +56,7 @@ void ListCtor(List* list, int capacity)
 void ListDtor(List* list)
 {
     free(list->cells);
+    log_close();
 }
 
 int ListInsertBack(List* list, int num)
@@ -67,6 +68,7 @@ int ListInsertBack(List* list, int num)
         list->cells[1].next = 0;
         list->cells[1].prev = 0;
         list->free = 2;
+        list->size++;
         return 1; 
     }
     
@@ -106,6 +108,7 @@ int ListInsertFront(List* list, int num)
         list->cells[1].next = 0;
         list->cells[1].prev = 0;
         list->free = 2;
+        list->size++;
         return 1; 
     }
     /*
@@ -133,7 +136,7 @@ int ListInsertFront(List* list, int num)
 
 int ListInsertAfter(List* list, int location, int num)
 {
-    VERIFY_CELL;
+    VERIFY_CELL(location);
 
     int found = _findEmptyCell(list);
 
@@ -146,22 +149,24 @@ int ListInsertAfter(List* list, int location, int num)
 
         list->cells[found].prev = location;
 
-        printf("[1]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                list->cells[found].next);
+        //printf("[1]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                //list->cells[found].next);
         list->cells[found].next = list->cells[location].next;
-        printf("[2]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                list->cells[found].next);
+        //printf("[2]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                //list->cells[found].next);
         if(list->cells[location].next)
             list->cells[list->cells[location].next].prev = found;
 
-        printf("[3]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                list->cells[found].next);
+        //printf("[3]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                //list->cells[found].next);
         list->cells[location].next = found;
-        printf("[4]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                list->cells[found].next);
+        //printf("[4]\t.prev = %d .next = %d\n", list->cells[found].prev,
+                //list->cells[found].next);
 
         if(list->tail == location)
             list->tail = found;
+
+        list->size++;
     }
     else
         pr_err(LOG_CONSOLE, "List is full\n");
@@ -171,7 +176,7 @@ int ListInsertAfter(List* list, int location, int num)
 
 int ListInsertBefore(List* list, int location, int num)
 {
-    VERIFY_CELL;
+    VERIFY_CELL(location);
 
     int found = _findEmptyCell(list);
 
@@ -179,12 +184,17 @@ int ListInsertBefore(List* list, int location, int num)
     {
         list->cells[found].data = num;
         list->cells[found].next = location;
-        list->cells[location].prev = found;
         list->cells[found].prev = list->cells[location].prev;
-        list->cells[list->cells[location].prev].next = found;
+
+        if(list->cells[location].prev)
+            list->cells[list->cells[location].prev].next = found;
+
+        list->cells[location].prev = found;
 
         if(list->head == location)
             list->head = found;
+
+        list->size++;
     }
     else
         pr_err(LOG_CONSOLE, "List is full\n");
@@ -194,19 +204,28 @@ int ListInsertBefore(List* list, int location, int num)
 
 int ListDelete(List* list, int location)
 {
-    VERIFY_CELL;
+    VERIFY_CELL(location);
 
     if(list->tail == location)
         list->tail = list->cells[location].prev;
+    if(list->head == location)
+        list->head = list->cells[location].next;
 
-    if(!list->cells[location].next)
-        list->cells[list->cells[location].prev].next = 0;
+    if(list->cells[location].next)
+    {
+        if(list->cells[location].prev)
+        {
+            list->cells[list->cells[location].prev].next = list->cells[location].next;
+            list->cells[list->cells[location].next].prev = list->cells[location].prev;
+        }
+        else
+            list->cells[list->cells[location].next].prev = 0;
+    }
     else
-        list->cells[list->cells[location].prev].next = list->cells[location].next;
-    if(!list->cells[location].prev)
-        list->cells[list->cells[location].next].prev = 0;
-    else
-        list->cells[list->cells[location].next].prev = list->cells[location].prev;
+    {
+        if(list->cells[location].prev)
+            list->cells[list->cells[location].prev].next = 0;
+    }
 
     list->cells[location].next = list->free;
     list->free = location;
@@ -214,6 +233,43 @@ int ListDelete(List* list, int location)
     list->cells[location].prev = -1;
     
     return list->cells[location].data;
+}
+
+int ListPopFront(List* list)
+{
+    return ListDelete(list, list->head);
+}
+
+int ListPopBack(List* list)
+{
+    return ListDelete(list, list->tail);
+}
+
+int ListDeleteAfter(List* list, int location)
+{
+    VERIFY_CELL(location);
+    
+    if(location == list->tail)
+    {
+        pr_err(LOG_CONSOLE, "Bad location (cell after cell with address %d does not exist\n", location);
+        return (unsigned)-1;
+    }
+
+    return ListDelete(list, list->cells[location].next);
+}
+
+int ListDeleteBefore(List* list, int location)
+{
+    VERIFY_CELL(location);
+
+    if(location == list->head)
+    {
+        pr_err(LOG_CONSOLE, "Bad location (cell before cell with address %d does not exist\n", location);
+        return (unsigned)-1;
+        
+    }
+
+    return ListDelete(list, list->cells[location].prev);
 }
 
 void PrintList(List* list)
@@ -305,7 +361,7 @@ void LogList(const char* pathname, List* list)
 
     system(dot_cmd);
 
-    //sprintf(dot_clear, "rm %s", pathname);
+    sprintf(dot_clear, "rm %s", pathname);
 
     system(dot_clear);
 
