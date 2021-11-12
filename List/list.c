@@ -72,30 +72,6 @@ int ListInsertBack(List* list, int num)
         return 1; 
     }
     
-    /*
-    printf("searching new cell\n");
-
-    int found = _findEmptyCell(list);
-
-    if(found)
-    {
-        printf("Found empty cell %d\n", found);
-
-        list->cells[found].data = num;
-        if(list->tail)
-            list->cells[list->tail].next = found;
-        list->cells[found].next = 0;
-        list->cells[found].prev = list->tail;
-        list->tail = found;
-
-        if(!list->head)
-            list->head = found;
-    }
-    else
-        pr_err(LOG_CONSOLE, "List is full\n");
-
-    return found;
-    */
     return ListInsertAfter(list, list->tail, num);
 }
 
@@ -111,25 +87,6 @@ int ListInsertFront(List* list, int num)
         list->size++;
         return 1; 
     }
-    /*
-    int found = _findEmptyCell(list);
-
-    if(found)
-    {
-        list->cells[found].data = num;
-        list->cells[found].prev = 0;
-        list->cells[found].next = list->head;
-        if(list->head)
-            list->cells[list->head].prev = found;
-        if(!list->tail)
-           list->tail = found;
-        list->head = found;
-    }
-    else
-        pr_err(LOG_CONSOLE, "List is full\n");
-
-    return found;
-    */
 
     return ListInsertBefore(list, list->head, num);
 }
@@ -149,19 +106,12 @@ int ListInsertAfter(List* list, int location, int num)
 
         list->cells[found].prev = location;
 
-        //printf("[1]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                //list->cells[found].next);
         list->cells[found].next = list->cells[location].next;
-        //printf("[2]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                //list->cells[found].next);
+
         if(list->cells[location].next)
             list->cells[list->cells[location].next].prev = found;
 
-        //printf("[3]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                //list->cells[found].next);
         list->cells[location].next = found;
-        //printf("[4]\t.prev = %d .next = %d\n", list->cells[found].prev,
-                //list->cells[found].next);
 
         if(list->tail == location)
             list->tail = found;
@@ -366,5 +316,6 @@ void LogList(const char* pathname, List* list)
     system(dot_clear);
 
     memset(log_buffer, '\0', sizeof(log_buffer));
+
     buff_pos = 0;
 }
