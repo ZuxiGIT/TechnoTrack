@@ -7,7 +7,7 @@
 #include <string.h>
 #include <ctype.h>
 
-
+/*
 enum TYPE
 {
 	OPERATOR,
@@ -50,7 +50,7 @@ Node* CreateNode(TYPE tp = VARIABLE, Value val = {0}, Node* lft = NULL, Node* rg
 	\param[in] name - the file name
 
 	\return the file's size
-*/
+
 
 size_t fsize(const char* name)
 {
@@ -100,7 +100,7 @@ unsigned char* Preprocess(unsigned char* txt)
 	\param[in] size - the file's size
 
 	\return pointer to the array of unsigned char
-*/
+
 
 unsigned char* TextFromFile(const char* name, const size_t size)
 {
@@ -259,24 +259,53 @@ void PrintTree(FILE* stream, Node* head)
 
 	fprintf(stream, ")");
 }
+*/
+//#include "Tree.h"
 
+#include <wchar.h>
+#include <locale.h>
+#include "./lib/logger/logger.h"
+#include "./lib/TextLib/Text.h"
+#include "./lib/TextLib/Strings.h"
+#include "./lib/TextLib/File.h"
 int main(int argc, char* argv [])
 {
-	if(argc == 1)
-	{
-		printf("ERROR: No input file\n");
-		return 1;
-	}
+    printf("current locale(LC_ALL) is %s\n", setlocale(LC_ALL, NULL));
+    printf("current locale(LC_CYTPE) is %s\n", setlocale(LC_CTYPE, NULL));
+    
+    setlocale(LC_ALL, "");
+    wchar_t* str = L"Привет Мир! Ты че шутишь блять ебанушка?\n";
 
-	const char* INPUT = argv[1];
+    //printf("Mode(stdout) = %d\n", fwide(stdout, 0));
 
-	size_t size = fsize(INPUT);
-	unsigned char* text = TextFromFile(INPUT, size);
+    if(fwide(stdout, 1) > 0)
+        wprintf(L"Wide string: %ls", str);
+    else
+        printf("Error ocurred\n");
+	// if(argc == 1)
+	// {
+	// 	printf("ERROR: No input file\n");
+	// 	return 1;
+	// }
+
+	// const char* INPUT = argv[1];
+
+	// size_t size = fsize(INPUT);
+	// unsigned char* text = TextFromFile(INPUT, size);
 
 
-	Node* head = ReadTreeFrom(text);
+	// Node* head = ReadTreeFrom(text);
 
-	PrintTree(stdout, head);
+	// PrintTree(stdout, head);
+
+	// Node* root = NODE(strdup("animal"));
+	// root->left = NODE(strdup("bird"));
+	// root->right = NODE(strdup("human"));
+	// root->left->right = NODE(strdup("whale"));
+
+	// printTree(root);
+	// deleteTree(root);
+
 
 
 	return 0;
