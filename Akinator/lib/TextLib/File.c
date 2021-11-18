@@ -39,7 +39,6 @@ wchar_t* readText(const char* name, const size_t size)
 {
     mblen(NULL, 0);
 
-    pr_info(LOG_CONSOLE, "Beginning readText\n");
 	assert(name != NULL);
 	
 	if(!name)
@@ -57,15 +56,15 @@ wchar_t* readText(const char* name, const size_t size)
 		pr_warn(LOG_CONSOLE, "Wrong file path\n");
 		return NULL;
 	}
-
-    //fwide(fp, 1);
-    //freopen(NULL, "a+", stdout);
+#if 0
+    fwide(fp, 1);
+    freopen(NULL, "a+", stdout);
     if(fwide(stdout, 0));
     printf("!!!!!!");
     printf("!!!%d!!!", fwide(stdout, 0));
-    //freopen(NULL, "a+", stdout);
+    freopen(NULL, "a+", stdout);
     printf("fwide(fp, 0) = %d\n", fwide(fp, 0));
-    
+#endif 
 
 	unsigned char* buff = (unsigned char*)calloc(size + 1, sizeof(unsigned char));
 	
@@ -73,20 +72,26 @@ wchar_t* readText(const char* name, const size_t size)
 
 	buff[size] = '\0';
 
-
 	int written_sz = fread(buff, sizeof(unsigned char), size, fp);// logging
-    printf("Length is %ld\n", mbstowcs(NULL, buff, 0));
-    wchar_t* txt = (wchar_t*)calloc(mbstowcs(NULL, buff, 0) + 1, sizeof(wchar_t));
 
-    mbstowcs(txt, buff, mbstowcs(NULL, buff, 0));
-	pr_info(LOG_CONSOLE | LOG_FILE, "Declared size (sizeof(char)): %zu Written size (sizeof(char)): %zu\n", size, written_sz);
+    int num_of_chars = mbstowcs(NULL, buff, 0);
 
+    //printf("Length is %ld\n", num_of_chars);
+
+    wchar_t* txt = (wchar_t*)calloc(num_of_chars + 1, sizeof(wchar_t));
+
+    mbstowcs(txt, buff, num_of_chars);
+
+	pr_info(LOG_CONSOLE | LOG_FILE, "Declared size (sizeof(char)): %d Read size (sizeof(char)): %d Numbers of chars(sizeof(wchar_t)) %d\n", size, written_sz, num_of_chars);
+
+    free(buff);
 	fclose(fp);
 
-    freopen(NULL, "w", stdout);
-    wprintf(L"Char: %lc\n", *txt);
-    wprintf(L"TEXT\n%ls\n", txt);
-    freopen(NULL, "w", stdout);
+    //freopen(NULL, "w", stdout);
+    //wprintf(L"Char: %lc\n", *txt);
+    //wprintf(L"TEXT\n%ls\n", txt);
+    //freopen(NULL, "w", stdout);
+
 
 	return txt;
 }

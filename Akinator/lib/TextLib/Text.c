@@ -27,12 +27,11 @@ Text* text_init(const char* path)
 	// pr_info(LOG_CONSOLE, "read :\n%s\n", txt);
 
 	Line* ind = parseText(txt, num_of_lines);
-    
-    free(txt);
 
     Text* res = (Text*)calloc(1, sizeof(Text));
     
     res->text = ind;
+    res->begin_of_text = ind;
     res->num_of_lines = num_of_lines;
 
     
@@ -41,11 +40,12 @@ Text* text_init(const char* path)
 
 void text_free(Text* text)
 {
-    for(int i = 0; i < text->num_of_lines; i++)
-        free(text->text[i].start);
+    //for(int i = 0; i < text->num_of_lines; i++)
+    //   free(text->text[i].start);
 
     // free(text->text->start);
 
+    free(text->begin_of_text->start);
     free(text->text);
     free(text);
 }

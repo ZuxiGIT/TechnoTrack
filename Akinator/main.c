@@ -267,18 +267,20 @@ void PrintTree(FILE* stream, Node* head)
 #include "./lib/TextLib/Text.h"
 #include "./lib/TextLib/Strings.h"
 #include "./lib/TextLib/File.h"
+#include "./lib/tree/tree.h"
 int main(int argc, char* argv [])
 {
-    printf("current locale(LC_ALL) is %s\n", setlocale(LC_ALL, NULL));
-    printf("current locale(LC_CYTPE) is %s\n", setlocale(LC_CTYPE, NULL));
+    //printf("current locale(LC_ALL) is %s\n", setlocale(LC_ALL, NULL));
+    //printf("current locale(LC_CYTPE) is %s\n", setlocale(LC_CTYPE, NULL));
     
     setlocale(LC_ALL, "");
-    wchar_t str[] = L"Привет Мир! Ты че шутишь блять ебанушка?\n";
+    wchar_t str[] = L"Привет Мир! \n";
 
     //printf("Mode(stdout) = %d\n", fwide(stdout, 0));
 
-    printText(text_init(argv[1]));
-
+    Text* out = text_init(argv[1]);
+    printText(out);
+    text_free(out);
     
     fflush(stdout);
     if(fwide(stdout, 1) > 0)
@@ -286,6 +288,11 @@ int main(int argc, char* argv [])
     else
         printf("Error ocurred\n");
     
+    Tree* tree =  tree_init(NULL);
+
+    tree->nodes->left = create_node("левый");
+    tree->nodes->right = create_node("правый");
+
 	// if(argc == 1)
 	// {
 	// 	printf("ERROR: No input file\n");
@@ -309,8 +316,6 @@ int main(int argc, char* argv [])
 
 	// printTree(root);
 	// deleteTree(root);
-
-
 
 	return 0;
 }

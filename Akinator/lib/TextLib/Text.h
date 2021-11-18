@@ -10,6 +10,7 @@ typedef struct
 {
     Line* text;
     int num_of_lines;
+    Line* begin_of_text;
 } Text;
 
 void text_free(Text* text);

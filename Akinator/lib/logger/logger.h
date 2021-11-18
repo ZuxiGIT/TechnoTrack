@@ -16,7 +16,7 @@ enum{
 };
 
 void log_init(const char* path);
-void log_close();
+void log_close() __attribute__ ((destructor));
 void log_set_path(const char* path);
 
 

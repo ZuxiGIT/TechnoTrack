@@ -34,11 +34,8 @@ int numberOfLines(const wchar_t* text)
 
     const wchar_t* beginning = text;
 
-    printf("sizeof(wchar_t) = %ld sizeof(wint_t) = %ld\n", sizeof(wchar_t), sizeof(wint_t));
-    perror("ZERO");
     freopen(NULL, "w", stdout);
-    perror("FIRST");
-    wprintf(L"*text = %lc\n", *text);
+
 	while (*text != '\0')
 	{
 		if (*text == '\n')
@@ -71,12 +68,12 @@ Line* parseText(wchar_t* lines, int size)
 		while (*end != L'\n' && *end != L'\0') // strchr strtok
 			end++;
 		
-		*end = '\0';
+		*end = L'\0';
 
 
 		index[i].length = (end - begin);
-		index[i].start 	= wcsdup(begin); //, end - begin);
-		index[i].finish = index[i].start + index[i].length;
+		index[i].start 	= begin; //wcsdup(begin); 
+		index[i].finish = end; //index[i].start + index[i].length;
 		// memcpy(index[i].start, begin, index[i].length);
 		// index[i].finish = index[i].start + begin;
 
