@@ -3,18 +3,19 @@
 #include <assert.h>
 #include <malloc.h>
 #include <errno.h>
+#include <wchar.h>
 
 #include "Strings.h"
 #include "File.h"
 #include "../logger/logger.h"
 
-size_t fileSize(const char* name)
+int fileSize(const char* name)
 {
 	assert(name != NULL);
 
 	struct stat stbuf = {};
 
-	// errno = 0;
+	errno = 0;
 	stat(name, &stbuf);
 
 	if(errno)
@@ -35,6 +36,7 @@ size_t fileSize(const char* name)
 
 wchar_t* readText(const char* name, const size_t size)
 {
+    pr_info(LOG_CONSOLE, "Beginning readText\n");
 	assert(name != NULL);
 	
 	if(!name)
@@ -54,6 +56,13 @@ wchar_t* readText(const char* name, const size_t size)
 	}
 
     fwide(fp, 1);
+    //freopen(NULL, "a+", stdout);
+    if(fwide(stdout, 0));
+    printf("!!!!!!");
+    printf("!!!%d!!!", fwide(stdout, 0));
+    //freopen(NULL, "a+", stdout);
+    printf("fwide(fp, 0) = %d\n", fwide(fp, 0));
+    
 
 	wchar_t* buff = (wchar_t*)calloc(size + 1, sizeof(wchar_t));
 	
@@ -61,7 +70,7 @@ wchar_t* readText(const char* name, const size_t size)
 
 	buff[size] = L'\0';
 
-	size_t written_sz = fread(buff, sizeof(unsigned char), size, fp); // logging
+	size_t written_sz = fwscanf(fp, L"%s", buff);//, sizeof(wchar_t), size, fp); // logging
 	pr_info(LOG_CONSOLE | LOG_FILE, "Declared size (sizeof(char)): %zu Written size (sizeof(char)): %zu\n", size, written_sz);
 
 	fclose(fp);

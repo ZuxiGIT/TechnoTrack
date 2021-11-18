@@ -2,6 +2,7 @@
 #include "../logger/logger.h"
 #include "File.h"
 #include <malloc.h>
+#include <stdio.h>
 #include <assert.h>
 #include <wchar.h>
 
@@ -17,7 +18,7 @@ Text* text_init(const char* path)
         return NULL;
     }
 
-	pr_info(LOG_CONSOLE, "sz is %zu\n", sz);
+    pr_info(LOG_CONSOLE, "sz is %d\n", sz);
 
     wchar_t* txt = readText(path, sz);
 	int num_of_lines = numberOfLines(txt);
@@ -109,9 +110,13 @@ void printText(Text* src)
 void printTextWithDelimeters(Text* src, char delim)
 {
     assert(src);
+    
+    freopen(NULL, "a+", stdout);
 
     for(int i = 0; i < src->num_of_lines; i++)
         wprintf(L"%ls%lc", src->text[i].start, btowc(delim));
+
+    freopen(NULL, "a+", stdout);
 }
 
 

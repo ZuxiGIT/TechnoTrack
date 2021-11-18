@@ -17,6 +17,7 @@ add_library(text
 
 target_link_libraries(file
     PRIVATE strings
+    PRIVATE logger
     PUBLIC text)
 
 target_link_libraries(text

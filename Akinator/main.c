@@ -44,7 +44,6 @@ Node* CreateNode(TYPE tp = VARIABLE, Value val = {0}, Node* lft = NULL, Node* rg
 	return res;
 }
 
-/**
 	Calculate the file's size
 
 	\param[in] name - the file name
@@ -278,10 +277,14 @@ int main(int argc, char* argv [])
 
     //printf("Mode(stdout) = %d\n", fwide(stdout, 0));
 
+    printText(text_init(argv[1]));
+
+    
     if(fwide(stdout, 1) > 0)
         wprintf(L"Wide string: %ls", str);
     else
         printf("Error ocurred\n");
+    
 	// if(argc == 1)
 	// {
 	// 	printf("ERROR: No input file\n");

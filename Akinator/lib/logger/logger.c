@@ -12,14 +12,19 @@ static char filepath[256] = "log.txt";
 static char buff[BUFSIZ] = {};
 static int buff_pos = 0;
 
-
+#define _checkErrors(str)\
+{\
+    char error[128] = {};\
+    sprintf(error, "%s:%d %s", __FILE__, __LINE__, str);\
+    __checkErrors(error);\
+}
 
 void log_set_path(const char* path)
 {
     memccpy(filepath, path, '\0', sizeof(filepath));
 }
 
-static void _checkErrors(const char* str);
+static void __checkErrors(const char* str);
 
 void log_close()
 {
@@ -75,6 +80,7 @@ static void _pr_warn(int log_level)
 
 void pr_log_level(int log_level, int dest, const char* fmt, ...)
 {
+    _checkErrors("Before Console logging: ");
     buff_pos = 0;
     
     if(!log_file)
@@ -120,9 +126,9 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
         fwrite(buff, sizeof(char), buff_pos, stdout);
         fflush(stdout);
         
-        _checkErrors("Console logging: ");
-        
         resetColor();
+
+        _checkErrors("After Console logging: ");
     }
     
     if (!!(dest & LOG_FILE))
@@ -135,11 +141,13 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
 }
 
 
-static void _checkErrors(const char* str)
+static void __checkErrors(const char* str)
 {
     if(errno)
     {
+        //setColor(FG_RED);
         perror(str);
+        //resetColor();
         errno = 0;
     }
 }

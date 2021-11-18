@@ -11,7 +11,7 @@
 	\return the file's size
 */
 
-size_t fileSize(const char* name);
+int fileSize(const char* name);
 
 
 /**

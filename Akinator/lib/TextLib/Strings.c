@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <assert.h>
 #include <memory.h>
+#include <wchar.h>
+#include <stdio.h>
 
 typedef unsigned char uc;
 
@@ -30,16 +32,22 @@ int numberOfLines(const wchar_t* text)
 
 	int i = 0;
 
-	const wchar_t* beginning = text;
+    //const wchar_t* beginning = text;
+    wchar_t end_of_line = btowc('\n');
+    wchar_t end_of_file = btowc('\0');
 
-	while (*text != L'\0')
+    freopen(NULL, "a+", stdout);
+    wprintf(L"*text = %lc\n", *text);
+	while (*text != '\0')
 	{
-		if (*text == L'\n')
+		if (*text == '\n')
 			i++;
 		text++;
 	}
+
+    freopen(NULL, "a+", stdout);
     
-    //why i wrote this?????????
+    //why i wrote this before?????????
 	//if (beginning != text)
 	//	i++;
 		
@@ -66,7 +74,7 @@ Line* parseText(wchar_t* lines, int size)
 
 
 		index[i].length = (end - begin);
-		index[i].start 	= wcsndup(begin); //, end - begin);
+		index[i].start 	= wcsdup(begin); //, end - begin);
 		index[i].finish = index[i].start + index[i].length;
 		// memcpy(index[i].start, begin, index[i].length);
 		// index[i].finish = index[i].start + begin;
