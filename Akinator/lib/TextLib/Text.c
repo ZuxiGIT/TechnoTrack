@@ -111,12 +111,12 @@ void printTextWithDelimeters(Text* src, char delim)
 {
     assert(src);
     
-    freopen(NULL, "a+", stdout);
+    freopen(NULL, "w", stdout);
 
     for(int i = 0; i < src->num_of_lines; i++)
         wprintf(L"%ls%lc", src->text[i].start, btowc(delim));
 
-    freopen(NULL, "a+", stdout);
+    freopen(NULL, "w", stdout);
 }
 
 

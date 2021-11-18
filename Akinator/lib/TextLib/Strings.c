@@ -32,11 +32,12 @@ int numberOfLines(const wchar_t* text)
 
 	int i = 0;
 
-    //const wchar_t* beginning = text;
-    wchar_t end_of_line = btowc('\n');
-    wchar_t end_of_file = btowc('\0');
+    const wchar_t* beginning = text;
 
-    freopen(NULL, "a+", stdout);
+    printf("sizeof(wchar_t) = %ld sizeof(wint_t) = %ld\n", sizeof(wchar_t), sizeof(wint_t));
+    perror("ZERO");
+    freopen(NULL, "w", stdout);
+    perror("FIRST");
     wprintf(L"*text = %lc\n", *text);
 	while (*text != '\0')
 	{
@@ -45,11 +46,11 @@ int numberOfLines(const wchar_t* text)
 		text++;
 	}
 
-    freopen(NULL, "a+", stdout);
+    freopen(NULL, "w", stdout);
     
     //why i wrote this before?????????
-	//if (beginning != text)
-	//	i++;
+	if (beginning != text)
+		i++;
 		
 	return i;
 }

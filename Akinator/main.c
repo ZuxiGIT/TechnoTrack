@@ -273,15 +273,16 @@ int main(int argc, char* argv [])
     printf("current locale(LC_CYTPE) is %s\n", setlocale(LC_CTYPE, NULL));
     
     setlocale(LC_ALL, "");
-    wchar_t* str = L"Привет Мир! Ты че шутишь блять ебанушка?\n";
+    wchar_t str[] = L"Привет Мир! Ты че шутишь блять ебанушка?\n";
 
     //printf("Mode(stdout) = %d\n", fwide(stdout, 0));
 
     printText(text_init(argv[1]));
 
     
+    fflush(stdout);
     if(fwide(stdout, 1) > 0)
-        wprintf(L"Wide string: %ls", str);
+        ;//wprintf(L"Wide string: %ls\n %lc\n", str, *str); 
     else
         printf("Error ocurred\n");
     

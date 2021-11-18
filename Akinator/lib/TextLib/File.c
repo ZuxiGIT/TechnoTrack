@@ -4,6 +4,7 @@
 #include <malloc.h>
 #include <errno.h>
 #include <wchar.h>
+#include <stdlib.h>
 
 #include "Strings.h"
 #include "File.h"
@@ -36,6 +37,8 @@ int fileSize(const char* name)
 
 wchar_t* readText(const char* name, const size_t size)
 {
+    mblen(NULL, 0);
+
     pr_info(LOG_CONSOLE, "Beginning readText\n");
 	assert(name != NULL);
 	
@@ -55,7 +58,7 @@ wchar_t* readText(const char* name, const size_t size)
 		return NULL;
 	}
 
-    fwide(fp, 1);
+    //fwide(fp, 1);
     //freopen(NULL, "a+", stdout);
     if(fwide(stdout, 0));
     printf("!!!!!!");
@@ -64,16 +67,26 @@ wchar_t* readText(const char* name, const size_t size)
     printf("fwide(fp, 0) = %d\n", fwide(fp, 0));
     
 
-	wchar_t* buff = (wchar_t*)calloc(size + 1, sizeof(wchar_t));
+	unsigned char* buff = (unsigned char*)calloc(size + 1, sizeof(unsigned char));
 	
 	assert(buff != NULL);
 
-	buff[size] = L'\0';
+	buff[size] = '\0';
 
-	size_t written_sz = fwscanf(fp, L"%s", buff);//, sizeof(wchar_t), size, fp); // logging
+
+	int written_sz = fread(buff, sizeof(unsigned char), size, fp);// logging
+    printf("Length is %ld\n", mbstowcs(NULL, buff, 0));
+    wchar_t* txt = (wchar_t*)calloc(mbstowcs(NULL, buff, 0) + 1, sizeof(wchar_t));
+
+    mbstowcs(txt, buff, mbstowcs(NULL, buff, 0));
 	pr_info(LOG_CONSOLE | LOG_FILE, "Declared size (sizeof(char)): %zu Written size (sizeof(char)): %zu\n", size, written_sz);
 
 	fclose(fp);
 
-	return buff;
+    freopen(NULL, "w", stdout);
+    wprintf(L"Char: %lc\n", *txt);
+    wprintf(L"TEXT\n%ls\n", txt);
+    freopen(NULL, "w", stdout);
+
+	return txt;
 }
