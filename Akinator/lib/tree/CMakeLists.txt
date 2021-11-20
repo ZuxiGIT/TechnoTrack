@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-message("logger")
+message("tree")
 
 add_library(tree
     tree.c)

@@ -110,8 +110,9 @@ void printText(Text* src)
 void printTextWithDelimeters(Text* src, char delim)
 {
     assert(src);
-    
+    perror("B");
     freopen(NULL, "w", stdout);
+    perror("A");
 
     for(int i = 0; i < src->num_of_lines; i++)
         wprintf(L"%ls%lc", src->text[i].start, btowc(delim));

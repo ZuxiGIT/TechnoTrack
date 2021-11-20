@@ -290,8 +290,12 @@ int main(int argc, char* argv [])
     
     Tree* tree =  tree_init(NULL);
 
-    tree->nodes->left = create_node("левый");
-    tree->nodes->right = create_node("правый");
+    add_node(tree, tree->root, left, "левый");
+    //tree->nodes->left = create_node("левый");
+    //tree->nodes->right = create_node("правый");
+    add_node(tree, tree->root, right, "правый");
+    
+    tree_free(tree);
 
 	// if(argc == 1)
 	// {
