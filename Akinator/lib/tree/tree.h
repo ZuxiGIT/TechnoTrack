@@ -28,6 +28,6 @@ typedef struct
 Tree* tree_init();
 Node* create_node(char* str);
 void tree_free(Tree* tree);
-void dump_tree(const char* out, Tree* tree);
+void dump_tree_dot(const char* out, Tree* tree);
 
 #endif /* TREE_H */ 

@@ -278,22 +278,24 @@ int main(int argc, char* argv [])
 
     //printf("Mode(stdout) = %d\n", fwide(stdout, 0));
 
-    Text* out = text_init(argv[1]);
-    printText(out);
-    text_free(out);
+    //Text* out = text_init(argv[1]);
+    //printText(out);
+    //text_free(out);
     
     fflush(stdout);
-    if(fwide(stdout, 1) > 0)
+    //if(fwide(stdout, 1) > 0)
         ;//wprintf(L"Wide string: %ls\n %lc\n", str, *str); 
-    else
-        printf("Error ocurred\n");
+    //else
+    //    printf("Error ocurred\n");
     
     Tree* tree =  tree_init(NULL);
+    printf("++++++++%hhu+++++++\n", (unsigned char)((long)tree&0xff));
 
     add_node(tree, tree->root, left, "левый");
     //tree->nodes->left = create_node("левый");
     //tree->nodes->right = create_node("правый");
     add_node(tree, tree->root, right, "правый");
+    dump_tree_dot("out", tree);
     
     tree_free(tree);
 
