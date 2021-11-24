@@ -28,7 +28,8 @@ static void __checkErrors(const char* str);
 
 void log_close()
 {
-    fclose(log_file);
+    if(log_file)
+        fclose(log_file);
 }
 
 

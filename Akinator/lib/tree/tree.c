@@ -33,6 +33,17 @@ Node* create_node(char* str)
     return res;
 }
 
+Node* wcreate_node(wchar_t* str)
+{
+    
+    Node* res = (Node*)calloc(1, sizeof(Node));
+
+    res->parent = res->left = res->right = NULL;
+    res->str = wcsdup(str);
+
+    return res;
+}
+
 void node_free(Node* node)
 {
     assert(node);
@@ -74,7 +85,7 @@ static int _shift(void* buff, int shift)
 
 #define LOG_SIZE 8192
 
-int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
+static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 {
     int ret = buff_pos;
 
@@ -83,6 +94,19 @@ int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     _PRINT_STR(node->str);
 
     buff_pos += sprintf(curr_pos, "[shape=egg];\n");
+    
+    if(node->parent != NULL)
+    {
+        _SHIFT;
+
+        _PRINT_STR(node->str);
+
+        buff_pos += sprintf(curr_pos, "->");
+
+        _PRINT_STR(node->parent->str);
+
+        buff_pos += sprintf(curr_pos, "[color=\"red\"];\n");
+    }
 
 
     if(node->left)
@@ -141,12 +165,10 @@ void dump_tree_dot(const char* output, Tree* tree)
     buff_pos += sprintf(curr_pos,  "}");
 
     FILE* fp = fopen(output, "w");
+    assert(fp != NULL);
 
-    //fwrite(dump_buff, buff_pos, sizeof(char), fp);
+    fwrite(dump_buff, buff_pos, sizeof(char), fp);
     //fwprintf(fp, L"%s", dump_buff);
-    printf("-------------------\n");
-    freopen(NULL, "w", stdout);
-    printf("%s", dump_buff);
     fclose(fp);
 }
 

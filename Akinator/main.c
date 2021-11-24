@@ -261,6 +261,7 @@ void PrintTree(FILE* stream, Node* head)
 */
 //#include "Tree.h"
 
+#include <stdbool.h>
 #include <wchar.h>
 #include <locale.h>
 #include "./lib/logger/logger.h"
@@ -268,13 +269,114 @@ void PrintTree(FILE* stream, Node* head)
 #include "./lib/TextLib/Strings.h"
 #include "./lib/TextLib/File.h"
 #include "./lib/tree/tree.h"
+
+static void playGame(Tree* tree)
+{
+    wchar_t answer[5] = {};
+    wchar_t right_answer[64] = {};
+    wchar_t difference[64] = {};
+
+    bool got_answer = false;
+    bool end = false;
+
+    Node* current_node = tree->root;
+
+    freopen(NULL, "w", stdout);
+
+    while(!end)
+    {
+        wprintf(L"Акинатор: Это %ls?\nДля ответа наберите: [да/нет]",
+                current_node->str);
+        
+        wscanf(L"%5ls", answer);
+
+        got_answer = false;
+
+        while(!got_answer)
+            if(wcscasecmp(answer, L"да") == 0)
+            {
+                got_answer = true;
+
+                if(current_node->left != NULL)
+                {
+                    fprintf(stderr, "--------> Go to left\n");
+                    current_node = current_node->left;
+                    break;
+                }
+                
+                wprintf(L"Акинатор: Я угадал! Готовь сраку, я выехал :)");
+
+                end = true;
+
+                break;
+            }
+            else if(wcscasecmp(answer, L"нет") == 0)
+            {
+                got_answer = true;
+
+                if(current_node->right != NULL)
+                {
+                    fprintf(stderr, "--------> Go to right\n");
+                    current_node = current_node->right;
+                    break;
+                }
+
+                wprintf(L"Акинатор: А что же тогда??\n");
+                wprintf(L"Введите имя этой сущности [макс 63 символа]: ");
+                
+                wscanf(L"%63ls[^\n]", right_answer);
+                //fgetws(right_answer, 64, stdin);
+
+                wprintf(L"Акинатор: А чем же тогда они отличаются (%ls и %ls)\n",
+                        current_node->str, right_answer);
+                wprintf(L"Введите различие этих сущностей [макс 63 символа]: ");
+
+                wscanf(L"%63ls[^ \n]", difference);
+                //fgetws(difference, 64, stdin);
+
+                if(current_node->parent->left == current_node)
+                {
+                    wadd_node(tree, current_node->parent, left, difference);
+                    current_node->parent->left->right = current_node;
+                    current_node->parent = current_node->parent->left;
+                    wadd_node(tree, current_node->parent, left, right_answer);
+                }
+                else if(current_node->parent->right == current_node)
+                {
+                    wadd_node(tree, current_node->parent, left,  difference);
+                    current_node->parent->right->right = current_node;
+                    current_node->parent = current_node->parent->right;
+                    wadd_node(tree, current_node->parent, left, right_answer);
+                }
+                else
+                {
+                    pr_err(LOG_CONSOLE, "ERROR: Bad tree\n");
+                }
+
+                wmemset(right_answer, L'\0', 64);
+                wmemset(difference, L'\0', 64);
+
+                current_node = tree->root;
+
+            }
+            else
+            {
+                if(wcscmp(answer, L"exit") == 0)
+                    return;
+
+                wmemset(answer, L'\0', 5);
+                wprintf(L"Для ответа наберите: [да/нет]");
+                fwscanf(stdin, L"%ls", answer);
+            }
+    }
+}
+
 int main(int argc, char* argv [])
 {
+    setlocale(LC_ALL, "");
     //printf("current locale(LC_ALL) is %s\n", setlocale(LC_ALL, NULL));
     //printf("current locale(LC_CYTPE) is %s\n", setlocale(LC_CTYPE, NULL));
     
-    setlocale(LC_ALL, "");
-    wchar_t str[] = L"Привет Мир! \n";
 
     //printf("Mode(stdout) = %d\n", fwide(stdout, 0));
 
@@ -282,20 +384,15 @@ int main(int argc, char* argv [])
     //printText(out);
     //text_free(out);
     
-    fflush(stdout);
-    //if(fwide(stdout, 1) > 0)
-        ;//wprintf(L"Wide string: %ls\n %lc\n", str, *str); 
-    //else
-    //    printf("Error ocurred\n");
-    
     Tree* tree =  tree_init(NULL);
-    printf("++++++++%hhu+++++++\n", (unsigned char)((long)tree&0xff));
+    wprintf(L"++++++++%hhu+++++++\n", (unsigned char)((long)tree&0xff));
 
     add_node(tree, tree->root, left, "левый");
     //tree->nodes->left = create_node("левый");
     //tree->nodes->right = create_node("правый");
     add_node(tree, tree->root, right, "правый");
     dump_tree_dot("out", tree);
+    playGame(tree);
     
     tree_free(tree);
 

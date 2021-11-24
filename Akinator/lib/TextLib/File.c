@@ -14,6 +14,9 @@
 void wideCharLocaleInit()
 {
     setlocale(LC_ALL, "");
+    printf("Starrt");
+    abort();
+    exit(-1);
     mblen(NULL, 0);
 }
 

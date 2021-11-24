@@ -10,6 +10,13 @@
     node->side->parent = node;\
 }\
 
+#define wadd_node(tree, node, side, str)\
+{\
+    node->side = wcreate_node(str);\
+    tree->size++;\
+    node->side->parent = node;\
+}\
+
 typedef struct Node 
 {
     wchar_t* str;
@@ -27,6 +34,7 @@ typedef struct
     
 Tree* tree_init();
 Node* create_node(char* str);
+Node* wcreate_node(wchar_t* str);
 void tree_free(Tree* tree);
 void dump_tree_dot(const char* out, Tree* tree);
 
