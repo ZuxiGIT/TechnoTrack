@@ -54,41 +54,52 @@ void tree_free(Tree* tree)
     free(tree);
 }
 
-static int _shift(char* buff, int shift)
+static int _shift(void* buff, int shift)
 {
-    int ret = shift;
-    for(; shift > 0; shift--)
-        sprintf(buff, "\t");
+    int ret = 0;
+    for(; shift > 0;  ret++, shift--)
+        sprintf((char*)(buff + ret), "%c", '\t');
 
     return ret;
 }
 
 #define _SHIFT buff_pos += _shift(dump_buff + buff_pos, shift);
 #define dump_node_dot(node) _dump_node_dot(node, dump_buff, buff_pos, shift);
-#define curr_pos dump_buff + buff_pos
+#define curr_pos (dump_buff + buff_pos)
+
+#define _PRINT_STR(str)\
+    buff_pos += sprintf(curr_pos,  "\"");\
+    buff_pos += wcstombs((char*)curr_pos, str, LOG_SIZE - buff_pos);\
+    buff_pos += sprintf(curr_pos, "\"");
+
+#define LOG_SIZE 8192
 
 int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 {
     int ret = buff_pos;
 
     _SHIFT;
-
-    buff_pos += sprintf(curr_pos, "Node_%hhu[shape=record, label=\"{ \"", 
-                        (unsigned char)((long)node & 0xff));
-
-    buff_pos += wcstombs(curr_pos, node->str, 4096 - ret);
     
-    buff_pos += sprintf(curr_pos, "\" | {<left> yes | <right> no}}\"];\n");
+    _PRINT_STR(node->str);
+
+    buff_pos += sprintf(curr_pos, "[shape=egg];\n");
 
 
     if(node->left)
     { 
         _SHIFT;
 
-        buff_pos += sprintf(curr_pos, "Node_%hhu:<left>->Node_%hhu;\n",
+        _PRINT_STR(node->str);
+        buff_pos += sprintf(curr_pos, "->");
+        _PRINT_STR(node->left->str);
+        buff_pos += sprintf(curr_pos, "[label=\"Да\"];\n");
+
+        /*
+        buff_pos += sprintf(curr_pos,  "Node_%hhu:<left>->Node_%hhu;\n",
                             (unsigned char)((long)node & 0xff),
                             (unsigned char)((long)node->left & 0xff));
 
+        */
         buff_pos += dump_node_dot(node->left);
     }
 
@@ -96,14 +107,21 @@ int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     {
         _SHIFT;
 
-        buff_pos += sprintf(curr_pos, "Node_%hhu:<right>->Node_%hhu;\n",
+        _PRINT_STR(node->str);
+        buff_pos += sprintf(curr_pos, "->");
+        _PRINT_STR(node->right->str);
+        buff_pos += sprintf(curr_pos, "[label=\"Нет\"];\n");
+
+        /*
+        buff_pos += sprintf(curr_pos,  "Node_%hhu:<right>->Node_%hhu;\n",
                             (unsigned char)((long)node & 0xff),
                             (unsigned char)((long)node->right & 0xff));
+        */
 
         buff_pos += dump_node_dot(node->right);
     }
 
-    return buff_pos;
+    return buff_pos - ret;
 }
 
 
@@ -111,21 +129,29 @@ void dump_tree_dot(const char* output, Tree* tree)
 {
     assert(output && "NOT Valid output file");
 
-    static char dump_buff[8192] = {};
+    static char dump_buff[LOG_SIZE] = {};
     static int buff_pos = 0;
     static int shift = 0;
 
-    buff_pos += sprintf(curr_pos , "digraph tree{\n\trankdir=HR;\n");
+    buff_pos += sprintf(curr_pos ,  "digraph tree{\n\trankdir=HR;\n");
     shift++;
     
     buff_pos += dump_node_dot(tree->root);
 
-    buff_pos += sprintf(curr_pos, "}");
+    buff_pos += sprintf(curr_pos,  "}");
+
     FILE* fp = fopen(output, "w");
 
-    fwrite(dump_buff, buff_pos, sizeof(char), fp);
+    //fwrite(dump_buff, buff_pos, sizeof(char), fp);
+    //fwprintf(fp, L"%s", dump_buff);
+    printf("-------------------\n");
+    freopen(NULL, "w", stdout);
+    printf("%s", dump_buff);
     fclose(fp);
 }
-#undef dump_node
+
+#undef LOG_SIZE
+#undef _PRINT_STR
 #undef curr_pos
+#undef dump_node_dot
 #undef _SHIFT

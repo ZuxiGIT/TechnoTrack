@@ -10,6 +10,7 @@
 
 	\return the file's size
 */
+void wideCharLocaleInit() __attribute__((constructor));
 
 int fileSize(const char* name);
 

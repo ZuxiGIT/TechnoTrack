@@ -5,10 +5,17 @@
 #include <errno.h>
 #include <wchar.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include "Strings.h"
 #include "File.h"
 #include "../logger/logger.h"
+
+void wideCharLocaleInit()
+{
+    setlocale(LC_ALL, "");
+    mblen(NULL, 0);
+}
 
 int fileSize(const char* name)
 {
