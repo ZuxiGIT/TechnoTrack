@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <wchar.h>
 #include <assert.h>
+#include <string.h>
 #include <stdio.h>
 
 Tree* tree_init()
@@ -109,7 +110,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     }
 
 
-    if(node->left)
+    if(node->left != NULL)
     { 
         _SHIFT;
 
@@ -127,7 +128,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         buff_pos += dump_node_dot(node->left);
     }
 
-    if(node->right)
+    if(node->right != NULL)
     {
         _SHIFT;
 
@@ -170,6 +171,35 @@ void dump_tree_dot(const char* output, Tree* tree)
     fwrite(dump_buff, buff_pos, sizeof(char), fp);
     //fwprintf(fp, L"%s", dump_buff);
     fclose(fp);
+
+    memset(dump_buff, '\0', buff_pos);
+    buff_pos = 0;
+    shift = 0;
+}
+
+void save_tree(const char* output, Tree* tree)
+{
+    static char dump_buff[LOG_SIZE] = {};
+    static int buff_pos = 0;
+    static int shift = 0;
+
+
+
+
+
+
+
+    FILE* fp = fopen(output, "w");
+    assert(fp != NULL);
+
+    fwrite(dump_buff, buff_pos, sizeof(char), fp);
+
+    fclose(fp);
+
+    memset(dump_buff, '\0', buff_pos);
+    buff_pos = 0;
+    shift = 0;
+
 }
 
 #undef LOG_SIZE
@@ -177,3 +207,5 @@ void dump_tree_dot(const char* output, Tree* tree)
 #undef curr_pos
 #undef dump_node_dot
 #undef _SHIFT
+
+

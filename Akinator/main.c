@@ -334,30 +334,44 @@ static void playGame(Tree* tree)
                 wscanf(L"%63ls[^ \n]", difference);
                 //fgetws(difference, 64, stdin);
 
+                /*
+                fprintf(stderr, "curr_node->parent->left = %p,
+                                curr_node->parent->right = %p,
+                                curr_node = %p\n",
+                                current_node->parent->left,
+                                current_node->parent->right,
+                                current_node);
+                */
+
                 if(current_node->parent->left == current_node)
                 {
+                    //dump_tree_dot("BeforeChangeTree", tree);
                     wadd_node(tree, current_node->parent, left, difference);
                     current_node->parent->left->right = current_node;
                     current_node->parent = current_node->parent->left;
                     wadd_node(tree, current_node->parent, left, right_answer);
+                    //dump_tree_dot("AfterChangeTree", tree);
                 }
                 else if(current_node->parent->right == current_node)
                 {
-                    wadd_node(tree, current_node->parent, left,  difference);
+                    //dump_tree_dot("BeforeChangeTree", tree);
+                    wadd_node(tree, current_node->parent, right, difference);
                     current_node->parent->right->right = current_node;
                     current_node->parent = current_node->parent->right;
                     wadd_node(tree, current_node->parent, left, right_answer);
+                    //dump_tree_dot("AfterChangeTree", tree);
                 }
                 else
                 {
                     pr_err(LOG_CONSOLE, "ERROR: Bad tree\n");
+                    dump_tree_dot("BadtreeDump", tree);
+                    exit(1);
                 }
 
                 wmemset(right_answer, L'\0', 64);
                 wmemset(difference, L'\0', 64);
 
                 current_node = tree->root;
-
             }
             else
             {
@@ -393,6 +407,7 @@ int main(int argc, char* argv [])
     add_node(tree, tree->root, right, "правый");
     dump_tree_dot("out", tree);
     playGame(tree);
+    save_tree("saveFile.tr", tree);
     
     tree_free(tree);
 
