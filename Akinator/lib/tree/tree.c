@@ -47,6 +47,9 @@ Node* wcreate_node(wchar_t* str)
 
 void node_free(Node* node)
 {
+    if(node == NULL)
+        return;
+
     assert(node);
     if((node->left))
         node_free(node->left);
@@ -177,17 +180,45 @@ void dump_tree_dot(const char* output, Tree* tree)
     shift = 0;
 }
 
+#define save_node(node) _save_node(node, dump_buff, buff_pos, shift)
+
+int _save_node(Node* node, char* dump_buff, int buff_pos, int shift)
+{
+    int ret = buff_pos;
+
+    _SHIFT;
+
+    buff_pos += sprintf(curr_pos, "{\n");
+    shift++;
+
+    _SHIFT;
+    
+    _PRINT_STR(node->str);
+
+    buff_pos += sprintf(curr_pos, "\n");
+
+    if(node->left != NULL)
+        buff_pos += save_node(node->left);
+
+    if(node->right != NULL)
+        buff_pos += save_node(node->right);
+
+    shift--;
+
+    _SHIFT;
+
+    buff_pos += sprintf(curr_pos, "}\n");
+
+    return buff_pos - ret;
+}
+
 void save_tree(const char* output, Tree* tree)
 {
     static char dump_buff[LOG_SIZE] = {};
     static int buff_pos = 0;
     static int shift = 0;
 
-
-
-
-
-
+    buff_pos += save_node(tree->root);
 
     FILE* fp = fopen(output, "w");
     assert(fp != NULL);
@@ -202,10 +233,23 @@ void save_tree(const char* output, Tree* tree)
 
 }
 
+#undef save_node
 #undef LOG_SIZE
 #undef _PRINT_STR
 #undef curr_pos
 #undef dump_node_dot
 #undef _SHIFT
+/*
+Node* parse_node(
+Tree* load_tree(const char* input)
+{
+    int sz = fileSize(input);
 
+    wchar_t* txt = readText(input, size);
 
+    Tree* tree = (Tree*)calloc(1, sizeof(Tree));
+
+    if(*txt == L'{')
+        tree->root = parse_node(txt);
+}
+*/

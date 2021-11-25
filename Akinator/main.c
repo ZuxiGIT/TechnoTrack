@@ -285,7 +285,7 @@ static void playGame(Tree* tree)
 
     while(!end)
     {
-        wprintf(L"Акинатор: Это %ls?\nДля ответа наберите: [да/нет]",
+        wprintf(L"Акинатор: Это %ls?\nДля ответа наберите: [да/нет] ",
                 current_node->str);
         
         wscanf(L"%5ls", answer);
@@ -327,12 +327,6 @@ static void playGame(Tree* tree)
                 wscanf(L"%63ls[^\n]", right_answer);
                 //fgetws(right_answer, 64, stdin);
 
-                wprintf(L"Акинатор: А чем же тогда они отличаются (%ls и %ls)\n",
-                        current_node->str, right_answer);
-                wprintf(L"Введите различие этих сущностей [макс 63 символа]: ");
-
-                wscanf(L"%63ls[^ \n]", difference);
-                //fgetws(difference, 64, stdin);
 
                 /*
                 fprintf(stderr, "curr_node->parent->left = %p,
@@ -343,29 +337,48 @@ static void playGame(Tree* tree)
                                 current_node);
                 */
 
-                if(current_node->parent->left == current_node)
+                if (current_node->left != NULL)
                 {
-                    //dump_tree_dot("BeforeChangeTree", tree);
-                    wadd_node(tree, current_node->parent, left, difference);
-                    current_node->parent->left->right = current_node;
-                    current_node->parent = current_node->parent->left;
-                    wadd_node(tree, current_node->parent, left, right_answer);
-                    //dump_tree_dot("AfterChangeTree", tree);
-                }
-                else if(current_node->parent->right == current_node)
-                {
-                    //dump_tree_dot("BeforeChangeTree", tree);
-                    wadd_node(tree, current_node->parent, right, difference);
-                    current_node->parent->right->right = current_node;
-                    current_node->parent = current_node->parent->right;
-                    wadd_node(tree, current_node->parent, left, right_answer);
-                    //dump_tree_dot("AfterChangeTree", tree);
+                    wadd_node(tree, current_node, right, right_answer);
                 }
                 else
                 {
-                    pr_err(LOG_CONSOLE, "ERROR: Bad tree\n");
-                    dump_tree_dot("BadtreeDump", tree);
-                    exit(1);
+                    wprintf(L"Акинатор: А чем же тогда они отличаются (%ls и %ls)\n",
+                            current_node->str, right_answer);
+                    wprintf(L"Введите различие этих сущностей [макс 63 символа]: ");
+
+                    wscanf(L"%63ls[^ \n]", difference);
+                    //fgetws(difference, 64, stdin);
+
+                    if(current_node->parent == NULL)
+                    {
+                        wadd_node(tree, current_node, right, difference);
+                        wadd_node(tree, current_node->right, left, right_answer);
+                    }
+                    else if(current_node->parent->left == current_node)
+                    {
+                        //dump_tree_dot("BeforeChangeTree", tree);
+                        wadd_node(tree, current_node->parent, left, difference);
+                        current_node->parent->left->right = current_node;
+                        current_node->parent = current_node->parent->left;
+                        wadd_node(tree, current_node->parent, left, right_answer);
+                        //dump_tree_dot("AfterChangeTree", tree);
+                    }
+                    else if(current_node->parent->right == current_node)
+                    {
+                        //dump_tree_dot("BeforeChangeTree", tree);
+                        wadd_node(tree, current_node->parent, right, difference);
+                        current_node->parent->right->right = current_node;
+                        current_node->parent = current_node->parent->right;
+                        wadd_node(tree, current_node->parent, left, right_answer);
+                        //dump_tree_dot("AfterChangeTree", tree);
+                    }
+                    else
+                    {
+                        pr_err(LOG_CONSOLE, "ERROR: Bad tree\n");
+                        dump_tree_dot("BadTreeDump", tree);
+                        exit(1);
+                    }
                 }
 
                 wmemset(right_answer, L'\0', 64);
@@ -379,7 +392,7 @@ static void playGame(Tree* tree)
                     return;
 
                 wmemset(answer, L'\0', 5);
-                wprintf(L"Для ответа наберите: [да/нет]");
+                wprintf(L"Для ответа наберите: [да/нет] ");
                 fwscanf(stdin, L"%ls", answer);
             }
     }
@@ -401,13 +414,15 @@ int main(int argc, char* argv [])
     Tree* tree =  tree_init(NULL);
     wprintf(L"++++++++%hhu+++++++\n", (unsigned char)((long)tree&0xff));
 
-    add_node(tree, tree->root, left, "левый");
+    //add_node(tree, tree->root, left, "левый");
     //tree->nodes->left = create_node("левый");
     //tree->nodes->right = create_node("правый");
-    add_node(tree, tree->root, right, "правый");
-    dump_tree_dot("out", tree);
+    //add_node(tree, tree->root, right, "правый");
+
     playGame(tree);
+
     save_tree("saveFile.tr", tree);
+    dump_tree_dot("out", tree);
     
     tree_free(tree);
 

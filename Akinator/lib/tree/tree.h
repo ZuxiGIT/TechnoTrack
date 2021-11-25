@@ -37,5 +37,7 @@ Node* create_node(char* str);
 Node* wcreate_node(wchar_t* str);
 void tree_free(Tree* tree);
 void dump_tree_dot(const char* out, Tree* tree);
+void save_tree(const char* output, Tree* tree);
+
 
 #endif /* TREE_H */ 
