@@ -419,10 +419,11 @@ int main(int argc, char* argv [])
     //tree->nodes->right = create_node("правый");
     //add_node(tree, tree->root, right, "правый");
 
-    playGame(tree);
+    //playGame(tree);
 
     save_tree("saveFile.tr", tree);
-    dump_tree_dot("out", tree);
+    tree = load_tree("saveFile.tr");
+    dump_tree_dot("after_loading", tree);
     
     tree_free(tree);
 

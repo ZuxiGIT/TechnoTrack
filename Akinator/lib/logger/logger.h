@@ -11,8 +11,9 @@ enum{
 };
 
 enum{
-    LOG_CONSOLE = 0x1,
-    LOG_FILE = 0x10,
+    LOG_CONSOLE = 0b1,
+    LOG_CONSOLE_STDERR = 0b11,
+    LOG_FILE = 0b10000,
 };
 
 void log_init(const char* path);

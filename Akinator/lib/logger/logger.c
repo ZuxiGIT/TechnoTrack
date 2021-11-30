@@ -108,7 +108,7 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
     if (!log_file)
     {
         setColor(FG_RED);
-        printf("ERROR: Can not use logging\n");
+        fprintf(stderr, "ERROR: Can not use logging\n");
         resetColor();
         return;
     }
@@ -125,6 +125,10 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
             setColor(FG_RED);
         
         fwrite(buff, sizeof(char), buff_pos, stdout);
+
+        if(!!(dest & LOG_CONSOLE_STDERR))
+            fwrite(buff, sizeof(char), buff_pos, stderr);
+
         fflush(stdout);
         
         resetColor();

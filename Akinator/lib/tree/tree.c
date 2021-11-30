@@ -1,6 +1,10 @@
 #include "tree.h"
+#include "../logger/logger.h"
+#include "../TextLib/File.h"
+
 #include <stdlib.h>
 #include <wchar.h>
+#include <wctype.h>
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
@@ -69,7 +73,7 @@ void tree_free(Tree* tree)
     free(tree);
 }
 
-static int _shift(void* buff, int shift)
+static inline int _shift(void* buff, int shift)
 {
     int ret = 0;
     for(; shift > 0;  ret++, shift--)
@@ -239,17 +243,90 @@ void save_tree(const char* output, Tree* tree)
 #undef curr_pos
 #undef dump_node_dot
 #undef _SHIFT
-/*
-Node* parse_node(
+
+
+static inline void _skip_spaces(wchar_t** txt)
+{
+    while(iswspace(**((wint_t**)txt))) (*txt)++;
+}
+
+static inline void _skip_chars(wchar_t** txt)
+{
+    while(iswalpha(**((wint_t**)txt))) (*txt)++;
+}
+
+#define _SKIP_SPACES(txt) _skip_spaces(&txt);
+#define _SKIP_CHARS(txt) _skip_chars(&txt);
+#define REQUIRE(chr)\
+    if(*txt != chr)\
+    {\
+        pr_err(LOG_CONSOLE_STDERR, "Bad .tr file format\n");\
+        return NULL;\
+    }
+
+Node* parse_node(Tree* tree, wchar_t* txt)
+{
+    tree->size++;
+    
+    Node* node = (Node*)calloc(1, sizeof(Node));
+
+    REQUIRE(L'{');
+    txt++;
+
+    _SKIP_SPACES(txt);
+
+    REQUIRE(L'"');
+
+    *txt = L' ';
+
+    node->str = ++txt;
+
+    _SKIP_CHARS(txt);
+    
+    REQUIRE(L'"');
+
+    *txt = L'\0';
+    
+    txt++;
+
+    REQUIRE(L'{');
+    if(*txt == L'{')
+    {
+        node->left = parse_node(tree, txt);
+        node->left->parent = node;
+    }
+
+    REQUIRE(L'{');
+    if(*txt == L'{')
+    {
+        node->right = parse_node(tree, txt);
+        node->right->parent = node;
+    }
+
+    _SKIP_SPACES(txt);
+
+    REQUIRE(L'}');
+    txt++;
+
+    return node;
+}
+
+#undef _SKIP_SPACES
+#undef _SKIP_CHARS
+#undef REQUIRE
+
 Tree* load_tree(const char* input)
 {
     int sz = fileSize(input);
 
-    wchar_t* txt = readText(input, size);
+    wchar_t* txt = readText(input, sz);
 
     Tree* tree = (Tree*)calloc(1, sizeof(Tree));
 
     if(*txt == L'{')
-        tree->root = parse_node(txt);
+        tree->root = parse_node(tree, txt);
+    else
+        pr_err(LOG_CONSOLE_STDERR,  "Bad .tr file format"
+                                    " [expected %lc, got %lc]\n",
+                                    L'{', *txt); 
 }
-*/
