@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include <stddef.h>
+#include <stdbool.h>
 
 #define add_node(tree, node, side, str)\
 {\
@@ -23,12 +24,15 @@ typedef struct Node
     struct Node* left;
     struct Node* right;
     struct Node* parent;
+    bool loaded;
 } Node;
 
 typedef struct 
 {
     Node* root;
+    wchar_t* txt;
     int size;
+    bool loaded;
 } Tree;
 
     

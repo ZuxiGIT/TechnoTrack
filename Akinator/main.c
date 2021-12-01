@@ -422,6 +422,7 @@ int main(int argc, char* argv [])
     //playGame(tree);
 
     save_tree("saveFile.tr", tree);
+    tree_free(tree);
     tree = load_tree("saveFile.tr");
     dump_tree_dot("after_loading", tree);
     
