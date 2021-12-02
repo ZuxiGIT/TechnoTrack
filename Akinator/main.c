@@ -262,6 +262,7 @@ void PrintTree(FILE* stream, Node* head)
 //#include "Tree.h"
 
 #include <stdbool.h>
+#include <stdio.h>
 #include <wchar.h>
 #include <locale.h>
 #include "./lib/logger/logger.h"
@@ -269,6 +270,46 @@ void PrintTree(FILE* stream, Node* head)
 #include "./lib/TextLib/Strings.h"
 #include "./lib/TextLib/File.h"
 #include "./lib/tree/tree.h"
+
+#define SIZE_ARR(arr) sizeof(arr) / sizeof(arr[0])
+
+static inline void cleanInputBuffer()
+{
+    wint_t chr = L'0';
+    while(((chr = getwc(stdin)) != L'\n') && (!feof(stdin))) ; //fprintf(stderr, "---> chr %lc\n", chr);
+}
+
+static inline void readInput(wchar_t* input, int size)
+{
+
+    fgetws(input, size, stdin);
+
+    fprintf(stderr, "input: [%ls]\n", input);
+
+    wchar_t* chr = input;
+
+    //deleting last '\n'
+
+    while(*(chr + 1) != L'\0') chr++;
+    
+    if(*chr == L'\n')
+    {
+        fprintf(stderr, "got it!\n");
+        *chr = L'\0';
+    }
+
+    //fprintf(stderr, "input after proccesing: [%ls]\n", input);
+
+    //fprintf(stderr, "before\n");
+    //fprintf(stderr,"length of input is %lu\n", wcslen(input));
+
+    if(wcslen(input) == (size - 1))
+        cleanInputBuffer();
+
+    //fprintf(stderr, "after\n");
+    
+}
+
 
 static void playGame(Tree* tree)
 {
@@ -288,7 +329,9 @@ static void playGame(Tree* tree)
         wprintf(L"Акинатор: Это %ls?\nДля ответа наберите: [да/нет] ",
                 current_node->str);
         
-        wscanf(L"%5ls", answer);
+        //wscanf(L"%5ls", answer);
+        readInput(answer, SIZE_ARR(answer)); //--> just for testing input process
+        //fgetws(answer, 5, stdin);
 
         got_answer = false;
 
@@ -304,7 +347,7 @@ static void playGame(Tree* tree)
                     break;
                 }
                 
-                wprintf(L"Акинатор: Я угадал! Готовь сраку, я выехал :)");
+                wprintf(L"Акинатор: Я угадал! Готовь сраку, я выехал :)\n");
 
                 end = true;
 
@@ -324,9 +367,9 @@ static void playGame(Tree* tree)
                 wprintf(L"Акинатор: А что же тогда??\n");
                 wprintf(L"Введите имя этой сущности [макс 63 символа]: ");
                 
-                wscanf(L"%63ls[^\n]", right_answer);
+                //wscanf(L"%63ls[^\n]", right_answer);
                 //fgetws(right_answer, 64, stdin);
-
+                readInput(right_answer, SIZE_ARR(right_answer));
 
                 /*
                 fprintf(stderr, "curr_node->parent->left = %p,
@@ -347,8 +390,9 @@ static void playGame(Tree* tree)
                             current_node->str, right_answer);
                     wprintf(L"Введите различие этих сущностей [макс 63 символа]: ");
 
-                    wscanf(L"%63ls[^ \n]", difference);
+                    //wscanf(L"%63ls[^ \n]", difference);
                     //fgetws(difference, 64, stdin);
+                    readInput(difference, sizeof(difference));
 
                     if(current_node->parent == NULL)
                     {
@@ -381,8 +425,8 @@ static void playGame(Tree* tree)
                     }
                 }
 
-                wmemset(right_answer, L'\0', 64);
-                wmemset(difference, L'\0', 64);
+                wmemset(right_answer, L'\0', SIZE_ARR(right_answer));
+                wmemset(difference, L'\0', SIZE_ARR(difference));
 
                 current_node = tree->root;
             }
@@ -393,7 +437,10 @@ static void playGame(Tree* tree)
 
                 wmemset(answer, L'\0', 5);
                 wprintf(L"Для ответа наберите: [да/нет] ");
-                fwscanf(stdin, L"%ls", answer);
+
+                //fwscanf(stdin, L"%5ls", answer);
+                //fgetws(answer, 5, stdin);
+                readInput(answer, SIZE_ARR(answer));
             }
     }
 }
@@ -419,14 +466,14 @@ int main(int argc, char* argv [])
     //tree->nodes->right = create_node("правый");
     //add_node(tree, tree->root, right, "правый");
 
-    //playGame(tree);
+    tree = load_tree("saveFile.tr");
+    playGame(tree);
 
     save_tree("saveFile.tr", tree);
-    tree_free(tree);
-    tree = load_tree("saveFile.tr");
+    //tree_free(&tree);
     dump_tree_dot("after_loading", tree);
     
-    tree_free(tree);
+    tree_free(&tree);
 
 	// if(argc == 1)
 	// {

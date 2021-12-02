@@ -69,14 +69,15 @@ void node_free(Node* node)
     return;
 }
 
-void tree_free(Tree* tree)
+void tree_free(Tree** tree)
 {
-    node_free(tree->root->left);
-    node_free(tree->root->right);
-    free(tree->root);
-    if(tree->loaded)
-        free(tree->txt);
-    free(tree);
+    node_free((*tree)->root->left);
+    node_free((*tree)->root->right);
+    free((*tree)->root);
+    if((*tree)->loaded)
+        free((*tree)->txt);
+    free(*tree);
+    *tree = NULL;
 }
 
 static inline int _shift(void* buff, int shift)
@@ -170,6 +171,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 void dump_tree_dot(const char* output, Tree* tree)
 {
     assert(output && "NOT Valid output file");
+    assert(tree && "NOT Valid tree (NULL)");
 
     static char dump_buff[LOG_SIZE] = {};
     static int buff_pos = 0;
@@ -194,13 +196,25 @@ void dump_tree_dot(const char* output, Tree* tree)
     shift = 0;
 }
 
-#define save_node(node) _save_node(node, dump_buff, buff_pos, shift)
+#define save_node(node, side) _save_node(node, dump_buff, buff_pos, shift, side)
+/*
+ *
+ * side ==  1  ---> left child
+ * side ==  0  ---> root node (it has children, but no parent :( )
+ * side == -1  ---> rigth child
+ *
+ */
 
-int _save_node(Node* node, char* dump_buff, int buff_pos, int shift)
+int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int side)
 {
     int ret = buff_pos;
 
     _SHIFT;
+
+    if(side == -1)
+        buff_pos += sprintf(curr_pos, "l");
+    else if(side == 1)
+        buff_pos += sprintf(curr_pos, "r");
 
     buff_pos += sprintf(curr_pos, "{\n");
     shift++;
@@ -212,10 +226,15 @@ int _save_node(Node* node, char* dump_buff, int buff_pos, int shift)
     buff_pos += sprintf(curr_pos, "\n");
 
     if(node->left != NULL)
-        buff_pos += save_node(node->left);
+        buff_pos += save_node(node->left, -1);
+    //else
+    //    buff_pos += save_empty_node();
 
     if(node->right != NULL)
-        buff_pos += save_node(node->right);
+        buff_pos += save_node(node->right, 1);
+    //else
+    //    buff_pos += save_empty_node();
+
 
     shift--;
 
@@ -232,7 +251,7 @@ void save_tree(const char* output, Tree* tree)
     static int buff_pos = 0;
     static int shift = 0;
 
-    buff_pos += save_node(tree->root);
+    buff_pos += save_node(tree->root, 0);
 
     FILE* fp = fopen(output, "w");
     assert(fp != NULL);
@@ -257,14 +276,18 @@ void save_tree(const char* output, Tree* tree)
 
 static inline void _skip_spaces(wchar_t** txt)
 {
-    while(iswspace(**((wint_t**)txt))) (*txt)++;
+    while(iswspace(**((wint_t**)txt))) 
+    {
+        fprintf(stderr, "skipping space (%lc)\n", **txt);
+        (*txt)++;
+    }
 }
 
 static inline void _skip_chars(wchar_t** txt)
 {
     while(iswalpha(**((wint_t**)txt)))
     {
-        fprintf(stderr, "--->%lc\n", **txt);
+        fprintf(stderr, "skipping char (%lc)\n", **txt);
 
         (*txt)++;
     }
@@ -281,12 +304,16 @@ static inline void _skip_till(wchar_t** txt, wchar_t chr)
 #define REQUIRE(chr)\
     if(*txt != chr)\
     {\
-        pr_err(LOG_CONSOLE_STDERR, "Bad .tr file format\n");\
+        pr_err(LOG_CONSOLE_STDERR, "Bad .tr file format"\
+                                    " (expected [%lc] but got [%lc])\n", chr, *txt);\
+        abort();\
         return NULL;\
     }
 
-Node* parse_node(Tree* tree, wchar_t* txt)
+Node* parse_node(Tree* tree, wchar_t** text)
 {
+    wchar_t* txt = *text;
+
     tree->size++;
     
     Node* node = (Node*)calloc(1, sizeof(Node));
@@ -295,6 +322,9 @@ Node* parse_node(Tree* tree, wchar_t* txt)
     node->str = NULL;
 
     REQUIRE(L'{');
+
+    fprintf(stderr, "1) ---> *txt = %lc\n", *txt);
+
     txt++;
 
     _SKIP_SPACES(txt);
@@ -310,29 +340,47 @@ Node* parse_node(Tree* tree, wchar_t* txt)
     _SKIP_TILL(txt, L'"');
     //fprintf(stderr, "--->%lc\n", *txt);
     
+    fprintf(stderr, "2) ---> *(--txt) = %lc\n", *(txt - 1));
+
     REQUIRE(L'"');
 
     *txt = L'\0';
+
     fprintf(stderr, "result str(%lu): %ls\n", wcslen(node->str), node->str);
     
+    fprintf(stderr, "3) ---> *(--txt) = %lc\n", *(txt - 1));
+
     txt++;
 
-    if(*txt == L'{')
+    fprintf(stderr, "4) ---> *txt = %lc\n", *(txt));
+
+    _SKIP_SPACES(txt);
+
+    fprintf(stderr, "5) ---> *txt = %lc\n", *(txt));
+
+    if(*txt == L'l')
     {
-        node->left = parse_node(tree, txt);
+        txt++;
+        node->left = parse_node(tree, &txt);
         node->left->parent = node;
     }
 
-    if(*txt == L'{')
+    _SKIP_SPACES(txt);
+
+    if(*txt == L'r')
     {
-        node->right = parse_node(tree, txt);
+        txt++;
+        node->right = parse_node(tree, &txt);
         node->right->parent = node;
     }
 
     _SKIP_SPACES(txt);
 
     REQUIRE(L'}');
+
     txt++;
+
+    *text = txt;
 
     return node;
 }
@@ -347,7 +395,7 @@ Tree* load_tree(const char* input)
     int sz = fileSize(input);
 
     wchar_t* txt = readText(input, sz);
-    fprintf(stderr, "File was read %ls\n", txt);
+    fprintf(stderr, "File was read\n%ls\n", txt);
 
     Tree* tree = (Tree*)calloc(1, sizeof(Tree));
     assert(tree != NULL);
@@ -357,7 +405,7 @@ Tree* load_tree(const char* input)
     tree->root = NULL;
 
     if(*txt == L'{')
-        tree->root = parse_node(tree, txt);
+        tree->root = parse_node(tree, &txt);
     else
         pr_err(LOG_CONSOLE_STDERR,  "Bad .tr file format"
                                     " [expected %lc, got %lc]\n",
