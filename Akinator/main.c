@@ -273,15 +273,23 @@ void PrintTree(FILE* stream, Node* head)
 
 #define SIZE_ARR(arr) sizeof(arr) / sizeof(arr[0])
 
-static inline void cleanInputBuffer()
+static inline void wccleanInputBuffer()
 {
     wint_t chr = L'0';
-    while(((chr = getwc(stdin)) != L'\n') && (!feof(stdin))) ; //fprintf(stderr, "---> chr %lc\n", chr);
+    while(((chr = getwc(stdin)) != L'\n') && !feof(stdin) && chr != L'\0') ; //fprintf(stderr, "---> chr %lc\n", chr);
 }
 
-static inline void readInput(wchar_t* input, int size)
+static inline void cleanInputBuffer()
+{
+    char chr = '0';
+    while(((chr = fgetc(stdin)) != '\n') && !feof(stdin) && chr != '\0') ; //fprintf(stderr, "---> chr %lc\n", chr);
+}
+
+static inline void wcreadInput(wchar_t* input, int size)
 {
 
+    
+    freopen(NULL, "r", stdin);
     fgetws(input, size, stdin);
 
     fprintf(stderr, "input: [%ls]\n", input);
@@ -301,13 +309,49 @@ static inline void readInput(wchar_t* input, int size)
     //fprintf(stderr, "input after proccesing: [%ls]\n", input);
 
     //fprintf(stderr, "before\n");
-    //fprintf(stderr,"length of input is %lu\n", wcslen(input));
+    fprintf(stderr,"length of input is %lu\n", wcslen(input));
 
     if(wcslen(input) == (size - 1))
+        wccleanInputBuffer();
+
+    //fprintf(stderr, "after\n");
+    
+    
+    freopen(NULL, "r", stdin);
+}
+
+static inline void readInput(char* input, int size)
+{
+
+    
+    freopen(NULL, "r", stdin);
+    fgets(input, size, stdin);
+
+    fprintf(stderr, "input(%lu): [%s]\n", strlen(input),  input);
+
+    char* chr = input;
+
+    //deleting last '\n'
+
+    while(*(chr + 1) != '\0') chr++;
+    
+    if(*chr == '\n')
+    {
+        fprintf(stderr, "got it!\n");
+        *chr = '\0';
+    }
+
+    //fprintf(stderr, "input after proccesing: [%ls]\n", input);
+
+    //fprintf(stderr, "before\n");
+    fprintf(stderr,"length of input is %lu\n", strlen(input));
+
+    if(strlen(input) == (size - 1))
         cleanInputBuffer();
 
     //fprintf(stderr, "after\n");
     
+    freopen(NULL, "r", stdin);
 }
 
 
@@ -330,7 +374,7 @@ static void playGame(Tree* tree)
                 current_node->str);
         
         //wscanf(L"%5ls", answer);
-        readInput(answer, SIZE_ARR(answer)); //--> just for testing input process
+        wcreadInput(answer, SIZE_ARR(answer)); //--> just for testing input process
         //fgetws(answer, 5, stdin);
 
         got_answer = false;
@@ -369,7 +413,7 @@ static void playGame(Tree* tree)
                 
                 //wscanf(L"%63ls[^\n]", right_answer);
                 //fgetws(right_answer, 64, stdin);
-                readInput(right_answer, SIZE_ARR(right_answer));
+                wcreadInput(right_answer, SIZE_ARR(right_answer));
 
                 /*
                 fprintf(stderr, "curr_node->parent->left = %p,
@@ -392,7 +436,7 @@ static void playGame(Tree* tree)
 
                     //wscanf(L"%63ls[^ \n]", difference);
                     //fgetws(difference, 64, stdin);
-                    readInput(difference, sizeof(difference));
+                    wcreadInput(difference, sizeof(difference));
 
                     if(current_node->parent == NULL)
                     {
@@ -440,9 +484,96 @@ static void playGame(Tree* tree)
 
                 //fwscanf(stdin, L"%5ls", answer);
                 //fgetws(answer, 5, stdin);
-                readInput(answer, SIZE_ARR(answer));
+                wcreadInput(answer, SIZE_ARR(answer));
             }
     }
+}
+
+typedef long long ll;
+#define StkElem ll
+#include "./lib/Stack/Stack.h"
+
+static void getDefinition(wchar_t* str, Tree* tree)
+{
+    STACK(ll) stk = {};
+    CTOR(ll, stk,  tree->size);
+   
+}
+
+static inline void printUsage()
+{
+    wprintf(L"1) Играть\n"
+            L"2) Сохранить игру\n"
+            L"3) Дамп дерева\n"
+            L"4) Выход\n"
+            L"");
+}
+
+static inline void saveTree(Tree* tree)
+{
+    char output[64] = {};
+
+    wprintf(L"Куда сохраняем? (use eng): ");
+    fflush(stdout);
+    readInput(output, SIZE_ARR(output));
+
+    save_tree(output, tree);
+}
+
+static inline void dumpTree(Tree* tree)
+{
+    char output[64] = {};
+
+    wprintf(L"Куда дампим? (use eng): ");
+    fflush(stdout);
+    readInput(output, SIZE_ARR(output));
+
+    dump_tree_dot(output, tree);
+}
+
+static void mainMenu()
+{
+    bool end = false;
+
+    Tree* tree =  tree_init(NULL);
+
+    int res = 0;
+
+    while(!end)
+    {
+        printUsage();
+
+        wprintf(L"Выберите пункт: ");
+
+        while(wscanf(L"%d", &res) != 1)
+        {
+            wccleanInputBuffer();
+            wprintf(L"Выберите пункт: ");
+        }
+
+        wccleanInputBuffer();
+        //while(scanf("%d", &res) != 1) ;
+
+        // TODO
+        // do enum
+        switch(res)
+        {
+            case 1:
+                playGame(tree);
+                break;
+            case 2:
+                saveTree(tree);
+                break;
+            case 3:
+                dumpTree(tree);
+                break;
+            case 4:
+            default:
+                end = true;
+        }
+    }
+    
+    tree_free(&tree);
 }
 
 int main(int argc, char* argv [])
@@ -451,53 +582,7 @@ int main(int argc, char* argv [])
     //printf("current locale(LC_ALL) is %s\n", setlocale(LC_ALL, NULL));
     //printf("current locale(LC_CYTPE) is %s\n", setlocale(LC_CTYPE, NULL));
     
-
-    //printf("Mode(stdout) = %d\n", fwide(stdout, 0));
-
-    //Text* out = text_init(argv[1]);
-    //printText(out);
-    //text_free(out);
-    
-    Tree* tree =  tree_init(NULL);
-    wprintf(L"++++++++%hhu+++++++\n", (unsigned char)((long)tree&0xff));
-
-    //add_node(tree, tree->root, left, "левый");
-    //tree->nodes->left = create_node("левый");
-    //tree->nodes->right = create_node("правый");
-    //add_node(tree, tree->root, right, "правый");
-
-    tree = load_tree("saveFile.tr");
-    playGame(tree);
-
-    save_tree("saveFile.tr", tree);
-    //tree_free(&tree);
-    dump_tree_dot("after_loading", tree);
-    
-    tree_free(&tree);
-
-	// if(argc == 1)
-	// {
-	// 	printf("ERROR: No input file\n");
-	// 	return 1;
-	// }
-
-	// const char* INPUT = argv[1];
-
-	// size_t size = fsize(INPUT);
-	// unsigned char* text = TextFromFile(INPUT, size);
-
-
-	// Node* head = ReadTreeFrom(text);
-
-	// PrintTree(stdout, head);
-
-	// Node* root = NODE(strdup("animal"));
-	// root->left = NODE(strdup("bird"));
-	// root->right = NODE(strdup("human"));
-	// root->left->right = NODE(strdup("whale"));
-
-	// printTree(root);
-	// deleteTree(root);
+    mainMenu();
 
 	return 0;
 }

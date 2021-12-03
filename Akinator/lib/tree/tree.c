@@ -185,6 +185,7 @@ void dump_tree_dot(const char* output, Tree* tree)
     buff_pos += sprintf(curr_pos,  "}");
 
     FILE* fp = fopen(output, "w");
+    wprintf(L"output file is %s\n", output);
     assert(fp != NULL);
 
     fwrite(dump_buff, buff_pos, sizeof(char), fp);

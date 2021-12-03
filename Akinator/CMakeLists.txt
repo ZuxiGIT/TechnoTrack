@@ -11,6 +11,7 @@ add_executable(main
 
 target_link_libraries(main
     PRIVATE tree
+    PRIVATE stack
     PRIVATE logger
     PRIVATE file
     PRIVATE strings

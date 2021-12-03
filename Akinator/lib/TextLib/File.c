@@ -20,6 +20,10 @@ void wideCharLocaleInit()
     mblen(NULL, 0);
 }
 
+FILE* myfreopen()
+{
+    ;
+}
 int fileSize(const char* name)
 {
 	assert(name != NULL);
