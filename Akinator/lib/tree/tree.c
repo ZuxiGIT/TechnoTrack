@@ -279,7 +279,7 @@ static inline void _skip_spaces(wchar_t** txt)
 {
     while(iswspace(**((wint_t**)txt))) 
     {
-        fprintf(stderr, "skipping space (%lc)\n", **txt);
+        //fprintf(stderr, "skipping space (%lc)\n", **txt);
         (*txt)++;
     }
 }
@@ -288,7 +288,7 @@ static inline void _skip_chars(wchar_t** txt)
 {
     while(iswalpha(**((wint_t**)txt)))
     {
-        fprintf(stderr, "skipping char (%lc)\n", **txt);
+        //fprintf(stderr, "skipping char (%lc)\n", **txt);
 
         (*txt)++;
     }
@@ -324,7 +324,7 @@ Node* parse_node(Tree* tree, wchar_t** text)
 
     REQUIRE(L'{');
 
-    fprintf(stderr, "1) ---> *txt = %lc\n", *txt);
+    //fprintf(stderr, "1) ---> *txt = %lc\n", *txt);
 
     txt++;
 
@@ -335,29 +335,29 @@ Node* parse_node(Tree* tree, wchar_t** text)
     *txt = L' ';
 
     node->str = ++txt;
-    fprintf(stderr, "str points to %p\n", node->str);
+    //fprintf(stderr, "str points to %p\n", node->str);
 
     //_SKIP_CHARS(txt);
     _SKIP_TILL(txt, L'"');
     //fprintf(stderr, "--->%lc\n", *txt);
     
-    fprintf(stderr, "2) ---> *(--txt) = %lc\n", *(txt - 1));
+    //fprintf(stderr, "2) ---> *(--txt) = %lc\n", *(txt - 1));
 
     REQUIRE(L'"');
 
     *txt = L'\0';
 
-    fprintf(stderr, "result str(%lu): %ls\n", wcslen(node->str), node->str);
+    //fprintf(stderr, "result str(%lu): %ls\n", wcslen(node->str), node->str);
     
-    fprintf(stderr, "3) ---> *(--txt) = %lc\n", *(txt - 1));
+    //fprintf(stderr, "3) ---> *(--txt) = %lc\n", *(txt - 1));
 
     txt++;
 
-    fprintf(stderr, "4) ---> *txt = %lc\n", *(txt));
+    //fprintf(stderr, "4) ---> *txt = %lc\n", *(txt));
 
     _SKIP_SPACES(txt);
 
-    fprintf(stderr, "5) ---> *txt = %lc\n", *(txt));
+    //fprintf(stderr, "5) ---> *txt = %lc\n", *(txt));
 
     if(*txt == L'l')
     {
@@ -395,8 +395,16 @@ Tree* load_tree(const char* input)
 {
     int sz = fileSize(input);
 
+    if(sz < 0)
+    {
+        freopen(NULL, "w", stdout);
+        pr_err(LOG_CONSOLE, "Bad input file\n");
+        freopen(NULL, "w", stdout);
+        return NULL;
+    }
+
     wchar_t* txt = readText(input, sz);
-    fprintf(stderr, "File was read\n%ls\n", txt);
+    //fprintf(stderr, "File was read\n%ls\n", txt);
 
     Tree* tree = (Tree*)calloc(1, sizeof(Tree));
     assert(tree != NULL);

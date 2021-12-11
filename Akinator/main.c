@@ -174,8 +174,7 @@ Node* ReadTreeFrom(unsigned char* text)
 			{
 				tmp = tmp -> parent;
 				
-				isclosed = true;
-				text++;
+				isclosed = true; text++;
 			}
 			else
 			{
@@ -292,7 +291,7 @@ static inline void wcreadInput(wchar_t* input, int size)
     freopen(NULL, "r", stdin);
     fgetws(input, size, stdin);
 
-    fprintf(stderr, "input: [%ls]\n", input);
+    //fprintf(stderr, "input: [%ls]\n", input);
 
     wchar_t* chr = input;
 
@@ -302,14 +301,14 @@ static inline void wcreadInput(wchar_t* input, int size)
     
     if(*chr == L'\n')
     {
-        fprintf(stderr, "got it!\n");
+        //fprintf(stderr, "got it!\n");
         *chr = L'\0';
     }
 
     //fprintf(stderr, "input after proccesing: [%ls]\n", input);
 
     //fprintf(stderr, "before\n");
-    fprintf(stderr,"length of input is %lu\n", wcslen(input));
+    //fprintf(stderr,"length of input is %lu\n", wcslen(input));
 
     if(wcslen(input) == (size - 1))
         wccleanInputBuffer();
@@ -327,7 +326,7 @@ static inline void readInput(char* input, int size)
     freopen(NULL, "r", stdin);
     fgets(input, size, stdin);
 
-    fprintf(stderr, "input(%lu): [%s]\n", strlen(input),  input);
+    //fprintf(stderr, "input(%lu): [%s]\n", strlen(input),  input);
 
     char* chr = input;
 
@@ -337,14 +336,14 @@ static inline void readInput(char* input, int size)
     
     if(*chr == '\n')
     {
-        fprintf(stderr, "got it!\n");
+        //fprintf(stderr, "got it!\n");
         *chr = '\0';
     }
 
     //fprintf(stderr, "input after proccesing: [%ls]\n", input);
 
     //fprintf(stderr, "before\n");
-    fprintf(stderr,"length of input is %lu\n", strlen(input));
+    //fprintf(stderr,"length of input is %lu\n", strlen(input));
 
     if(strlen(input) == (size - 1))
         cleanInputBuffer();
@@ -386,7 +385,7 @@ static void playGame(Tree* tree)
 
                 if(current_node->left != NULL)
                 {
-                    fprintf(stderr, "--------> Go to left\n");
+                    //fprintf(stderr, "--------> Go to left\n");
                     current_node = current_node->left;
                     break;
                 }
@@ -403,7 +402,7 @@ static void playGame(Tree* tree)
 
                 if(current_node->right != NULL)
                 {
-                    fprintf(stderr, "--------> Go to right\n");
+                    //fprintf(stderr, "--------> Go to right\n");
                     current_node = current_node->right;
                     break;
                 }
@@ -493,11 +492,81 @@ typedef long long ll;
 #define StkElem ll
 #include "./lib/Stack/Stack.h"
 
-static void getDefinition(wchar_t* str, Tree* tree)
+static inline Node* liftOnTree(STACK(ll)* stk, Node* current_node)
 {
+    Node* stack_node = (Node*) POP(ll, *stk);
+
+    wprintf(L"stk size = %lu\n", stk->size);
+
+    if(stack_node == (Node*) STK_POISON_VALUE)
+        return NULL;
+    
+    while(current_node == stack_node->right)
+    {
+        current_node = stack_node;
+
+        stack_node = (Node*)POP(ll, *stk);
+
+        if(stack_node == (Node*) STK_POISON_VALUE)
+            return NULL;
+    }
+
+    PUSH(ll, *stk, (ll) stack_node);
+
+    wprintf(L"returning \"%ls\"", stack_node ->str);
+    return stack_node->right;
+}
+
+static void getDefinition(Tree* tree)
+{
+    wchar_t str[64] = {};
+
+    wprintf(L"Название узла?: ");
+    fflush(stdout);
+    wcreadInput(str, SIZE_ARR(str));
+    wprintf(L"Ищем (%ls)\n", str);
+
     STACK(ll) stk = {};
     CTOR(ll, stk,  tree->size);
    
+    Node* current_node = tree->root;
+
+    while(1)
+    {
+        if(!wcscmp(current_node->str, str))
+            break;
+
+
+        if(current_node->left != NULL)
+        {
+            PUSH(ll, stk, (ll) current_node);
+            current_node = current_node->left;
+            continue;
+        }
+        
+        if(current_node->right != NULL)
+        {
+            PUSH(ll, stk, (ll) current_node);
+            current_node = current_node->right;
+            continue;
+        }
+
+        if((current_node = liftOnTree(&stk, current_node)) == NULL)
+        {
+            pr_err(LOG_CONSOLE, "Cannot find definition\n"); 
+            DTOR(ll, stk); 
+            return;
+        }
+    }
+
+    wprintf(L"\"%ls\" это: \n", str);
+
+    for(ll node = POP(ll, stk); node != STK_POISON_VALUE; node = POP(ll, stk))
+        wprintf(L"--->%ls\n", ((Node*)node)->str);
+
+    wprintf(L"\n");
+
+    DTOR(ll, stk); 
 }
 
 static inline void printUsage()
@@ -505,7 +574,9 @@ static inline void printUsage()
     wprintf(L"1) Играть\n"
             L"2) Сохранить игру\n"
             L"3) Дамп дерева\n"
-            L"4) Выход\n"
+            L"4) Загрузить игру\n"
+            L"5) Найти определение\n"
+            L"6) Выход\n"
             L"");
 }
 
@@ -529,6 +600,26 @@ static inline void dumpTree(Tree* tree)
     readInput(output, SIZE_ARR(output));
 
     dump_tree_dot(output, tree);
+}
+
+static inline Tree* loadGame()
+{
+    char input_file[64] = {};
+    Tree* tree = NULL;
+
+    wprintf(L"Введите имя файла (use eng): ");
+
+    readInput(input_file, SIZE_ARR(input_file));
+
+    while(!(tree = load_tree(input_file)))
+    {
+        wprintf(L"Ошибка чтения файла %s\n", input_file);
+        wprintf(L"Введите имя файла (use eng): ");
+
+        readInput(input_file, SIZE_ARR(input_file));
+    }
+
+    return tree;
 }
 
 static void mainMenu()
@@ -568,6 +659,12 @@ static void mainMenu()
                 dumpTree(tree);
                 break;
             case 4:
+                tree = loadGame();
+                break;
+            case 5:
+                getDefinition(tree);
+                break;
+            case 6:
             default:
                 end = true;
         }
