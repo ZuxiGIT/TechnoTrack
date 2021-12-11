@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 
+// do while 
 #define add_node(tree, node, side, str)\
 {\
     node->side = create_node(str);\
@@ -14,7 +15,8 @@
 #define wadd_node(tree, node, side, str)\
 {\
     node->side = wcreate_node(str);\
-    tree->size++;\
+    if(!strcmp( #side, "left"))\
+        tree->size++;\
     node->side->parent = node;\
 }\
 

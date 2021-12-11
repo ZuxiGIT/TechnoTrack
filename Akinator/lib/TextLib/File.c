@@ -36,6 +36,7 @@ int fileSize(const char* name)
 	if(errno)
 	{	 
 		perror(__PRETTY_FUNCTION__); // change to perror
+        errno = 0;
 		return -1;
 	}
 

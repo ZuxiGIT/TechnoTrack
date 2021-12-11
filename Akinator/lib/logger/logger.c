@@ -88,9 +88,22 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
     {
         log_init(NULL);
     }
+    
+    if(!(dest ^ LOG_CONSOLE))
+    {
+        if (log_level == LOG_INFO)
+            buff_pos += setColor(buff + buff_pos, FG_GREEN);
+        else if (log_level == LOG_WARN)
+            buff_pos += setColor(buff + buff_pos, FG_YELLOW);
+        else if (log_level == LOG_ERR)
+            buff_pos += setColor(buff + buff_pos, FG_RED);
+    }
 
     _pr_warn(log_level);
     
+    if(!(dest ^ LOG_CONSOLE))
+        buff_pos += resetColor(buff + buff_pos);
+
     va_list params;
     va_start(params, fmt);
 
@@ -107,31 +120,29 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
 
     if (!log_file)
     {
-        setColor(FG_RED);
-        fprintf(stderr, "ERROR: Can not use logging\n");
-        resetColor();
+        //setColor(NULL, FG_RED);
+        fprintf(stderr, "ERROR: Can not use file logging\n");
+        //resetColor(NULL);
         return;
     }
 
     assert(log_file != NULL);
     
-    if (!!(dest & LOG_CONSOLE))
+    if (!(dest ^ LOG_CONSOLE))
     {
-        if (log_level == LOG_INFO)
-            setColor(FG_GREEN);
-        else if (log_level == LOG_WARN)
-            setColor(FG_YELLOW);
-        else if (log_level == LOG_ERR)
-            setColor(FG_RED);
-        
+        freopen(NULL, "w", stdout);
         fwrite(buff, sizeof(char), buff_pos, stdout);
+        freopen(NULL, "w", stdout);
 
-        if(!!(dest & LOG_CONSOLE_STDERR))
+        if(!(dest ^ LOG_CONSOLE_STDERR))
+        {
+            freopen(NULL, "w", stderr);
+            fprintf(stderr, "----->");
             fwrite(buff, sizeof(char), buff_pos, stderr);
+            freopen(NULL, "w", stderr);
+        }
 
         fflush(stdout);
-        
-        resetColor();
 
         _checkErrors("After Console logging: ");
     }

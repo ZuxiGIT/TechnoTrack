@@ -35,7 +35,7 @@ const char* FILE_LOG = "logfile.txt";
 	
 	static int 	dump_buff_pos 				= 0;
 	static char dump_buffer[BUFSIZ + 10] 	= {}; 
-	const StkElem 	POSION_VALUE			= 2699;
+	const StkElem 	STK_POISON_VALUE			= 2699;
 	const StkCanary CanaryValue 			= 0xBEAFDEDDEADF00DUL;
 #endif
 
@@ -281,7 +281,7 @@ void STK_CTOR(StkElem) (STACK(StkElem)* stk, const size_t capacity, StackInfo in
 	stk->data += sizeof(StkCanary);
 
 	for ( size_t i = 0; i < stk->capacity; i++)
-		((StkElem*)(stk->data))[i] = POSION_VALUE;
+		((StkElem*)(stk->data))[i] = STK_POISON_VALUE;
 
 	stk->hash = hash(stk->data - sizeof(StkCanary),
 					 stk->capacity * sizeof(StkElem) + 2 * sizeof(StkCanary));
@@ -318,11 +318,11 @@ StkElem STK_POP(StkElem) (STACK(StkElem)* stk)
 	{
 		pr_warn(LOG_CONSOLE, "Stack is empty!\n");
 		// printf("Stack is empty!\n");
-		return POSION_VALUE;
+		return STK_POISON_VALUE;
 	}
 
 	StkElem value = ((StkElem*)(stk->data))[--stk->size];
-	((StkElem*)(stk->data))[stk->size] = POSION_VALUE;
+	((StkElem*)(stk->data))[stk->size] = STK_POISON_VALUE;
 
 
 	if (stk->size * 3 <= stk->capacity)
@@ -454,7 +454,7 @@ void STK_stackDump(StkElem)(const char* result, const char* reason,
 	#endif
 
 	for ( size_t i = 0; i < stk->capacity; i++)
-		if( ((StkElem*)( stk->data ))[i] == POSION_VALUE)
+		if( ((StkElem*)( stk->data ))[i] == STK_POISON_VALUE)
 			// fprintf(stream, "\t\t[%2zu] = NAN (POISON!)\n", i);
 		_STK_DUMP
 		(
@@ -501,7 +501,7 @@ void STK_cleanStack(StkElem)(STACK(StkElem)* stk)
 	assert(stk && "bad stk pointer in cleanStack");
 
 	for(size_t i = 0; i < stk->capacity; i ++)
-		((StkElem*) (stk->data))[i] = POSION_VALUE;
+		((StkElem*) (stk->data))[i] = STK_POISON_VALUE;
 
 	stk->hash = hash(stk->data, stk->capacity * sizeof(StkElem));
 }
@@ -528,7 +528,7 @@ void STK_cleanStack(StkElem)(STACK(StkElem)* stk)
 		stk->data += sizeof(StkCanary);
 
 		for( size_t i = stk->size; i < stk->capacity; i++)
-			((StkElem*)(stk->data))[i] = POSION_VALUE;
+			((StkElem*)(stk->data))[i] = STK_POISON_VALUE;
 
 		stk->hash = hash(stk->data, stk->capacity * sizeof(StkElem));
 	}
