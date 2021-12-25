@@ -18,6 +18,8 @@ int main()
     //tree->root->right = CREATE_NODE(CONST, (value_t) 20.);
     //tree->root->right->parent = tree->root;
     printf("tree->size = %d\n", tree->size);
+    printf("sizeof(\"type\") = %lu\n", sizeof("te"));
+    printf("sizeof(tree->root->type) = %lu\n", sizeof(tree->root->type));
     save_tree("test", tree);
 
     tree_free(&tree);
