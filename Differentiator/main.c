@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "./lib/tree/tree.h"
+#include "./lib/logger/logger.h"
 
 int main()
 {
@@ -17,6 +18,12 @@ int main()
     //tree->root->left->parent = tree->root;
     //tree->root->right = CREATE_NODE(CONST, (value_t) 20.);
     //tree->root->right->parent = tree->root;
+    freopen(NULL, "w", stdout);
+    pr_err(LOG_STDERR, "test\n");
+    freopen(NULL, "w", stdout);
+    Tree* tree2 = load_tree("test");
+    save_tree("test2", tree2);
+    
     printf("tree->size = %d\n", tree->size);
     printf("sizeof(\"type\") = %lu\n", sizeof("te"));
     printf("sizeof(tree->root->type) = %lu\n", sizeof(tree->root->type));

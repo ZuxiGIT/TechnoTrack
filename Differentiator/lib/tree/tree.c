@@ -14,7 +14,7 @@ Tree* tree_init()
     Tree* res = (Tree*)calloc(1, sizeof(Tree)); 
 
     res->root = NULL; 
-    res->size = 1;
+    res->size = 0;
 
     //res->root->left = res->root->right = res->root->parent = NULL;
 
@@ -73,6 +73,8 @@ void tree_free(Tree** tree)
     node_free((*tree)->root->left);
     node_free((*tree)->root->right);
     free((*tree)->root);
+    if((*tree)->loaded)
+        free((*tree)->text);
     free(*tree);
     *tree = NULL;
 }
@@ -227,8 +229,10 @@ int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int side)
 
     if(node->type == CONST) 
         buff_pos += sprintf(curr_pos, "value: %lf\n", node->value.num);
+    else if ((node->type == OPER) || (node->type == VAR))
+        buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (int)(node->value.num));
     else
-        buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (*(node->value.text)));
+        buff_pos += sprintf(curr_pos, "value: \"%s\"\n", (node->value.text));
 
 
     if(node->left != NULL)
@@ -275,6 +279,19 @@ void save_tree(const char* output, Tree* tree)
 #undef dump_node_dot
 #undef _SHIFT
 
+static bool is_func(char* txt)
+{
+    #define func(name)\
+        if(strncasecmp(txt, #name, sizeof(#name) - 1) == 1)\
+            return true;\
+        else
+    
+    #include "func"
+
+    #undef func
+        return false;
+}
+
 static inline void _skip_spaces(char** txt)
 {
     while(isspace(**(txt))) 
@@ -292,6 +309,7 @@ static inline void _skip_digits(char** txt)
         (*txt)++;
     }
 }
+
 static inline void _skip_chars(char** txt)
 {
     while(isalpha(**(txt)))
@@ -302,6 +320,15 @@ static inline void _skip_chars(char** txt)
     }
 }
 
+static inline void _skip_alnum(char** txt)
+{
+    while(isalnum(**(txt)))
+    {
+        //fprintf(stderr, "skipping char (%lc)\n", **txt);
+
+        (*txt)++;
+    }
+}
 static inline void _skip_till(char** txt, char chr)
 {
     while(**txt != chr) (*txt)++;
@@ -311,12 +338,15 @@ static inline void _skip_till(char** txt, char chr)
 #define _SKIP_CHARS(txt) _skip_chars(&txt);
 #define _SKIP_TILL(txt, chr) _skip_till(&txt, chr);
 #define _SKIP_DIGITS(txt) _skip_digits(&txt);
+#define _SKIP_ALNUM(txt) _skip_alnum(&txt);
 #define COMP_STR(txt, str) strncmp(txt, str, sizeof(str) - 1)
+#define IS_FUNC(txt) is_func(txt)
 #define PASS_2_FIELD_VAL(field)\
     _SKIP_SPACES(txt);\
     if(COMP_STR(txt, field) != 0)\
     {\
-        pr_err(LOG_CONSOLE, "Bad node format\n");\
+        free(node);\
+        pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
         return NULL;\
     }\
     _SKIP_TILL(txt, ' ');\
@@ -333,9 +363,9 @@ static inline void _skip_till(char** txt, char chr)
 #define REQUIRE(chr)\
     if(*txt != chr)\
     {\
-        pr_err(LOG_CONSOLE_STDERR, "Bad .tr file format"\
-                                    " (expected [%c] but got [%c])\n", chr, *txt);\
-        abort();\
+        free(node);\
+        pr_err(LOG_STDERR, "Bad .tr file format "\
+                            "[expected \"%c\" but got \"%c\"]\n", chr, *txt);\
         return NULL;\
     }
 
@@ -356,50 +386,107 @@ Node* parse_node_from_save(Tree* tree, char** text)
 
     PASS_2_FIELD_VAL("type: ");
 
-    CHECK_COND(isdigit(*txt) != 0);
+    CHECK_COND(isdigit(*txt) == 0);
 
     sscanf(txt, "%d", (int*)&(node->type));
 
-    _SKIP_DIGITS(txt);
+    _SKIP_ALNUM(txt);
 
     PASS_2_FIELD_VAL("value: ");
 
-    if(isdigit(*txt))
+    if(*txt == '"')
     {
-        node->type = CONST;
+        txt++;
+        if(node->type == OPER && IS_OPERATOR(*txt))
+        {
+            char temp = -1;
+            sscanf(txt, "%c", &temp);
+            node->value.num = temp;
+            _SKIP_TILL(txt, '"');
+            txt++;
+        }
+        else if(node->type == FUNC && IS_FUNC(txt))
+        {
+            node->value.text = txt;
+            _SKIP_TILL(txt, '"');
+            *txt = '\0';
+            txt++;
+        }
+        else if(node->type == VAR)
+        {
+            char temp = -1;
+            sscanf(txt, "%c", &temp);
+            node->value.num = temp;
+            _SKIP_TILL(txt, '"');
+            txt++;
+        }
+        else
+        {
+            //printf("%s\n", txt); 
+            free(node);
+            pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+            return NULL;
+        }
+    }
+    else if(isdigit(*txt))
+    {
         sscanf(txt, "%lf", &(node->value.num));
+
+        _SKIP_DIGITS(txt);
+
+        if((*txt == ',') && (isdigit(*(++txt)) != 0))
+            _SKIP_DIGITS(txt);
     }
-    else if(isalpha(*txt))
-    {
-        node->type = VAR;
-        //sscanf(txt, "%c", &(temp));
-        node->value.text = txt;
-    }
-    else if(IS_OPERATOR(*txt))
-    {
-        node->type = OPER;
-        //sscanf(txt, "%c", &(temp));
-        node->value.text = txt;
-    }
-    else if(*txt == '#')
+    else
     {
         free(node);
+        pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
         return NULL;
     }
 
-    txt++;
+    _SKIP_SPACES(txt);
 
- 
-    if(*txt == '(')
+    if(*txt == '}')
+    {
+        *text = txt;
+        return node;
+    }
+
+    REQUIRE('l');
+    txt++;
+    REQUIRE('{');
+
+    if(*txt == '{')
+    {
+        node->left = parse_node_from_save(tree, &txt);
+
+        if(node->left == NULL)
+        {
+            pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+            return NULL;
+        }
+
+        node->left->parent = node;
+    }
+
+    txt++;
+    _SKIP_SPACES(txt);
+    REQUIRE('r');
+    txt++;
+    REQUIRE('{');
+
+    if(*txt == '{')
     {
         node->right = parse_node_from_save(tree, &txt);
+
+        if(node->right == NULL)
+        {
+            pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+            return NULL;
+        }
+
         node->right->parent = node;
     }
-    else if(node->left != NULL)
-        REQUIRE('(');
-
-    txt++;
-    REQUIRE(')');
 
     return node;
 }
@@ -409,7 +496,9 @@ Node* parse_node_from_save(Tree* tree, char** text)
 #undef _SKIP_TILL
 #undef _SKIP_DIGITS
 #undef IS_OPERATOR
+#undef IS_FUNC
 #undef COMP_STR
+#undef _SKIP_ALNUM
 #undef PASS_2_FIELD_VAL
 #undef CHECK_COND
 #undef REQUIRE
@@ -425,6 +514,7 @@ Tree* load_tree(const char* input)
         freopen(NULL, "w", stdout);
         return NULL;
     }
+    printf("sz = %d\n", sz);
 
     char* txt = readText(input, sz);
     //fprintf(stderr, "File was read\n%ls\n", txt);
@@ -438,13 +528,13 @@ Tree* load_tree(const char* input)
         tree->size = 0;
         tree->root = NULL;
 
-        txt++;
-
         tree->root = parse_node_from_save(tree, &txt);
     }
     else
         pr_err(LOG_CONSOLE_STDERR,  "Bad .tr file format"
-                                    " [expected %c, got %c]\n",
+                                    " [expected \"%c\", got \"%c\"]\n",
                                     '{', *txt); 
+    tree->loaded = true;
+    tree->text = txt;
     return tree;
 }

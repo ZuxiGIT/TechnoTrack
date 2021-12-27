@@ -2,6 +2,7 @@
 #define TREE_H
 
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef enum
 {
@@ -32,6 +33,7 @@ typedef struct
     Node* root;
     int size;
     char* text;
+    bool loaded;
 } Tree;
 
     

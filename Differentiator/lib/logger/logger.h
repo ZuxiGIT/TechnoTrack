@@ -12,6 +12,7 @@ enum{
 
 enum{
     LOG_CONSOLE = 0b1,
+    LOG_STDERR = 0b10,
     LOG_CONSOLE_STDERR = 0b11,
     LOG_FILE = 0b10000,
 };

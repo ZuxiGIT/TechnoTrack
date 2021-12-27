@@ -89,7 +89,7 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
         log_init(NULL);
     }
     
-    if(!(dest ^ LOG_CONSOLE))
+    if(!!(dest & LOG_CONSOLE_STDERR))
     {
         if (log_level == LOG_INFO)
             buff_pos += setColor(buff + buff_pos, FG_GREEN);
@@ -101,7 +101,7 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
 
     _pr_warn(log_level);
     
-    if(!(dest ^ LOG_CONSOLE))
+    if(!!(dest & LOG_CONSOLE_STDERR))
         buff_pos += resetColor(buff + buff_pos);
 
     va_list params;
@@ -128,24 +128,25 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
 
     assert(log_file != NULL);
     
-    if (!(dest ^ LOG_CONSOLE))
+    if ((dest & LOG_CONSOLE) == LOG_CONSOLE)
     {
         freopen(NULL, "w", stdout);
         fwrite(buff, sizeof(char), buff_pos, stdout);
         freopen(NULL, "w", stdout);
-
-        if(!(dest ^ LOG_CONSOLE_STDERR))
-        {
-            freopen(NULL, "w", stderr);
-            fprintf(stderr, "----->");
-            fwrite(buff, sizeof(char), buff_pos, stderr);
-            freopen(NULL, "w", stderr);
-        }
-
-        fflush(stdout);
-
-        _checkErrors("After Console logging: ");
     }
+
+    if((dest & LOG_STDERR) == LOG_STDERR)
+    {
+        freopen(NULL, "w", stderr);
+        //fprintf(stderr, "----->");
+        fwrite(buff, sizeof(char), buff_pos, stderr);
+        freopen(NULL, "w", stderr);
+    }
+
+    fflush(stdout);
+
+    _checkErrors("After Console logging: ");
+    
     
     if (!!(dest & LOG_FILE))
     {
