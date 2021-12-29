@@ -10,6 +10,7 @@ typedef enum
     VAR,
     CONST,
     OPER,
+    EMPTY,
     UNDEFINED
 } type_t;
 

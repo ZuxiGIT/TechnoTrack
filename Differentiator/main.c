@@ -9,7 +9,8 @@ int main()
     //parse_tree_from_source(argv[1], tree);
     //tree->root->type = OPER;
     //tree->root->value.text = "+";
-    tree->root = create_node(OPER, (value_t) "+");
+    tree->root = create_node(FUNC, (value_t) "sin");
+    tree->size++;
     //printf("\"+\" ACII is %s\n", ((value_t) "+").text);
     //printf("\"+\" ACII is %lf\n", tree->root->value.num);
 
@@ -25,6 +26,7 @@ int main()
     //freopen(NULL, "w", stdout);
     Tree* tree2 = load_tree("test");
     save_tree("test2", tree2);
+    dump_tree_dot("dot_test2", tree2);
     
     printf("tree->size = %d\n", tree->size);
     printf("sizeof(\"type\") = %lu\n", sizeof("te"));

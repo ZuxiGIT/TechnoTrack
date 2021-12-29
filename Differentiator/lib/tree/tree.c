@@ -95,37 +95,49 @@ static inline int _shift(void* buff, int shift)
 #define dump_node_dot(node) _dump_node_dot(node, dump_buff, buff_pos, shift);
 #define curr_pos (dump_buff + buff_pos)
 
-#define _PRINT_STR(str)\
-    buff_pos += sprintf(curr_pos,  "\"");\
-    buff_pos += wcstombs((char*)curr_pos, str, LOG_SIZE - buff_pos);\
-    buff_pos += sprintf(curr_pos, "\"");
-
 #define LOG_SIZE 8192
 
-/*
+#define num_of(node) (long)(node) & 0xffff
+
 static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 {
     int ret = buff_pos;
 
     _SHIFT;
     
-    //_PRINT_STR(node->str);
-    buff_pos += sprintf(curr_pos,  "\"");\
-    //fprintf(stderr, "--------> output str: %ls\n", node->str);
-    buff_pos += wcstombs((char*)curr_pos, node->str, LOG_SIZE - buff_pos);\
-    buff_pos += sprintf(curr_pos, "\"");
+    buff_pos += sprintf(curr_pos, "Node_%ld[style=\"filled\", ", num_of(node));
 
-    buff_pos += sprintf(curr_pos, "[shape=egg];\n");
+
+    if(node->type == OPER)
+        buff_pos += sprintf(curr_pos, "shape=\"circle\", fillcolor=\"#CD5C5C\","
+                                      " label=\"%s\"];\n",
+                                      node->value.text);
+    else if(node->type == FUNC)
+        buff_pos += sprintf(curr_pos, "shape=\"octagon\", fillcolor=\"#7FFF00\","
+                                      " label=\"%s\"];\n",
+                                      node->value.text);
+    else if(node->type == VAR)
+        buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#40E0D0\","
+                                      " label=\"%s\"];\n",
+                                      node->value.text);
+    else if(node->type == CONST)
+        buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#DDA0DD\","
+                                      " label=\"%.2lf\"];\n",
+                                      node->value.num);
+    else
+    {
+        pr_err(LOG_CONSOLE, "Error [dot dump]: unknown type[%d]\n", 
+                            node->type);
+        return -1;
+    }
+
     
     if(node->parent != NULL)
     {
         _SHIFT;
 
-        _PRINT_STR(node->str);
-
-        buff_pos += sprintf(curr_pos, "->");
-
-        _PRINT_STR(node->parent->str);
+        buff_pos += sprintf(curr_pos, "Node_%ld->Node_%ld", num_of(node), 
+                                                            num_of(node->parent));
 
         buff_pos += sprintf(curr_pos, "[color=\"red\"];\n");
     }
@@ -135,16 +147,8 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     { 
         _SHIFT;
 
-        _PRINT_STR(node->str);
-        buff_pos += sprintf(curr_pos, "->");
-        _PRINT_STR(node->left->str);
-        buff_pos += sprintf(curr_pos, "[label=\"Да\"];\n");
-
-        
-        buff_pos += sprintf(curr_pos,  "Node_%hhu:<left>->Node_%hhu;\n",
-                            (unsigned char)((long)node & 0xff),
-                            (unsigned char)((long)node->left & 0xff));
-
+        buff_pos += sprintf(curr_pos, "Node_%ld->Node_%ld;\n", num_of(node), 
+                                                            num_of(node->left));
         
         buff_pos += dump_node_dot(node->left);
     }
@@ -153,16 +157,8 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     {
         _SHIFT;
 
-        _PRINT_STR(node->str);
-        buff_pos += sprintf(curr_pos, "->");
-        _PRINT_STR(node->right->str);
-        buff_pos += sprintf(curr_pos, "[label=\"Нет\"];\n");
-
-        
-        buff_pos += sprintf(curr_pos,  "Node_%hhu:<right>->Node_%hhu;\n",
-                            (unsigned char)((long)node & 0xff),
-                            (unsigned char)((long)node->right & 0xff));
-        
+        buff_pos += sprintf(curr_pos, "Node_%ld->Node_%ld;\n", num_of(node), 
+                                                            num_of(node->right));
 
         buff_pos += dump_node_dot(node->right);
     }
@@ -183,12 +179,20 @@ void dump_tree_dot(const char* output, Tree* tree)
     buff_pos += sprintf(curr_pos ,  "digraph tree{\n\trankdir=HR;\n");
     shift++;
     
-    buff_pos += dump_node_dot(tree->root);
+    int ret = dump_node_dot(tree->root);
+
+    if(ret < 0)
+    {
+        pr_err(LOG_CONSOLE, "Error occured while dumping in dot\n");
+        return;
+    }
+
+    buff_pos += ret;
 
     buff_pos += sprintf(curr_pos,  "}");
 
     FILE* fp = fopen(output, "w");
-    wprintf(L"output file is %s\n", output);
+    printf("output file is %s\n", output);
     assert(fp != NULL);
 
     fwrite(dump_buff, buff_pos, sizeof(char), fp);
@@ -199,7 +203,7 @@ void dump_tree_dot(const char* output, Tree* tree)
     buff_pos = 0;
     shift = 0;
 }
-*/
+
 #define save_node(node, side) _save_node(node, dump_buff, buff_pos, shift, side)
 /*
  *
@@ -306,7 +310,6 @@ void save_tree(const char* output, Tree* tree)
 
 #undef save_node
 #undef LOG_SIZE
-#undef _PRINT_STR
 #undef curr_pos
 #undef dump_node_dot
 #undef _SHIFT
@@ -404,7 +407,7 @@ static inline void _skip_till(char** txt, char chr)
 #define IS_OPERATOR(c)\
     ((c == '+') || (c == '-') || (c == '*') || (c == '/'))
 
-Node* parse_node_from_save(Tree* tree, char** text)
+static Node* _parse_node_from_save(Tree* tree, char** text)
 {
     char* txt = *text;
 
@@ -506,7 +509,7 @@ Node* parse_node_from_save(Tree* tree, char** text)
 
     if(*txt == '{')
     {
-        node->left = parse_node_from_save(tree, &txt);
+        node->left = _parse_node_from_save(tree, &txt);
 
         if(node->left == NULL)
         {
@@ -525,7 +528,7 @@ Node* parse_node_from_save(Tree* tree, char** text)
 
     if(*txt == '{')
     {
-        node->right = parse_node_from_save(tree, &txt);
+        node->right = _parse_node_from_save(tree, &txt);
 
         if(node->right == NULL)
         {
@@ -576,7 +579,7 @@ Tree* load_tree(const char* input)
         tree->size = 0;
         tree->root = NULL;
 
-        tree->root = parse_node_from_save(tree, &txt);
+        tree->root = _parse_node_from_save(tree, &txt);
 
         if(tree->root == NULL)
         {
