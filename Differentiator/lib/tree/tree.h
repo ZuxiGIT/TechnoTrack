@@ -54,6 +54,7 @@ Node* _create_node( type_t type, value_t value,
 #define add_node(tree, node, side, type, value)\
 {\
     node->side = _create_node(type, (value_t)value, node, NULL, NULL);\
+    node->side->parent = node;\
     tree->size++;\
 }
 

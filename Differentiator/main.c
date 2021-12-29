@@ -10,6 +10,8 @@ int main()
     //tree->root->type = OPER;
     //tree->root->value.text = "+";
     tree->root = create_node(OPER, (value_t) "+");
+    //printf("\"+\" ACII is %s\n", ((value_t) "+").text);
+    //printf("\"+\" ACII is %lf\n", tree->root->value.num);
 
     add_node(tree, tree->root, left, CONST, 10.);
     add_node(tree, tree->root, right, CONST, 20.);
@@ -18,9 +20,9 @@ int main()
     //tree->root->left->parent = tree->root;
     //tree->root->right = CREATE_NODE(CONST, (value_t) 20.);
     //tree->root->right->parent = tree->root;
-    freopen(NULL, "w", stdout);
-    pr_err(LOG_STDERR, "test\n");
-    freopen(NULL, "w", stdout);
+    //freopen(NULL, "w", stdout);
+    //pr_err(LOG_STDERR, "test\n");
+    //freopen(NULL, "w", stdout);
     Tree* tree2 = load_tree("test");
     save_tree("test2", tree2);
     
@@ -30,5 +32,6 @@ int main()
     save_tree("test", tree);
 
     tree_free(&tree);
+    tree_free(&tree2);
     return 0;
 }

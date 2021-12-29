@@ -70,8 +70,11 @@ void node_free(Node* node)
 
 void tree_free(Tree** tree)
 {
-    node_free((*tree)->root->left);
-    node_free((*tree)->root->right);
+    if((*tree)->root != NULL)
+    {
+        node_free((*tree)->root->left);
+        node_free((*tree)->root->right);
+    }
     free((*tree)->root);
     if((*tree)->loaded)
         free((*tree)->text);
@@ -206,7 +209,7 @@ void dump_tree_dot(const char* output, Tree* tree)
  *
  */
 
-int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int side)
+static int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int side)
 {
     int ret = buff_pos;
 
@@ -229,18 +232,41 @@ int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int side)
 
     if(node->type == CONST) 
         buff_pos += sprintf(curr_pos, "value: %lf\n", node->value.num);
-    else if ((node->type == OPER) || (node->type == VAR))
+    else if((node->type == VAR))
         buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (int)(node->value.num));
-    else
+    else if((node->type == OPER) || (node->type == FUNC)) 
         buff_pos += sprintf(curr_pos, "value: \"%s\"\n", (node->value.text));
-
+    else
+    {
+        pr_err(LOG_CONSOLE, "Bad node type\n");
+        return -1;
+    }
 
     if(node->left != NULL)
-        buff_pos += save_node(node->left, -1);
+    {
+        int ret = save_node(node->left, -1);
+
+        if(ret < 0)
+        {
+            pr_err(LOG_CONSOLE, "Error occured while saving\n");
+            return -1;
+        }
+
+        buff_pos += ret;
+    }
 
     if(node->right != NULL)
-        buff_pos += save_node(node->right, 1);
+    {
+        int ret = save_node(node->right, 1);
 
+        if(ret < 0)
+        {
+            pr_err(LOG_CONSOLE, "Error occured while saving\n");
+            return -1;
+        }
+
+        buff_pos += ret;
+    }
 
     shift--;
 
@@ -253,6 +279,12 @@ int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int side)
 
 void save_tree(const char* output, Tree* tree)
 {
+    if(tree == NULL)
+    {
+        pr_err(LOG_CONSOLE, "bad tree to save: pointer is NULL\n");
+        return;
+    }
+
     static char dump_buff[LOG_SIZE] = {};
     static int buff_pos = 0;
     static int shift = 0;
@@ -346,17 +378,17 @@ static inline void _skip_till(char** txt, char chr)
     if(COMP_STR(txt, field) != 0)\
     {\
         free(node);\
-        pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+        pr_err(LOG_CONSOLE, "Bad node format\n");\
         return NULL;\
     }\
     _SKIP_TILL(txt, ' ');\
     txt++;\
 
-#define CHECK_COND(cond)\
+#define CHECK_COND(cond, msg)\
     if(cond)\
     {\
         free(node);\
-        pr_err(LOG_CONSOLE, "Bad node format\n");\
+        pr_err(LOG_CONSOLE, "Bad node format: "msg"\n");\
         return NULL;\
     }
 
@@ -364,13 +396,13 @@ static inline void _skip_till(char** txt, char chr)
     if(*txt != chr)\
     {\
         free(node);\
-        pr_err(LOG_STDERR, "Bad .tr file format "\
+        pr_err(LOG_CONSOLE, "Bad .tr file format "\
                             "[expected \"%c\" but got \"%c\"]\n", chr, *txt);\
         return NULL;\
     }
 
 #define IS_OPERATOR(c)\
-    (c == '+') || (c == '-') || (c == '*') || (c == '/')
+    ((c == '+') || (c == '-') || (c == '*') || (c == '/'))
 
 Node* parse_node_from_save(Tree* tree, char** text)
 {
@@ -386,7 +418,7 @@ Node* parse_node_from_save(Tree* tree, char** text)
 
     PASS_2_FIELD_VAL("type: ");
 
-    CHECK_COND(isdigit(*txt) == 0);
+    CHECK_COND(isdigit(*txt) == 0, "bad \"type\" value");
 
     sscanf(txt, "%d", (int*)&(node->type));
 
@@ -397,16 +429,32 @@ Node* parse_node_from_save(Tree* tree, char** text)
     if(*txt == '"')
     {
         txt++;
-        if(node->type == OPER && IS_OPERATOR(*txt))
+
+        if(node->type == OPER)
         {
-            char temp = -1;
-            sscanf(txt, "%c", &temp);
-            node->value.num = temp;
+            if(!IS_OPERATOR(*txt))
+            {
+                pr_err(LOG_CONSOLE, "Bad \"value\" value: type is \"operator\""
+                                    " but \"value\" is wrong\n", node->type);
+                free(node);
+                return NULL;
+            }
+
+            node->value.text = txt;
             _SKIP_TILL(txt, '"');
+            *txt = '\0';
             txt++;
         }
-        else if(node->type == FUNC && IS_FUNC(txt))
+        else if(node->type == FUNC)
         {
+            if(!IS_FUNC(txt))
+            {
+                free(node);
+                pr_err(LOG_CONSOLE, "Bad \"value\" value: type is \"function\""
+                                    " but \"value\" is wrong\n", node->type);
+                return NULL;
+            }
+
             node->value.text = txt;
             _SKIP_TILL(txt, '"');
             *txt = '\0';
@@ -424,7 +472,7 @@ Node* parse_node_from_save(Tree* tree, char** text)
         {
             //printf("%s\n", txt); 
             free(node);
-            pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+            pr_err(LOG_CONSOLE, "Bad node type [%d is unknown]\n", node->type);\
             return NULL;
         }
     }
@@ -440,7 +488,7 @@ Node* parse_node_from_save(Tree* tree, char** text)
     else
     {
         free(node);
-        pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+        pr_err(LOG_CONSOLE, "Bad node format: bad \"value\" value\n");\
         return NULL;
     }
 
@@ -462,7 +510,7 @@ Node* parse_node_from_save(Tree* tree, char** text)
 
         if(node->left == NULL)
         {
-            pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+            pr_err(LOG_CONSOLE, "Bad node format\n");\
             return NULL;
         }
 
@@ -481,7 +529,7 @@ Node* parse_node_from_save(Tree* tree, char** text)
 
         if(node->right == NULL)
         {
-            pr_err(LOG_CONSOLE_STDERR, "Bad node format\n");\
+            pr_err(LOG_CONSOLE, "Bad node format\n");\
             return NULL;
         }
 
@@ -510,7 +558,7 @@ Tree* load_tree(const char* input)
     if(sz < 0)
     {
         freopen(NULL, "w", stdout);
-        pr_err(LOG_CONSOLE, "Bad input file\n");
+        pr_err(LOG_CONSOLE, "Bad input filepath\n");
         freopen(NULL, "w", stdout);
         return NULL;
     }
@@ -529,6 +577,14 @@ Tree* load_tree(const char* input)
         tree->root = NULL;
 
         tree->root = parse_node_from_save(tree, &txt);
+
+        if(tree->root == NULL)
+        {
+            tree_free(&tree);
+            free(txt);
+            pr_err(LOG_CONSOLE, "Error occured while loading\n");
+            return NULL;
+        }
     }
     else
         pr_err(LOG_CONSOLE_STDERR,  "Bad .tr file format"
@@ -536,5 +592,6 @@ Tree* load_tree(const char* input)
                                     '{', *txt); 
     tree->loaded = true;
     tree->text = txt;
+
     return tree;
 }
