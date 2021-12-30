@@ -21,7 +21,7 @@ Tree* tree_init()
     return res;
 }
 
-Node* _create_node(type_t type, value_t value, Node* parent, Node* left, Node* right)
+static Node* _create_node(type_t type, value_t value, Node* parent, Node* left, Node* right)
 {
     Node* res = (Node*)calloc(1, sizeof(Node));
 
@@ -118,8 +118,8 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
                                       node->value.text);
     else if(node->type == VAR)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#40E0D0\","
-                                      " label=\"%s\"];\n",
-                                      node->value.text);
+                                      " label=\"%c\"];\n",
+                                      (int)node->value.num);
     else if(node->type == CONST)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#DDA0DD\","
                                       " label=\"%.2lf\"];\n",
@@ -192,7 +192,7 @@ void dump_tree_dot(const char* output, Tree* tree)
     buff_pos += sprintf(curr_pos,  "}");
 
     FILE* fp = fopen(output, "w");
-    printf("output file is %s\n", output);
+    //printf("output file is %s\n", output);
     assert(fp != NULL);
 
     fwrite(dump_buff, buff_pos, sizeof(char), fp);
@@ -204,6 +204,87 @@ void dump_tree_dot(const char* output, Tree* tree)
     shift = 0;
 }
 
+#define dump_node_tex(node) _dump_node_tex(node, dump_buff, buff_pos);
+
+static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
+{
+    int ret = buff_pos;
+
+    if(node->type == OPER && node->value.num == '\\')
+        buff_pos += sprintf(curr_pos, "\\frac{");
+
+    if(node->left != NULL)
+        buff_pos += dump_node_tex(node->left);
+
+
+    if(node->type == OPER && node->value.num == '\\')
+        buff_pos += sprintf(curr_pos, "}{");
+
+    if(node->type == VAR)
+        buff_pos += sprintf(curr_pos, "%c",  (int)node->value.num);
+    else if(node->type == FUNC)
+        buff_pos += sprintf(curr_pos, "%s(", node->value.text);
+    else if(node->type == CONST)
+        buff_pos += sprintf(curr_pos, "%.1lf", node->value.num);
+    else if(node->type == OPER)
+    {
+        if(node->value.num == '*')
+            buff_pos += sprintf(curr_pos, "\\cdot");
+        else if(node->value.num != '\\')
+            buff_pos += sprintf(curr_pos, "%s", node->value.text);
+    }
+
+
+    if(node->right != NULL)
+        buff_pos += dump_node_tex(node->right);
+
+    if(node->type == FUNC)
+        buff_pos += sprintf(curr_pos, ")");
+
+    if(node->type == OPER && node->value.num == '\\')
+        buff_pos += sprintf(curr_pos, "}");
+    
+    return buff_pos - ret;
+}
+
+void dump_tree_tex(const char* output, Tree* tree)
+{
+    assert(output && "NOT Valid output file");
+    assert(tree && "NOT Valid tree (NULL)");
+
+    static char dump_buff[LOG_SIZE] = {};
+    static int buff_pos = 0;
+
+    buff_pos += sprintf(curr_pos, "\\documentclass{minimal}\n"
+                                  "\\begin{document}\n");
+
+    int ret = dump_node_tex(tree->root);
+
+    if(ret < 0)
+    {
+        pr_err(LOG_CONSOLE, "Error occured while dumping in dot\n");
+        return;
+    }
+
+    buff_pos += ret;
+    buff_pos += sprintf(curr_pos, "\n\\end{document}\n");
+
+    FILE* fp = fopen(output, "w");
+    //printf("output file is %s\n", output);
+    assert(fp != NULL);
+
+    fwrite(dump_buff, buff_pos, sizeof(char), fp);
+    //fwprintf(fp, L"%s", dump_buff);
+    fclose(fp);
+
+    char cmd[64] = {}; 
+    sprintf(cmd, "pdflatex %.53s", output);
+
+    system(cmd);
+
+    memset(dump_buff, '\0', buff_pos);
+    buff_pos = 0;
+}
 #define save_node(node, side) _save_node(node, dump_buff, buff_pos, shift, side)
 /*
  *
@@ -312,12 +393,13 @@ void save_tree(const char* output, Tree* tree)
 #undef LOG_SIZE
 #undef curr_pos
 #undef dump_node_dot
+#undef dump_node_tex
 #undef _SHIFT
 
 static bool is_func(char* txt)
 {
     #define func(name)\
-        if(strncasecmp(txt, #name, sizeof(#name) - 1) == 1)\
+        if(strncasecmp(txt, #name, sizeof(#name) - 1) == 0)\
             return true;\
         else
     
@@ -453,6 +535,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
             if(!IS_FUNC(txt))
             {
                 free(node);
+                printf("---%.10s", txt);
                 pr_err(LOG_CONSOLE, "Bad \"value\" value: type is \"function\""
                                     " but \"value\" is wrong\n", node->type);
                 return NULL;
@@ -465,10 +548,15 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
         }
         else if(node->type == VAR)
         {
-            char temp = -1;
-            sscanf(txt, "%c", &temp);
-            node->value.num = temp;
+            //char temp = -1;
+            //sscanf(txt, "%c", &temp);
+            //node->value.num = temp;
+            //_SKIP_TILL(txt, '"');
+            //txt++;
+
+            node->value.text = txt;
             _SKIP_TILL(txt, '"');
+            *txt = '\0';
             txt++;
         }
         else
