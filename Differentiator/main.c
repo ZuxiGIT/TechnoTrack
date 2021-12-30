@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "./lib/tree/tree.h"
+#include "DSL.h"
 #include "./lib/logger/logger.h"
 
 int main()
@@ -24,12 +24,13 @@ int main()
     //freopen(NULL, "w", stdout);
     //pr_err(LOG_STDERR, "test\n");
     //freopen(NULL, "w", stdout);
+    printf("sizeof(\"type\") = %lu\n", sizeof("type"));
     Tree* tree2 = load_tree("test");
     save_tree("test2", tree2);
     dump_tree_dot("dot_test2", tree2);
+    dump_tree_tex("tex_test2", tree2);
     
     printf("tree->size = %d\n", tree->size);
-    printf("sizeof(\"type\") = %lu\n", sizeof("te"));
     printf("sizeof(tree->root->type) = %lu\n", sizeof(tree->root->type));
     save_tree("test", tree);
 
