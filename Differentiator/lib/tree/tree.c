@@ -110,8 +110,8 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 
     if(node->type == OPER)
         buff_pos += sprintf(curr_pos, "shape=\"circle\", fillcolor=\"#CD5C5C\","
-                                      " label=\"%s\"];\n",
-                                      node->value.text);
+                                      " label=\"%c\"];\n",
+                                      (int)(node->value.num));
     else if(node->type == FUNC)
         buff_pos += sprintf(curr_pos, "shape=\"octagon\", fillcolor=\"#7FFF00\","
                                       " label=\"%s\"];\n",
@@ -169,6 +169,12 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 
 void dump_tree_dot(const char* output, Tree* tree)
 {
+    if(tree == NULL)
+    {
+        pr_err(LOG_CONSOLE, "bad tree to dump[dot]: pointer is NULL\n");
+        return;
+    }
+
     assert(output && "NOT Valid output file");
     assert(tree && "NOT Valid tree (NULL)");
 
@@ -229,9 +235,9 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
     else if(node->type == OPER)
     {
         if(node->value.num == '*')
-            buff_pos += sprintf(curr_pos, "\\cdot");
-        else if(node->value.num != '\\')
-            buff_pos += sprintf(curr_pos, "%s", node->value.text);
+            buff_pos += sprintf(curr_pos, " $\\cdot$ ");
+        else if(node->value.num != '/')
+            buff_pos += sprintf(curr_pos, "%c", (int)node->value.num);
     }
 
 
@@ -249,6 +255,12 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 
 void dump_tree_tex(const char* output, Tree* tree)
 {
+    if(tree == NULL)
+    {
+        pr_err(LOG_CONSOLE, "bad tree to dump[tex]: pointer is NULL\n");
+        return;
+    }
+
     assert(output && "NOT Valid output file");
     assert(tree && "NOT Valid tree (NULL)");
 
@@ -319,8 +331,10 @@ static int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int 
         buff_pos += sprintf(curr_pos, "value: %lf\n", node->value.num);
     else if((node->type == VAR))
         buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (int)(node->value.num));
-    else if((node->type == OPER) || (node->type == FUNC)) 
+    else if(node->type == FUNC)
         buff_pos += sprintf(curr_pos, "value: \"%s\"\n", (node->value.text));
+    else if(node->type == OPER) 
+        buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (int)(node->value.num));
     else
     {
         pr_err(LOG_CONSOLE, "Bad node type\n");
@@ -493,8 +507,6 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
 {
     char* txt = *text;
 
-    tree->size++;
-    
     Node* node = create_empty_node(); 
 
     REQUIRE('{');
@@ -534,10 +546,10 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
         {
             if(!IS_FUNC(txt))
             {
-                free(node);
                 printf("---%.10s", txt);
                 pr_err(LOG_CONSOLE, "Bad \"value\" value: type is \"function\""
                                     " but \"value\" is wrong\n", node->type);
+                free(node);
                 return NULL;
             }
 
@@ -562,8 +574,8 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
         else
         {
             //printf("%s\n", txt); 
-            free(node);
             pr_err(LOG_CONSOLE, "Bad node type [%d is unknown]\n", node->type);\
+            free(node);
             return NULL;
         }
     }
@@ -578,8 +590,8 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
     }
     else
     {
-        free(node);
         pr_err(LOG_CONSOLE, "Bad node format: bad \"value\" value\n");\
+        free(node);
         return NULL;
     }
 
@@ -588,6 +600,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
     if(*txt == '}')
     {
         *text = txt;
+        tree->size++;
         return node;
     }
 
@@ -602,6 +615,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
         if(node->left == NULL)
         {
             pr_err(LOG_CONSOLE, "Bad node format\n");\
+            free(node);
             return NULL;
         }
 
@@ -621,12 +635,113 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
         if(node->right == NULL)
         {
             pr_err(LOG_CONSOLE, "Bad node format\n");\
+            free(node);
             return NULL;
         }
 
         node->right->parent = node;
     }
 
+    tree->size++;
+    return node;
+}
+
+static Node* _parse_node_from_source(Tree* tree, char** text)
+{
+    char* txt = *text;
+
+    Node* node = create_empty_node(); 
+
+    REQUIRE('(');
+
+    txt++;
+
+    if(*txt == '(')
+    {
+        printf("----------------\n");
+        node->left = _parse_node_from_source(tree, &txt);
+
+        if(node->left == NULL)
+        {
+            free(node);
+            pr_err(LOG_CONSOLE, "Bad input format\n");\
+            return NULL;
+        }
+
+        node->left->parent = node;
+    }
+    
+    if(isdigit(*txt))
+    {
+        node->type = CONST;
+        sscanf(txt, "%lf", &node->value.num);
+        _SKIP_DIGITS(txt);
+    }
+    else if(isalpha(*txt))
+    {
+        node->value.text = txt;
+        _SKIP_CHARS(txt);
+
+        if(IS_FUNC(node->value.text))
+            node->type = FUNC;
+        else
+            node->type = VAR;
+    }
+    else if(IS_OPERATOR(*txt))
+    {
+        node->type = OPER;
+        char temp = 0;
+        sscanf(txt, "%c", &temp);
+        node->value.num = temp;
+        txt++;
+    }
+    else 
+    {
+        free(node);
+        pr_err(LOG_CONSOLE, "Bad input format [%.10s is unknown]\n", txt);\
+        return NULL;
+    }
+
+    if(*txt == ')')
+    {
+        if(node->type == VAR)
+            *txt == '\0';
+        txt++;
+
+        *text = txt;
+
+        tree->size++;
+        return node;
+    }
+
+    REQUIRE('(');
+
+    if(*txt == '(')
+    {
+        node->right = _parse_node_from_source(tree, &txt);
+
+        if(node->right == NULL)
+        {
+            pr_err(LOG_CONSOLE, "Bad input format\n");\
+            return NULL;
+        }
+
+        node->right->parent = node;
+    }
+
+    if(*txt == ')')
+    {
+        if(node->type == FUNC)
+            *txt == '\0';
+        txt++;
+
+        *text = txt;
+
+        tree->size++;
+        return node;
+    }
+
+    tree->size++;
     return node;
 }
 
@@ -667,20 +782,70 @@ Tree* load_tree(const char* input)
         tree->size = 0;
         tree->root = NULL;
 
+        printf("before %p\n", txt);
         tree->root = _parse_node_from_save(tree, &txt);
+        printf("after %p\n", txt);
 
         if(tree->root == NULL)
         {
             tree_free(&tree);
             free(txt);
-            pr_err(LOG_CONSOLE, "Error occured while loading\n");
+            pr_err(LOG_CONSOLE, "Error occured while loading from \"%s\" file\n",
+                                input);
             return NULL;
         }
     }
     else
-        pr_err(LOG_CONSOLE_STDERR,  "Bad .tr file format"
+        pr_err(LOG_CONSOLE_STDERR,  "Bad file format"
                                     " [expected \"%c\", got \"%c\"]\n",
                                     '{', *txt); 
+    tree->loaded = true;
+    tree->text = txt;
+
+    return tree;
+}
+
+Tree* parse_tree_from_source(const char* input)
+{
+    int sz = fileSize(input);
+
+    if(sz < 0)
+    {
+        freopen(NULL, "w", stdout);
+        pr_err(LOG_CONSOLE, "Bad input filepath\n");
+        freopen(NULL, "w", stdout);
+        return NULL;
+    }
+    printf("sz = %d\n", sz);
+
+    char* txt = readText(input, sz);
+    char* copy_txt = txt;
+
+    Tree* tree = NULL;
+
+    if(*txt == '(')
+    {
+        tree = (Tree*)calloc(1, sizeof(Tree));
+        assert(tree != NULL);
+        tree->size = 0;
+        printf("before %p\n", txt);
+        tree->root = _parse_node_from_source(tree, &txt);
+        printf("after %p\n", txt);
+
+        if(tree->root == NULL)
+        {
+            tree_free(&tree);
+            free(txt);
+            pr_err(LOG_CONSOLE, "Error occured while reading from \"%s\" source\n",
+                                input);
+            return NULL;
+        }
+    }
+    else
+        pr_err(LOG_CONSOLE_STDERR,  "Bad input file format"
+                                    " [expected %c, got %c]\n",
+                                    '(', *txt);
+
     tree->loaded = true;
     tree->text = txt;
 

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(Akinator VERSION 1.0 LANGUAGES C  )
+project(Differentiator VERSION 1.0 LANGUAGES C  )
 
 
 add_subdirectory(lib)

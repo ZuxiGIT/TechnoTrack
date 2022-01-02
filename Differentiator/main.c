@@ -25,7 +25,14 @@ int main()
     //pr_err(LOG_STDERR, "test\n");
     //freopen(NULL, "w", stdout);
     printf("sizeof(\"type\") = %lu\n", sizeof("type"));
+
+    Tree* tree3 = parse_tree_from_source("../input");
+    dump_tree_tex("tex_test3", tree3);
+    dump_tree_dot("test3", tree3);
+    save_tree("test3.tr", tree3);
+
     Tree* tree2 = load_tree("test");
+
     save_tree("test2", tree2);
     dump_tree_dot("dot_test2", tree2);
     dump_tree_tex("tex_test2", tree2);
@@ -36,5 +43,6 @@ int main()
 
     tree_free(&tree);
     tree_free(&tree2);
+    tree_free(&tree3);
     return 0;
 }
