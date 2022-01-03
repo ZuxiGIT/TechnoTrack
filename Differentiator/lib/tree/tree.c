@@ -58,9 +58,9 @@ void node_free(Node* node)
 
     assert(node);
 
-    if((node->left))
+    if((node->left) != NULL)
         node_free(node->left);
-    if((node->right))
+    if((node->right) != NULL)
         node_free(node->right);
 
     free(node);
@@ -70,6 +70,9 @@ void node_free(Node* node)
 
 void tree_free(Tree** tree)
 {
+    if(*tree == NULL)
+        return;
+
     if((*tree)->root != NULL)
     {
         node_free((*tree)->root->left);
@@ -218,6 +221,9 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 
     if(node->type == OPER && node->value.num == '\\')
         buff_pos += sprintf(curr_pos, "\\frac{");
+    else if(node->type == OPER && node->value.num == '*')
+        buff_pos += sprintf(curr_pos, "(");
+
 
     if(node->left != NULL)
         buff_pos += dump_node_tex(node->left);
@@ -235,7 +241,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
     else if(node->type == OPER)
     {
         if(node->value.num == '*')
-            buff_pos += sprintf(curr_pos, " $\\cdot$ ");
+            buff_pos += sprintf(curr_pos, ") $\\cdot$ (");
         else if(node->value.num != '/')
             buff_pos += sprintf(curr_pos, "%c", (int)node->value.num);
     }
@@ -249,6 +255,8 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 
     if(node->type == OPER && node->value.num == '\\')
         buff_pos += sprintf(curr_pos, "}");
+    else if(node->type == OPER && node->value.num == '*')
+        buff_pos += sprintf(curr_pos, ")");
     
     return buff_pos - ret;
 }
@@ -289,8 +297,8 @@ void dump_tree_tex(const char* output, Tree* tree)
     //fwprintf(fp, L"%s", dump_buff);
     fclose(fp);
 
-    char cmd[64] = {}; 
-    sprintf(cmd, "pdflatex %.53s", output);
+    char cmd[128] = {}; 
+    sprintf(cmd, "pdflatex -interaction=nonstopmode %.64s > /dev/null 2>&1", output);
 
     system(cmd);
 
@@ -494,9 +502,9 @@ static inline void _skip_till(char** txt, char chr)
 #define REQUIRE(chr)\
     if(*txt != chr)\
     {\
-        free(node);\
         pr_err(LOG_CONSOLE, "Bad .tr file format "\
                             "[expected \"%c\" but got \"%c\"]\n", chr, *txt);\
+        free(node);\
         return NULL;\
     }
 
@@ -663,8 +671,8 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 
         if(node->left == NULL)
         {
-            free(node);
             pr_err(LOG_CONSOLE, "Bad input format\n");\
+            free(node);
             return NULL;
         }
 
@@ -697,8 +705,9 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
     }
     else 
     {
+        pr_err(LOG_CONSOLE, "Bad input format [\"%.64s\" is unknown]\n", txt);
+        node_free(node->left);
         free(node);
-        pr_err(LOG_CONSOLE, "Bad input format [%.10s is unknown]\n", txt);\
         return NULL;
     }
 
@@ -722,7 +731,8 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 
         if(node->right == NULL)
         {
-            pr_err(LOG_CONSOLE, "Bad input format\n");\
+            pr_err(LOG_CONSOLE, "Bad input format\n");
+            free(node);
             return NULL;
         }
 
@@ -818,8 +828,12 @@ Tree* parse_tree_from_source(const char* input)
     }
     printf("sz = %d\n", sz);
 
+    //TODO
+    // Improve parsing input
+    // while txt_copy is dumb shit
+    //
     char* txt = readText(input, sz);
-    char* copy_txt = txt;
+    char* txt_copy = txt;
 
     Tree* tree = NULL;
 
@@ -828,8 +842,10 @@ Tree* parse_tree_from_source(const char* input)
         tree = (Tree*)calloc(1, sizeof(Tree));
         assert(tree != NULL);
         tree->size = 0;
+        tree->root = NULL;
+
         printf("before %p\n", txt);
-        tree->root = _parse_node_from_source(tree, &txt);
+        tree->root = _parse_node_from_source(tree, &txt_copy);
         printf("after %p\n", txt);
 
         if(tree->root == NULL)

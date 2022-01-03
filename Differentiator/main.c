@@ -27,6 +27,7 @@ int main()
     printf("sizeof(\"type\") = %lu\n", sizeof("type"));
 
     Tree* tree3 = parse_tree_from_source("../input");
+
     dump_tree_tex("tex_test3", tree3);
     dump_tree_dot("test3", tree3);
     save_tree("test3.tr", tree3);
