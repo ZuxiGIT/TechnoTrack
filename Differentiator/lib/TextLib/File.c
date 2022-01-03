@@ -77,9 +77,9 @@ char* readText(const char* name, const size_t size)
 
 	int written_sz = fread(buff, sizeof(unsigned char), size, fp);// logging
 
-	pr_info(LOG_CONSOLE | LOG_FILE, "Declared size (sizeof(char)): %d "
-                                     "Read size (sizeof(char)): %d\n",
-                                     size, written_sz);
+	pr_info(LOG_CONSOLE | LOG_FILE, "file[\"%s\"]: Declared size (sizeof(char)): %d "
+                                    "Read size (sizeof(char)): %d\n",
+                                    name, size, written_sz);
 
 	fclose(fp);
 

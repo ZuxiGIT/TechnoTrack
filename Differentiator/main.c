@@ -27,23 +27,23 @@ int main()
     printf("sizeof(\"type\") = %lu\n", sizeof("type"));
 
     Tree* tree3 = parse_tree_from_source("../input");
-
+    printf("tree3 size %d\n", tree3->size);
     dump_tree_tex("tex_test3", tree3);
     dump_tree_dot("test3", tree3);
     save_tree("test3.tr", tree3);
 
-    Tree* tree2 = load_tree("test");
+    Tree* tree2 = load_tree("test3.tr");
 
-    save_tree("test2", tree2);
-    dump_tree_dot("dot_test2", tree2);
-    dump_tree_tex("tex_test2", tree2);
+    //save_tree("test2", tree2);
+    //dump_tree_dot("dot_test2", tree2);
+    //dump_tree_tex("tex_test2", tree2);
     
     printf("tree->size = %d\n", tree->size);
     printf("sizeof(tree->root->type) = %lu\n", sizeof(tree->root->type));
     save_tree("test", tree);
 
     tree_free(&tree);
-    tree_free(&tree2);
+    //tree_free(&tree2);
     tree_free(&tree3);
     return 0;
 }

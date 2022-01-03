@@ -26,9 +26,9 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...);
 
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define pr_err(dest, fmt, ...)    pr_log_level(LOG_ERR,   dest,  "%s:%d " fmt, __FILENAME__, __LINE__, ##__VA_ARGS__)
-#define pr_info(dest, fmt, ...)   pr_log_level(LOG_INFO,  dest,  "%s:%d " fmt, __FILENAME__, __LINE__, ##__VA_ARGS__)
-#define pr_warn(dest, fmt, ...)   pr_log_level(LOG_WARN,  dest,  "%s:%d " fmt, __FILENAME__, __LINE__, ##__VA_ARGS__)
+#define pr_err(dest, fmt, ...)    pr_log_level(LOG_ERR,   dest,  "%s:%d -> " fmt, __FILENAME__, __LINE__, ##__VA_ARGS__)
+#define pr_info(dest, fmt, ...)   pr_log_level(LOG_INFO,  dest,  "%s:%d -> " fmt, __FILENAME__, __LINE__, ##__VA_ARGS__)
+#define pr_warn(dest, fmt, ...)   pr_log_level(LOG_WARN,  dest,  "%s:%d -> " fmt, __FILENAME__, __LINE__, ##__VA_ARGS__)
 #define pr_log(dest, fmt, ...)    pr_log_level(LOG,       dest,  fmt, ##__VA_ARGS__)
 
 #endif /* LOGGER_H */

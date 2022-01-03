@@ -127,6 +127,8 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#DDA0DD\","
                                       " label=\"%.2lf\"];\n",
                                       node->value.num);
+    else if(node->type == EMPTY)
+        ;
     else
     {
         pr_err(LOG_CONSOLE, "Error [dot dump]: unknown type[%d]\n", 
@@ -219,7 +221,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 {
     int ret = buff_pos;
 
-    if(node->type == OPER && node->value.num == '\\')
+    if(node->type == OPER && node->value.num == '/')
         buff_pos += sprintf(curr_pos, "\\frac{");
     else if(node->type == OPER && node->value.num == '*')
         buff_pos += sprintf(curr_pos, "(");
@@ -229,7 +231,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
         buff_pos += dump_node_tex(node->left);
 
 
-    if(node->type == OPER && node->value.num == '\\')
+    if(node->type == OPER && node->value.num == '/')
         buff_pos += sprintf(curr_pos, "}{");
 
     if(node->type == VAR)
@@ -241,7 +243,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
     else if(node->type == OPER)
     {
         if(node->value.num == '*')
-            buff_pos += sprintf(curr_pos, ") $\\cdot$ (");
+            buff_pos += sprintf(curr_pos, ") \\cdot (");
         else if(node->value.num != '/')
             buff_pos += sprintf(curr_pos, "%c", (int)node->value.num);
     }
@@ -253,7 +255,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
     if(node->type == FUNC)
         buff_pos += sprintf(curr_pos, ")");
 
-    if(node->type == OPER && node->value.num == '\\')
+    if(node->type == OPER && node->value.num == '/')
         buff_pos += sprintf(curr_pos, "}");
     else if(node->type == OPER && node->value.num == '*')
         buff_pos += sprintf(curr_pos, ")");
@@ -276,7 +278,7 @@ void dump_tree_tex(const char* output, Tree* tree)
     static int buff_pos = 0;
 
     buff_pos += sprintf(curr_pos, "\\documentclass{minimal}\n"
-                                  "\\begin{document}\n");
+                                  "\\begin{document}\n$\n");
 
     int ret = dump_node_tex(tree->root);
 
@@ -287,7 +289,7 @@ void dump_tree_tex(const char* output, Tree* tree)
     }
 
     buff_pos += ret;
-    buff_pos += sprintf(curr_pos, "\n\\end{document}\n");
+    buff_pos += sprintf(curr_pos, "\n$\n\\end{document}\n");
 
     FILE* fp = fopen(output, "w");
     //printf("output file is %s\n", output);
@@ -343,6 +345,8 @@ static int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int 
         buff_pos += sprintf(curr_pos, "value: \"%s\"\n", (node->value.text));
     else if(node->type == OPER) 
         buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (int)(node->value.num));
+    else if(node->type == EMPTY)
+        buff_pos += sprintf(curr_pos, "value: \"# (EMPTY NODE)\"\n");
     else
     {
         pr_err(LOG_CONSOLE, "Bad node type\n");
@@ -579,6 +583,12 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
             *txt = '\0';
             txt++;
         }
+        else if(node->type == EMPTY)
+        {
+            node->value.text = NULL;
+            _SKIP_TILL(txt, '"');
+            txt++;
+        }
         else
         {
             //printf("%s\n", txt); 
@@ -607,6 +617,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
 
     if(*txt == '}')
     {
+        txt++;
         *text = txt;
         tree->size++;
         return node;
@@ -650,6 +661,9 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
         node->right->parent = node;
     }
 
+    _SKIP_SPACES(txt);
+    txt++;
+    *text = txt;
     tree->size++;
     return node;
 }
@@ -666,7 +680,6 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 
     if(*txt == '(')
     {
-        printf("----------------\n");
         node->left = _parse_node_from_source(tree, &txt);
 
         if(node->left == NULL)
@@ -703,6 +716,11 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
         node->value.num = temp;
         txt++;
     }
+    else if(*txt == '#')
+    {
+        node->type = EMPTY;
+        txt++;
+    }
     else 
     {
         pr_err(LOG_CONSOLE, "Bad input format [\"%.64s\" is unknown]\n", txt);
@@ -727,6 +745,8 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 
     if(*txt == '(')
     {
+        char* bracket = txt;
+
         node->right = _parse_node_from_source(tree, &txt);
 
         if(node->right == NULL)
@@ -737,6 +757,9 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
         }
 
         node->right->parent = node;
+        
+        if(node->type == FUNC)
+            *bracket = '\0';
     }
 
     if(*txt == ')')
@@ -751,8 +774,6 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
         return node;
     }
 
-    tree->size++;
-    return node;
 }
 
 #undef _SKIP_SPACES
@@ -780,7 +801,12 @@ Tree* load_tree(const char* input)
     }
     printf("sz = %d\n", sz);
 
+    //TODO
+    // Improve parsing input
+    // while txt_copy is dumb shit but it works fine
+
     char* txt = readText(input, sz);
+    char* txt_copy = txt;
     //fprintf(stderr, "File was read\n%ls\n", txt);
 
     Tree* tree = NULL;
@@ -792,9 +818,9 @@ Tree* load_tree(const char* input)
         tree->size = 0;
         tree->root = NULL;
 
-        printf("before %p\n", txt);
-        tree->root = _parse_node_from_save(tree, &txt);
-        printf("after %p\n", txt);
+        //printf("before %p\n", txt);
+        tree->root = _parse_node_from_save(tree, &txt_copy);
+        //printf("after %p\n", txt);
 
         if(tree->root == NULL)
         {
@@ -826,12 +852,11 @@ Tree* parse_tree_from_source(const char* input)
         freopen(NULL, "w", stdout);
         return NULL;
     }
-    printf("sz = %d\n", sz);
 
     //TODO
     // Improve parsing input
-    // while txt_copy is dumb shit
-    //
+    // while txt_copy is dumb shit but it works fine
+    
     char* txt = readText(input, sz);
     char* txt_copy = txt;
 
@@ -844,9 +869,9 @@ Tree* parse_tree_from_source(const char* input)
         tree->size = 0;
         tree->root = NULL;
 
-        printf("before %p\n", txt);
+        //printf("before %p\n", txt);
         tree->root = _parse_node_from_source(tree, &txt_copy);
-        printf("after %p\n", txt);
+        //printf("after %p\n", txt);
 
         if(tree->root == NULL)
         {
