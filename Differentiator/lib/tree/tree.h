@@ -48,7 +48,6 @@ Tree* load_tree(const char* input);
 Tree* parse_tree_from_source(const char* input);
 
 Node* create_node(type_t type, value_t value);
-Node* create_empty_node();
 
 void dump_tree_dot(const char* output, Tree* tree);
 void dump_tree_tex(const char* output, Tree* tree);

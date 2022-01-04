@@ -1,6 +1,7 @@
 #include "tree.h"
 #include "../logger/logger.h"
 #include "../TextLib/File.h"
+#include "../../DSL.h"
 
 #include <stdlib.h>
 #include <assert.h>
@@ -15,6 +16,8 @@ Tree* tree_init()
 
     res->root = NULL; 
     res->size = 0;
+    res->loaded = false;
+    res->text = NULL;
 
     //res->root->left = res->root->right = res->root->parent = NULL;
 
@@ -32,18 +35,6 @@ static Node* _create_node(type_t type, value_t value, Node* parent, Node* left, 
     res->type = type;
 
     return res;
-}
-
-inline Node* create_empty_node()
-{
-    //Node* res = (Node*)calloc(1, sizeof(Node));
-    //
-    //res->value.text = NULL;
-    //res->parent = res->left = res->right = NULL;
-    //res->type = UNDEFINED;
-    //
-    //return res;
-    return _create_node(UNDEFINED, (value_t)((char*)NULL), NULL, NULL, NULL);
 }
 
 inline Node* create_node(type_t type, value_t value)
@@ -127,8 +118,6 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#DDA0DD\","
                                       " label=\"%.2lf\"];\n",
                                       node->value.num);
-    else if(node->type == EMPTY)
-        ;
     else
     {
         pr_err(LOG_CONSOLE, "Error [dot dump]: unknown type[%d]\n", 
@@ -148,7 +137,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     }
 
 
-    if(node->left != NULL)
+    if(node->left != NULL && node->left->type != EMPTY)
     { 
         _SHIFT;
 
@@ -158,7 +147,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         buff_pos += dump_node_dot(node->left);
     }
 
-    if(node->right != NULL)
+    if(node->right != NULL && node->right->type != EMPTY)
     {
         _SHIFT;
 
@@ -209,6 +198,13 @@ void dump_tree_dot(const char* output, Tree* tree)
     fwrite(dump_buff, buff_pos, sizeof(char), fp);
     //fwprintf(fp, L"%s", dump_buff);
     fclose(fp);
+
+    char dot_cmd[256] = {};
+
+    sprintf(dot_cmd, "dot -Tpdf %.64s > %.64s.pdf", output, output);
+
+    system(dot_cmd);
+
 
     memset(dump_buff, '\0', buff_pos);
     buff_pos = 0;
@@ -353,6 +349,7 @@ static int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int 
         return -1;
     }
 
+    //if(node->left != NULL && node->left->type != EMPTY)
     if(node->left != NULL)
     {
         int ret = save_node(node->left, -1);
@@ -366,6 +363,7 @@ static int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int 
         buff_pos += ret;
     }
 
+    //if(node->right != NULL && node->right->type != EMPTY)
     if(node->right != NULL)
     {
         int ret = save_node(node->right, 1);
@@ -424,7 +422,7 @@ void save_tree(const char* output, Tree* tree)
 
 static bool is_func(char* txt)
 {
-    #define func(name)\
+    #define func(name, diff)\
         if(strncasecmp(txt, #name, sizeof(#name) - 1) == 0)\
             return true;\
         else
@@ -519,7 +517,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
 {
     char* txt = *text;
 
-    Node* node = create_empty_node(); 
+    Node* node = create_undefined_node(); 
 
     REQUIRE('{');
     
@@ -549,9 +547,14 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
                 return NULL;
             }
 
-            node->value.text = txt;
+            //node->value.text = txt;
+            //_SKIP_TILL(txt, '"');
+            //*txt = '\0';
+            //txt++;
+            char temp = 0;
+            sscanf(txt, "%c", &temp);
+            node->value.num = temp;
             _SKIP_TILL(txt, '"');
-            *txt = '\0';
             txt++;
         }
         else if(node->type == FUNC)
@@ -672,7 +675,7 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 {
     char* txt = *text;
 
-    Node* node = create_empty_node(); 
+    Node* node = create_undefined_node(); 
 
     REQUIRE('(');
 
@@ -801,12 +804,8 @@ Tree* load_tree(const char* input)
     }
     printf("sz = %d\n", sz);
 
-    //TODO
-    // Improve parsing input
-    // while txt_copy is dumb shit but it works fine
 
     char* txt = readText(input, sz);
-    char* txt_copy = txt;
     //fprintf(stderr, "File was read\n%ls\n", txt);
 
     Tree* tree = NULL;
@@ -819,13 +818,14 @@ Tree* load_tree(const char* input)
         tree->root = NULL;
 
         //printf("before %p\n", txt);
-        tree->root = _parse_node_from_save(tree, &txt_copy);
+        tree->text = txt;
+        tree->root = _parse_node_from_save(tree, &txt);
         //printf("after %p\n", txt);
 
         if(tree->root == NULL)
         {
             tree_free(&tree);
-            free(txt);
+            free(tree->text);
             pr_err(LOG_CONSOLE, "Error occured while loading from \"%s\" file\n",
                                 input);
             return NULL;
@@ -836,7 +836,6 @@ Tree* load_tree(const char* input)
                                     " [expected \"%c\", got \"%c\"]\n",
                                     '{', *txt); 
     tree->loaded = true;
-    tree->text = txt;
 
     return tree;
 }
@@ -853,12 +852,7 @@ Tree* parse_tree_from_source(const char* input)
         return NULL;
     }
 
-    //TODO
-    // Improve parsing input
-    // while txt_copy is dumb shit but it works fine
-    
     char* txt = readText(input, sz);
-    char* txt_copy = txt;
 
     Tree* tree = NULL;
 
@@ -870,13 +864,14 @@ Tree* parse_tree_from_source(const char* input)
         tree->root = NULL;
 
         //printf("before %p\n", txt);
-        tree->root = _parse_node_from_source(tree, &txt_copy);
+        tree->text = txt;
+        tree->root = _parse_node_from_source(tree, &txt);
         //printf("after %p\n", txt);
 
         if(tree->root == NULL)
         {
             tree_free(&tree);
-            free(txt);
+            free(tree->text);
             pr_err(LOG_CONSOLE, "Error occured while reading from \"%s\" source\n",
                                 input);
             return NULL;
@@ -888,7 +883,6 @@ Tree* parse_tree_from_source(const char* input)
                                     '(', *txt);
 
     tree->loaded = true;
-    tree->text = txt;
 
     return tree;
 }

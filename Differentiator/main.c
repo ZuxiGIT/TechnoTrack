@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "DSL.h"
+#include "diff.h"
 #include "./lib/logger/logger.h"
 
 int main()
@@ -33,8 +34,10 @@ int main()
     save_tree("test3.tr", tree3);
 
     Tree* tree2 = load_tree("test3.tr");
+    Tree* tree4 = differentiate_tree(tree2);
 
-    //save_tree("test2", tree2);
+
+    save_tree("test2", tree2);
     //dump_tree_dot("dot_test2", tree2);
     //dump_tree_tex("tex_test2", tree2);
     
@@ -43,7 +46,8 @@ int main()
     save_tree("test", tree);
 
     tree_free(&tree);
-    //tree_free(&tree2);
+    tree_free(&tree2);
     tree_free(&tree3);
+    tree_free(&tree4);
     return 0;
 }

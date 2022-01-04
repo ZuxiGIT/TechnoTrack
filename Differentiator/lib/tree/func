@@ -1,4 +1,30 @@
-func(sin)
-func(cos)
-func(ln)
-func(tg)
+func(sin, 
+    {
+        Node* res = create_func_node(_2_str(cos));
+        attach_node(res, left, create_empty_node());
+        attach_node(res, right, differentiate_node(node->right));
+    }
+)
+
+func(cos,
+    {
+        Node* res = create_oper_node('-');
+        attach_node(res, left, create_empty_node());
+        attach_node(res, right, create_func_node(_2_str(sin)));
+        Node* sin_node = res->right;
+        attach_node(sin_node, left, create_empty_node());
+        attach_node(sin_node, right, differentiate_node(node->right));
+    }
+)
+
+func(ln,
+    {
+        assert(NULL && "Not implenented yet");
+    }
+)
+
+func(tg,
+    {
+        assert(NULL && "Not implenented yet");
+    }
+)
