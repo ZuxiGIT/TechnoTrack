@@ -12,7 +12,7 @@ static Node* differentiate_node(Node* node)
         return create_const_node(1);
 
     if(node->type == EMPTY)
-        return copy_subtree(node);
+        return copy_node(node);
 
     if(node->type == OPER)
     {
@@ -64,7 +64,8 @@ static Node* differentiate_node(Node* node)
             Node* left_copy = copy_subtree(node->left);
             Node* left_diff = differentiate_node(node->left);
 
-            Node* right_copy = copy_subtree(node->right);
+            Node* right_copy_num = copy_subtree(node->right);
+            Node* right_copy_denom = copy_subtree(node->right);
             Node* right_diff = differentiate_node(node->right);
 
             Node* numerator = create_oper_node('-');
@@ -74,7 +75,7 @@ static Node* differentiate_node(Node* node)
             Node* num_left = numerator->left;
 
             attach_node(num_left, left, left_diff);
-            attach_node(num_left, right, right_copy);
+            attach_node(num_left, right, right_copy_num);
 
             attach_node(numerator, right, create_oper_node('*'));
 
@@ -84,7 +85,8 @@ static Node* differentiate_node(Node* node)
             attach_node(num_right, right, right_diff);
 
             Node* denominator = create_func_node("^");
-            attach_node(denominator, left, right_copy);
+
+            attach_node(denominator, left, right_copy_denom);
             attach_node(denominator, right, create_const_node(2));
 
             attach_node(res, left, numerator);
@@ -96,7 +98,7 @@ static Node* differentiate_node(Node* node)
 
     if(node->type == FUNC)
     {
-        #define func(name, diff)\
+        #define func(name, diff, latex_begin, latex_mid, latex_end)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
         {\
             diff\
@@ -116,6 +118,7 @@ Tree* differentiate_tree(const Tree* tree)
 {
     if(tree == NULL)
         return NULL;
+
     Tree* res = tree_init();
 
     res->root = differentiate_node(tree->root);
