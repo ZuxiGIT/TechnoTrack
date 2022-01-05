@@ -42,6 +42,41 @@ inline Node* create_node(type_t type, value_t value)
     return _create_node(type, (value_t) value, NULL, NULL, NULL);
 }
 
+
+Node* copy_node(const Node* node)
+{
+    if(node == NULL)
+        return NULL;
+
+    Node* res = (Node*)calloc(1, sizeof(Node));
+
+    memcpy(res, node, sizeof(Node));
+
+    if(node->type == VAR || node->type == FUNC)
+    {
+        res->value.text = strndup(node->value.text, strlen(node->value.text));
+        res->alloc = true;
+    }
+    
+    return res;
+}
+
+Node* copy_subtree(const Node* subtree)
+{
+    Node* res = copy_node(subtree);
+
+    if(res == NULL)
+        return NULL;
+
+    if(subtree->left != NULL)
+        res->left = copy_subtree(subtree->left);
+
+    if(subtree->right != NULL)
+        res->right = copy_subtree(subtree->right);
+
+    return res;
+}
+
 void node_free(Node* node)
 {
     if(node == NULL)
@@ -53,6 +88,9 @@ void node_free(Node* node)
         node_free(node->left);
     if((node->right) != NULL)
         node_free(node->right);
+
+    if(node->alloc)
+        free(node->value.text);
 
     free(node);
 
@@ -68,10 +106,11 @@ void tree_free(Tree** tree)
     {
         node_free((*tree)->root->left);
         node_free((*tree)->root->right);
+        free((*tree)->root);
     }
-    free((*tree)->root);
     if((*tree)->loaded)
         free((*tree)->text);
+
     free(*tree);
     *tree = NULL;
 }
@@ -767,8 +806,6 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 
     if(*txt == ')')
     {
-        if(node->type == FUNC)
-            *txt == '\0';
         txt++;
 
         *text = txt;

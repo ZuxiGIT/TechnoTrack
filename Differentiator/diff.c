@@ -12,9 +12,87 @@ static Node* differentiate_node(Node* node)
         return create_const_node(1);
 
     if(node->type == EMPTY)
-        return node;
+        return copy_subtree(node);
 
     if(node->type == OPER)
+    {
+        if(node->value.num == '+')
+        {
+            Node* res = create_oper_node('+');
+            attach_node(res, left, differentiate_node(node->left));
+            attach_node(res, right, differentiate_node(node->right));
+            return res;
+        }
+        else if(node->value.num == '-')
+        {
+            Node* res = create_oper_node('-');
+            attach_node(res, left, differentiate_node(node->left));
+            attach_node(res, right, differentiate_node(node->right));
+            return res;
+        }
+        else if(node->value.num == '*')
+        {
+            Node* res = create_oper_node('+');
+
+            Node* left_copy = copy_subtree(node->left);
+            Node* left_diff = differentiate_node(node->left);
+
+            Node* right_copy = copy_subtree(node->right);
+            Node* right_diff = differentiate_node(node->right);
+
+
+            attach_node(res, left, create_oper_node('*'));
+
+            Node* res_left = res->left;
+
+            attach_node(res_left, left, left_diff);
+            attach_node(res_left, right, right_copy);
+
+            attach_node(res, right, create_oper_node('*'));
+            
+            Node* res_right = res->right;
+
+            attach_node(res_right, left, left_copy);
+            attach_node(res_right, right, right_diff);
+
+            return res;
+        }
+        else if(node->value.num == '/')
+        {
+            Node* res = create_oper_node('/');
+            
+            Node* left_copy = copy_subtree(node->left);
+            Node* left_diff = differentiate_node(node->left);
+
+            Node* right_copy = copy_subtree(node->right);
+            Node* right_diff = differentiate_node(node->right);
+
+            Node* numerator = create_oper_node('-');
+
+            attach_node(numerator, left, create_oper_node('*'));
+
+            Node* num_left = numerator->left;
+
+            attach_node(num_left, left, left_diff);
+            attach_node(num_left, right, right_copy);
+
+            attach_node(numerator, right, create_oper_node('*'));
+
+            Node* num_right = numerator->right;
+
+            attach_node(num_right, left, left_copy);
+            attach_node(num_right, right, right_diff);
+
+            Node* denominator = create_func_node("^");
+            attach_node(denominator, left, right_copy);
+            attach_node(denominator, right, create_const_node(2));
+
+            attach_node(res, left, numerator);
+            attach_node(res, right, denominator);
+
+            return res;
+        }
+    }
 
     if(node->type == FUNC)
     {
@@ -30,6 +108,7 @@ static Node* differentiate_node(Node* node)
     }
 
     pr_err(LOG_CONSOLE, "Undefined node[type: %d]\n", node->type);
+    return NULL;
 
 }
 

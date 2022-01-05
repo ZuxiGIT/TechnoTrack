@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "DSL.h"
 #include "diff.h"
+#include "./lib/TextLib/File.h"
 #include "./lib/logger/logger.h"
+#include "./lib/tree/tree.h"
 
 int main()
 {
@@ -10,7 +13,7 @@ int main()
     //parse_tree_from_source(argv[1], tree);
     //tree->root->type = OPER;
     //tree->root->value.text = "+";
-    tree->root = create_node(FUNC, (value_t) "sin");
+    tree->root = create_node(FUNC, (value_t)"sin");
     tree->size++;
     //printf("\"+\" ACII is %s\n", ((value_t) "+").text);
     //printf("\"+\" ACII is %lf\n", tree->root->value.num);
@@ -30,11 +33,16 @@ int main()
     Tree* tree3 = parse_tree_from_source("../input");
     printf("tree3 size %d\n", tree3->size);
     dump_tree_tex("tex_test3", tree3);
-    dump_tree_dot("test3", tree3);
+    dump_tree_dot("dot_test3", tree3);
     save_tree("test3.tr", tree3);
 
     Tree* tree2 = load_tree("test3.tr");
     Tree* tree4 = differentiate_tree(tree2);
+
+
+    Tree* tree5 = tree_init();
+    tree5->root = copy_subtree(tree3->root);
+    save_tree("test5.tr", tree5);
 
 
     save_tree("test2", tree2);
@@ -49,5 +57,7 @@ int main()
     tree_free(&tree2);
     tree_free(&tree3);
     tree_free(&tree4);
+    tree_free(&tree5);
+
     return 0;
 }

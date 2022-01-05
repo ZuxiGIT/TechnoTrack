@@ -27,6 +27,7 @@ typedef struct Node
     struct Node* right;
     struct Node* parent;
     type_t type; 
+    bool alloc;
 } Node;
 
 typedef struct 
@@ -48,6 +49,9 @@ Tree* load_tree(const char* input);
 Tree* parse_tree_from_source(const char* input);
 
 Node* create_node(type_t type, value_t value);
+
+Node* copy_node(const Node* node);
+Node* copy_subtree(const Node* subtree);
 
 void dump_tree_dot(const char* output, Tree* tree);
 void dump_tree_tex(const char* output, Tree* tree);
