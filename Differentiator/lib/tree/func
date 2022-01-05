@@ -1,4 +1,4 @@
-// func(name, derivative, latex_begin, latex_end)
+// func(name, derivative, latex_begin, latex_mid, latex_end)
 func(sin, 
     {
         // cos(param) * deriv(param)
