@@ -30,9 +30,6 @@ int main()
     //freopen(NULL, "w", stdout);
     printf("sizeof(\"type\") = %lu\n", sizeof("type"));
 
-
-
-
     printf("Ok!\n");
     Tree* tree3 = parse_tree_from_source("../input1");
     printf("not Ok!\n");
@@ -45,17 +42,11 @@ int main()
     printf("saving tree3\n");
     save_tree("test3.tr", tree3);
     
-    
-
     Tree* tree5 = tree_init();
     if(tree3 != NULL)
         tree5->root = copy_subtree(tree3->root);
     //printf("got addres %p\n", tree5->root);
     
-
-
-
-
     if(tree3 != NULL)
         printf("tree3 size %d\n", tree3->size);
 
@@ -72,9 +63,6 @@ int main()
     dump_tree_dot("dot_test4", tree4);
     printf("saving tree4 in tex\n");
     dump_tree_tex("tex_test4", tree4);
-
-
-
 
     printf("saving tree5\n");
     save_tree("test5.tr", tree5);
