@@ -1,7 +1,9 @@
 // func(name, derivative, latex_begin, latex_mid, latex_end)
+
 func(sin, 
     {
         // cos(param) * deriv(param)
+
         Node* res = create_oper_node('*');
         attach_node(res, left, create_func_node(_2_str(cos)));
         Node* res_left = res->left;
@@ -18,6 +20,7 @@ func(sin,
 func(cos,
     {
         // -sin(param) * deriv(param)
+        
         Node* res = create_oper_node('*');
         attach_node(res, left, create_oper_node('-'));
         Node* res_left = res->left;
@@ -34,7 +37,9 @@ func(cos,
     ")"
 )
 func(^,
-    {
+    {   // if param == const --> 0
+        // if param^n != const --> n * param^(n-1) * deriv(param)
+
         if(node->left->type == CONST) 
             return create_const_node(0);
         else
@@ -67,9 +72,45 @@ func(^,
 
 func(ln,
     {
-        assert(NULL && "Not implenented yet");
+        // deriv(param) / param
+
+        Node* res = create_oper_node('/');
+        attach_node(res, left, differentiate_node(node->right));
+        attach_node(res, right, copy_subtree(node->right));
+        return res;
     },
-    " ","(",")"
+    " ",
+    "\\ln(",
+    ")"
+)
+
+func(exp,
+    {
+        Node* res = create_oper_node('*');
+        attach_node(res, right, differentiate_node(node->right));
+        attach_node(res, left, create_func_node(_2_str(exp)));
+        attach_node(res->left, left, create_empty_node());
+        attach_node(res->left, right, copy_subtree(node->right));
+        return res;
+    },
+    " ",
+    "\\exp(",
+    ")"
+)
+
+func(e,
+    {
+        Node* res = create_oper_node('*');
+        attach_node(res, right, differentiate_node(node->right));
+        attach_node(res, left, create_func_node(_2_str(e)));
+        attach_node(res->left, left, create_empty_node());
+        attach_node(res->left, right, copy_subtree(node->right));
+        return res;
+
+    },
+    " ",
+    "\\exp(",
+    ")"
 )
 
 func(tg,

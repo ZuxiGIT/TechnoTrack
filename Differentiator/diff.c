@@ -125,3 +125,13 @@ Tree* differentiate_tree(const Tree* tree)
 
     return res;
 }
+
+void optimize_subtree(Node* tree)
+{
+    assert(NULL && "Not implemented yet");
+}
+
+void optimize_tree(Tree* tree)
+{
+    assert(NULL && "Not implemented yet");
+}

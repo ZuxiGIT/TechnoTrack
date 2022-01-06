@@ -14,12 +14,11 @@ Tree* tree_init()
 {
     Tree* res = (Tree*)calloc(1, sizeof(Tree)); 
 
+    //I know that calloc put 0 in this fields
     res->root = NULL; 
     res->size = 0;
     res->loaded = false;
     res->text = NULL;
-
-    //res->root->left = res->root->right = res->root->parent = NULL;
 
     return res;
 }
@@ -115,12 +114,21 @@ void tree_free(Tree** tree)
     if(*tree == NULL)
         return;
 
-    if((*tree)->root != NULL)
-    {
-        node_free((*tree)->root->left);
-        node_free((*tree)->root->right);
-        free((*tree)->root);
-    }
+    // deprecated for a while
+   // if((*tree)->root != NULL)
+   // {
+   //     node_free((*tree)->root->left);
+   //     node_free((*tree)->root->right);
+
+   //     if((*tree)->root->alloc)
+   //         node_free((*tree)->root);
+   //     
+   //     free((*tree)->root);
+   //     
+   // }
+   
+    node_free((*tree)->root);
+
     if((*tree)->loaded)
         free((*tree)->text);
 
@@ -153,7 +161,6 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     
     buff_pos += sprintf(curr_pos, "Node_%ld[style=\"filled\", ", num_of(node));
 
-
     if(node->type == OPER)
         buff_pos += sprintf(curr_pos, "shape=\"circle\", fillcolor=\"#CD5C5C\","
                                       " label=\"%c\"];\n",
@@ -164,8 +171,8 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
                                       node->value.text);
     else if(node->type == VAR)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#40E0D0\","
-                                      " label=\"%c\"];\n",
-                                      (int)node->value.num);
+                                      " label=\"%s\"];\n",
+                                      node->value.text);
     else if(node->type == CONST)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#DDA0DD\","
                                       " label=\"%.2lf\"];\n",
@@ -177,14 +184,12 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         return -1;
     }
 
-    
     if(node->parent != NULL)
     {
         _SHIFT;
 
         buff_pos += sprintf(curr_pos, "Node_%ld->Node_%ld", num_of(node), 
                                                             num_of(node->parent));
-
         buff_pos += sprintf(curr_pos, "[color=\"red\"];\n");
     }
 
@@ -195,7 +200,6 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 
         buff_pos += sprintf(curr_pos, "Node_%ld->Node_%ld;\n", num_of(node), 
                                                             num_of(node->left));
-        
         buff_pos += dump_node_dot(node->left);
     }
 
@@ -205,7 +209,6 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
 
         buff_pos += sprintf(curr_pos, "Node_%ld->Node_%ld;\n", num_of(node), 
                                                             num_of(node->right));
-
         buff_pos += dump_node_dot(node->right);
     }
 
@@ -256,7 +259,6 @@ void dump_tree_dot(const char* output, Tree* tree)
     sprintf(dot_cmd, "dot -Tpdf %.64s > %.64s.pdf", output, output);
 
     system(dot_cmd);
-
 
     memset(dump_buff, '\0', buff_pos);
     buff_pos = 0;
@@ -328,7 +330,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
             buff_pos += sprintf(curr_pos, "%c", (int)node->value.num);
     }
     else if(node->type == VAR)
-        buff_pos += sprintf(curr_pos, "%c",  (int)node->value.num);
+        buff_pos += sprintf(curr_pos, "%s",  node->value.text);
     else if(node->type == CONST)
         buff_pos += sprintf(curr_pos, "%.1lf", node->value.num);
 
@@ -450,7 +452,7 @@ static int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int 
     if(node->type == CONST) 
         buff_pos += sprintf(curr_pos, "value: %lf\n", node->value.num);
     else if((node->type == VAR))
-        buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (int)(node->value.num));
+        buff_pos += sprintf(curr_pos, "value: \"%s\"\n", node->value.text);
     else if(node->type == FUNC)
         buff_pos += sprintf(curr_pos, "value: \"%s\"\n", (node->value.text));
     else if(node->type == OPER) 
@@ -832,8 +834,13 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
     else if(isalpha(*txt))
     {
         node->value.text = txt;
-        _SKIP_CHARS(txt);
+
+        //char temp = 0;
+        //sscanf(txt, "%c", &temp);
+        //node->value.num = temp;
+
         node->type = VAR;
+        _SKIP_CHARS(txt);
     }
     else if(IS_OPERATOR(*txt))
     {
@@ -859,7 +866,8 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
     if(*txt == ')')
     {
         if(node->type == VAR)
-            *txt == '\0';
+            *txt = '\0';
+
         txt++;
 
         *text = txt;
