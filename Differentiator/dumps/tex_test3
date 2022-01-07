@@ -1,6 +1,0 @@
-\documentclass{minimal}
-\begin{document}
-$
-\frac{(1000,0-7,0) \cdot (1000,0+7,0)}{ \sin(21,0)}
-$
-\end{document}

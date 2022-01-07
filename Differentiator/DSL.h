@@ -4,6 +4,15 @@
 #include <stdlib.h>
 #include "./lib/tree/tree.h"
 
+/*
+ * side means left child or right
+ * ___
+ * |
+ * | side = left
+ * | side = right
+ * |__
+ */
+
 #define attach_node(node, side, child)\
 {\
     node->side = child;\

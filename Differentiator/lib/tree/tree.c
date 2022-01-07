@@ -145,19 +145,6 @@ void tree_free(Tree** tree)
     if(*tree == NULL)
         return;
 
-    // deprecated for a while
-   // if((*tree)->root != NULL)
-   // {
-   //     node_free((*tree)->root->left);
-   //     node_free((*tree)->root->right);
-
-   //     if((*tree)->root->alloc)
-   //         node_free((*tree)->root);
-   //     
-   //     free((*tree)->root);
-   //     
-   // }
-   
     node_free((*tree)->root);
 
     if((*tree)->loaded)
@@ -701,11 +688,6 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
                 free(node);
                 return NULL;
             }
-
-            //node->value.text = txt;
-            //_SKIP_TILL(txt, '"');
-            //*txt = '\0';
-            //txt++;
             char temp = 0;
             sscanf(txt, "%c", &temp);
             node->value.num = temp;
@@ -730,13 +712,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
         }
         else if(node->type == VAR)
         {
-            //char temp = -1;
-            //sscanf(txt, "%c", &temp);
-            //node->value.num = temp;
-            //_SKIP_TILL(txt, '"');
-            //txt++;
-
-            node->value.text = txt;
+             node->value.text = txt;
             _SKIP_TILL(txt, '"');
             *txt = '\0';
             txt++;
@@ -865,11 +841,6 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
     else if(isalpha(*txt))
     {
         node->value.text = txt;
-
-        //char temp = 0;
-        //sscanf(txt, "%c", &temp);
-        //node->value.num = temp;
-
         node->type = VAR;
         _SKIP_CHARS(txt);
     }
@@ -1056,7 +1027,6 @@ Tree* parse_tree_from_source(const char* input)
         free(txt);
         return NULL;
     }
-
 
     return tree;
 }
