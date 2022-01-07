@@ -1,6 +1,8 @@
 #ifndef TREE_H
 #define TREE_H
 
+// Try static library for tree
+
 #include <stddef.h>
 #include <stdbool.h>
 
@@ -14,7 +16,7 @@ typedef enum
     UNDEFINED
 } type_t;
 
-typedef union
+typedef union // requires details
 {
     double num;
     char* text;

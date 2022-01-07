@@ -36,7 +36,7 @@ static Node* _create_node(type_t type, value_t value, Node* parent, Node* left, 
     return res;
 }
 
-inline Node* create_node(type_t type, value_t value)
+inline Node* create_node(type_t type, value_t value) // compiler will probably ignore the inline
 {
     return _create_node(type, (value_t) value, NULL, NULL, NULL);
 }
@@ -267,6 +267,7 @@ void dump_tree_dot(const char* output, Tree* tree)
 
 #define dump_node_tex(node) _dump_node_tex(node, dump_buff, buff_pos);
 
+// differentiateor functions lie inside tree library
 static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 {
     int ret = buff_pos;
@@ -306,7 +307,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
     if(node->type == FUNC)
     {
 
-        #define func(name, diff, latex_begin, latex_mid, latex_end)\
+        #define func(name, , latex_begin, latex_mid, latex_end)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
             buff_pos += sprintf(curr_pos, latex_mid);\
         else

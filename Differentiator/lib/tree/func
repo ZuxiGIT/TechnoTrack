@@ -1,3 +1,4 @@
+//nice one
 // func(name, derivative, latex_begin, latex_mid, latex_end)
 
 func(sin, 
@@ -16,6 +17,7 @@ func(sin,
     "\\sin(",
     ")"
 )
+
 
 func(cos,
     {

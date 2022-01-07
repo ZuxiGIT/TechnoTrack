@@ -1,14 +1,14 @@
 #ifndef DSL_H
 #define DSL_H
 
-#include "./lib/tree/tree.h"
+#include "./lib/tree/tree.h" // pass -I flag to compiler
 
 #define attach_node(node, side, child)\
 {\
     node->side = child;\
     node->side->parent = node;\
 }
-
+// what does side exactly mean
 #define add_node(tree, node, side, type, value)\
 {\
     node->side = create_node(type, (value_t)value);\

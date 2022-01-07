@@ -3,6 +3,7 @@
 #include "DSL.h"
 #include "./lib/logger/logger.h"
 
+// very implicit usage of the function
 static Node* differentiate_node(Node* node)
 {
     if(node->type == CONST)

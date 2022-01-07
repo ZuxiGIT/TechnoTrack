@@ -14,7 +14,7 @@ int main()
     //tree->root->type = OPER;
     //tree->root->value.text = "+";
     tree->root = create_node(FUNC, (value_t)"sin");
-    tree->size++;
+    tree->size++; // user requirement to increment the size of a tree
     //printf("\"+\" ACII is %s\n", ((value_t) "+").text);
     //printf("\"+\" ACII is %lf\n", tree->root->value.num);
 
@@ -31,7 +31,9 @@ int main()
     printf("sizeof(\"type\") = %lu\n", sizeof("type"));
 
     printf("Ok!\n");
-    Tree* tree3 = parse_tree_from_source("../input1");
+    Tree* tree3 = parse_tree_from_source("../input1"); /* probably 
+    should be moved to unit tests section */
+    // Also, do diff's functions exist inside tree library?
     printf("not Ok!\n");
     if(tree3 == NULL)
         printf("Ok!\n");
