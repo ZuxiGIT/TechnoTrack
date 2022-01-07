@@ -1,0 +1,31 @@
+digraph tree{
+	rankdir=HR;
+	Node_19680[style="filled", shape="circle", fillcolor="#CD5C5C", label="/"];
+	Node_19680->Node_19792;
+	Node_19792[style="filled", shape="circle", fillcolor="#CD5C5C", label="*"];
+	Node_19792->Node_19680[color="red"];
+	Node_19792->Node_19904;
+	Node_19904[style="filled", shape="circle", fillcolor="#CD5C5C", label="-"];
+	Node_19904->Node_19792[color="red"];
+	Node_19904->Node_20016;
+	Node_20016[style="filled", shape="polygon", fillcolor="#DDA0DD", label="1000,00"];
+	Node_20016->Node_19904[color="red"];
+	Node_19904->Node_20128;
+	Node_20128[style="filled", shape="polygon", fillcolor="#DDA0DD", label="7,00"];
+	Node_20128->Node_19904[color="red"];
+	Node_19792->Node_20240;
+	Node_20240[style="filled", shape="circle", fillcolor="#CD5C5C", label="+"];
+	Node_20240->Node_19792[color="red"];
+	Node_20240->Node_20352;
+	Node_20352[style="filled", shape="polygon", fillcolor="#DDA0DD", label="1000,00"];
+	Node_20352->Node_20240[color="red"];
+	Node_20240->Node_20464;
+	Node_20464[style="filled", shape="polygon", fillcolor="#DDA0DD", label="7,00"];
+	Node_20464->Node_20240[color="red"];
+	Node_19680->Node_20576;
+	Node_20576[style="filled", shape="octagon", fillcolor="#7FFF00", label="sin"];
+	Node_20576->Node_19680[color="red"];
+	Node_20576->Node_20800;
+	Node_20800[style="filled", shape="polygon", fillcolor="#DDA0DD", label="21,00"];
+	Node_20800->Node_20576[color="red"];
+}
