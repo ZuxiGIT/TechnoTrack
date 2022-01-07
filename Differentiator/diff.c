@@ -41,7 +41,6 @@ static Node* differentiate_node(Node* node)
             Node* right_copy = copy_subtree(node->right);
             Node* right_diff = differentiate_node(node->right);
 
-
             attach_node(res, left, create_oper_node('*'));
 
             Node* res_left = res->left;
@@ -112,7 +111,6 @@ static Node* differentiate_node(Node* node)
 
     pr_err(LOG_CONSOLE, "Undefined node[type: %d]\n", node->type);
     return NULL;
-
 }
 
 Tree* differentiate_tree(const Tree* tree)
