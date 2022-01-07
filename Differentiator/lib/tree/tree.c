@@ -10,6 +10,37 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+unsigned long long hash(const void* _str, int len)
+{
+    unsigned long long hash = 5381;
+    const unsigned char* c = _str;
+
+    while (len-- > 0)
+        hash = ((hash << 5) + hash) + *c++; /* hash * 33 + c */
+
+    return hash;
+}
+
+unsigned long long subtree_hash(const Node* node)
+{
+
+    unsigned long long _hash = hash(node, sizeof(Node));
+
+    if(node->left != NULL)
+        _hash = _hash ^ subtree_hash(node->left);
+
+    if(node->right != NULL)
+        _hash = _hash ^ subtree_hash(node->right);
+
+    return _hash;
+}
+
+unsigned long long tree_hash(const Tree* tree)
+{
+    return hash((char*)tree+sizeof(long long), sizeof(Tree)-sizeof(long long)) ^
+           subtree_hash(tree->root);
+}
+
 Tree* tree_init()
 {
     Tree* res = (Tree*)calloc(1, sizeof(Tree)); 
@@ -273,7 +304,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 
     if(node->type == FUNC)
     {
-        #define func(name, diff, latex_begin, latex_mid, latex_end)\
+        #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
             buff_pos += sprintf(curr_pos, latex_begin);\
         else
@@ -306,7 +337,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
     if(node->type == FUNC)
     {
 
-        #define func(name, diff, latex_begin, latex_mid, latex_end)\
+        #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
             buff_pos += sprintf(curr_pos, latex_mid);\
         else
@@ -347,7 +378,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 
     if(node->type == FUNC)
     {
-        #define func(name, diff, latex_begin, latex_mid, latex_end)\
+        #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
             buff_pos += sprintf(curr_pos, latex_end);\
         else
@@ -545,7 +576,7 @@ void save_tree(const char* output, Tree* tree)
 
 static bool is_func(char* txt)
 {
-    #define func(name, diff, latex_begin, latex_mid, latex_end)\
+    #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
         if(strncasecmp(txt, #name, sizeof(#name) - 1) == 0)\
             return true;\
         else

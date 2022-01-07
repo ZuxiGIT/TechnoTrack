@@ -32,6 +32,7 @@ typedef struct Node
 
 typedef struct 
 {
+    unsigned long long hash;
     Node* root;
     int size;
     char* text;
@@ -39,10 +40,14 @@ typedef struct
 } Tree;
 
     
+unsigned long long hash(const void* _str, int len);
+unsigned long long subtree_hash(const Node* node);
+unsigned long long tree_hash(const Tree* tree);
+
 Tree* tree_init();
 void tree_free(Tree** tree);
+void node_free(Node* node);
 
-void dump_tree_dot(const char* out, Tree* tree);
 void save_tree(const char* output, Tree* tree);
 Tree* load_tree(const char* input);
 

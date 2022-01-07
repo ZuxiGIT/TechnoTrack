@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <math.h>
 #include "diff.h"
 #include "DSL.h"
 #include "./lib/logger/logger.h"
@@ -98,7 +99,7 @@ static Node* differentiate_node(Node* node)
 
     if(node->type == FUNC)
     {
-        #define func(name, diff, latex_begin, latex_mid, latex_end)\
+        #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
         {\
             diff\
@@ -126,12 +127,105 @@ Tree* differentiate_tree(const Tree* tree)
     return res;
 }
 
-void optimize_subtree(Node* tree)
+void optimize_subtree(Node* node)
 {
-    assert(NULL && "Not implemented yet");
+    if(node == NULL)
+        return;
+
+    if(node->type == OPER)
+    {
+        if(node->left->type == CONST && node->right->type == CONST)
+        {
+            if(node->value.num == '+')
+            {
+                replace_node(node, create_const_node(node->left->value.num + 
+                                                     node->right->value.num));
+                return;
+            }
+            else if(node->value.num == '-')
+            {
+                replace_node(node, create_const_node(node->left->value.num - 
+                                                     node->right->value.num));
+                return;
+            }
+            else if(node->value.num == '/')
+            {
+                replace_node(node, create_const_node(node->left->value.num / 
+                                                     node->right->value.num));
+                return;
+            }
+            else if(node->value.num == '*')
+            {
+                replace_node(node, create_const_node(node->left->value.num * 
+                                                     node->right->value.num));
+                return;
+            }
+        }
+    }
+    else if(node->type == FUNC)
+    {
+        if(node->left->type == EMPTY && node->right->type == CONST)
+        {
+            #define unary
+            #define func(name, diff, l_b, l_m, l_e, c_func)\
+            if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
+            {\
+                replace_node(node, create_const_node(c_func(node->right->value.num)));\
+                return;\
+            }\
+            else
+
+            #include "./lib/tree/func"
+
+            {
+                pr_warn(LOG_CONSOLE, "Unknown func to optimize\n");
+                return;
+            }
+
+            #undef func
+            #undef unary
+        }
+        else if(node->left->type == CONST && node->right->type == CONST)
+        {
+            #define binary 
+            #define func(name, diff, l_b, l_m, l_e, c_func)\
+            if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
+            {\
+                replace_node(node, create_const_node(c_func(node->left->value.num, \
+                                                            node->right->value.num)\
+                                                    )\
+                            );\
+                return;\
+            }\
+            else
+
+            #include "./lib/tree/func"
+
+            {
+                pr_warn(LOG_CONSOLE, "Unknown func to optimize\n");
+                return;
+            }
+
+            #undef func
+            #undef binary
+        }
+    }
+
+    optimize_subtree(node->left);
+    optimize_subtree(node->right);
+
+    return;
 }
 
 void optimize_tree(Tree* tree)
 {
-    assert(NULL && "Not implemented yet");
+    unsigned long long old_hash = tree->hash;
+
+    do
+    {
+        old_hash = tree->hash;
+        optimize_subtree(tree->root);
+        tree->hash = tree_hash(tree);
+    }
+    while(old_hash != tree->hash);
 }

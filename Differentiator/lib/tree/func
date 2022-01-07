@@ -1,6 +1,24 @@
-// func(name, derivative, latex_begin, latex_mid, latex_end)
+// func(name, derivative, latex_begin, latex_mid, latex_end, C_function, binary)
 
-func(sin, 
+
+#ifndef binary
+    #ifndef unary
+        #define _unary(func) func
+        #define _binary(func) func
+    #else
+        #define _unary(func) func
+        #define _binary(func)   
+    #endif
+#else
+    #ifndef unary
+        #define _unary(func)   
+    #else
+        #define _unary(func) func
+    #endif
+    #define _binary(func) func
+#endif
+
+_unary(func(sin, 
     {
         // cos(param) * deriv(param)
 
@@ -14,10 +32,11 @@ func(sin,
     },
     " ",
     "\\sin(",
-    ")"
-)
+    ")",
+    sin
+))
 
-func(cos,
+_unary(func(cos,
     {
         // -sin(param) * deriv(param)
         
@@ -34,9 +53,11 @@ func(cos,
     },
     " ",
     "\\cos(",
-    ")"
-)
-func(^,
+    ")",
+    cos
+))
+
+_binary(func(^,
     {   // if param == const --> 0
         // if param^n != const --> n * param^(n-1) * deriv(param)
 
@@ -66,11 +87,12 @@ func(^,
     },
     "{",
     "}^{",
-    "}"
-)
+    "}",
+    pow
+))
 
 
-func(ln,
+_unary(func(ln,
     {
         // deriv(param) / param
 
@@ -81,10 +103,11 @@ func(ln,
     },
     " ",
     "\\ln(",
-    ")"
-)
+    ")",
+    log
+))
 
-func(exp,
+_unary(func(exp,
     {
         Node* res = create_oper_node('*');
         attach_node(res, right, differentiate_node(node->right));
@@ -95,10 +118,11 @@ func(exp,
     },
     " ",
     "\\exp(",
-    ")"
-)
+    ")",
+    exp
+))
 
-func(e,
+_unary(func(e,
     {
         Node* res = create_oper_node('*');
         attach_node(res, right, differentiate_node(node->right));
@@ -110,14 +134,19 @@ func(e,
     },
     " ",
     "\\exp(",
-    ")"
-)
+    ")",
+    exp
+))
 
-func(tg,
+_unary(func(tg,
     {
         assert(NULL && "Not implenented yet");
     },
     " ",
     "(",
-    ")"
-)
+    ")",
+    tan
+))
+
+#undef _unary
+#undef _binary

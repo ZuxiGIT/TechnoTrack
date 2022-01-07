@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "DSL.h"
 #include "diff.h"
@@ -9,16 +10,19 @@
 
 int main()
 {
+    printf("sizeof(long) = %lu max = %lu\n", sizeof(long), (unsigned long)-1);
+    printf("sizeof(long long) = %lu max = %llu\n", sizeof(long long), (unsigned long long)-1);
     Tree* tree = tree_init();
     //parse_tree_from_source(argv[1], tree);
     //tree->root->type = OPER;
     //tree->root->value.text = "+";
-    tree->root = create_node(FUNC, (value_t)"sin");
+    tree->root = create_node(FUNC, (value_t)"sin"); 
     tree->size++;
     //printf("\"+\" ACII is %s\n", ((value_t) "+").text);
     //printf("\"+\" ACII is %lf\n", tree->root->value.num);
 
-    add_node(tree, tree->root, left, CONST, 10.);
+    //add_node(tree, tree->root, left, CONST, 10.);
+    add_node(tree, tree->root, left, EMPTY, (value_t)(char*)NULL);
     add_node(tree, tree->root, right, CONST, 20.);
 
     //tree->root->left = CREATE_NODE(CONST, (value_t) 10.);
@@ -31,7 +35,7 @@ int main()
     printf("sizeof(\"type\") = %lu\n", sizeof("type"));
 
     printf("Ok!\n");
-    Tree* tree3 = parse_tree_from_source("../input1");
+    Tree* tree3 = parse_tree_from_source("../input");
     printf("not Ok!\n");
     if(tree3 == NULL)
         printf("Ok!\n");
@@ -76,6 +80,17 @@ int main()
     printf("sizeof(tree->root->type) = %lu\n", sizeof(tree->root->type));
     save_tree("test", tree);
 
+    printf("log(0.5) = %lf\n", log(0.5));
+    printf("pow(0.5, 0.5) = %lf\n", pow(0.5, 0.5));
+
+    optimize_subtree(tree->root);
+    dump_tree_dot("fffff", tree);
+
+    optimize_tree(tree4);
+    dump_tree_dot("dd", tree4);
+
+    printf("hash(tree4) = %llu\n", hash(tree4, sizeof(Tree)));
+    printf("tree_hash(tree4) = %llu\n", tree_hash(tree4));
     printf("free tree\n");
     tree_free(&tree);
     printf("free tree2\n");
