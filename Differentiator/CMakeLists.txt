@@ -33,4 +33,5 @@ target_link_libraries(main
     PRIVATE logger
     PRIVATE diff
     PRIVATE DSL
+    PRIVATE m
 )
