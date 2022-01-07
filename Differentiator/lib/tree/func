@@ -1,4 +1,6 @@
-// func(name, derivative, latex_begin, latex_mid, latex_end, C_function, binary)
+// func(name, derivative, latex_begin, latex_mid, latex_end, C_function)
+// as function can be binary or unary there are two macros _unary and _binary to select
+// specific type of function
 
 
 #ifndef binary
