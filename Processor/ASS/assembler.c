@@ -11,6 +11,7 @@
 
 #define $ printf("[%s:%d] processing line is \"%s\"\n", strrchr(__FILE__, '/') + 1, __LINE__, line); 
 #define $$ printf("[%s:%d] CHECK\n", strrchr(__FILE__, '/') + 1, __LINE__);
+#define $$$ printf("[%d] line is \"%s\"\n", __LINE__, line);
 
 #define RAM             0x80
 #define REG             0x40
@@ -152,7 +153,7 @@ Text* compilation(Text* src)
 
             printf("------------->offset is %d\n", offset);
 
-            // filling 'format' for scanf the  label
+            // filling 'format' to scanf the  label
             sprintf(format, "%%%ds", offset);
 
             sscanf(line, format, cmd);
@@ -196,7 +197,7 @@ Text* compilation(Text* src)
 
         #include "../CPUcommands.h"
 
-        if(*line == '\0')
+        if(*line == '\0' || *line == ';')
             continue;
         else
         {
@@ -310,7 +311,7 @@ Text* compilation(Text* src)
 
             printf("line before parsing register \"%s\"\n", line);
 
-			#define CPU_COMMAND(name, opcode, argc, code)
+			#define CPU_COMMAND(name, opcode, argc, code)    
 			#define CPU_REG(name, number) \
 			if (!strncmp(#name, line, sizeof(#name) - 1))\
 			{ \
@@ -337,8 +338,9 @@ Text* compilation(Text* src)
             printf("line before parsing constant \"%s\"\n", line);
 			char arg = 0;	
 
-			if(sscanf(line, "%hhd", &arg))
+			if(isdigit(*line))
 			{
+                sscanf(line, "%hhd", &arg);
 				if(output_line[0] & REG)
 					output_line[2] = arg;	
 				else
@@ -353,7 +355,7 @@ Text* compilation(Text* src)
 
 			skipSpaces(line);
 
-        	printf("[%d] line is \"%s\"\n", __LINE__, line);
+            $$$
 
 			if(bracket)
 				if(*line != ']') 
@@ -366,8 +368,7 @@ Text* compilation(Text* src)
 
 			skipSpaces(line);
 
-        	$
-            //printf("[%d] line is \"%s\"\n", __LINE__, line);
+        	$$$
 		}
 
 
@@ -379,7 +380,7 @@ Text* compilation(Text* src)
                 src->text[i].start,
                 output_line[0], output_line[1], output_line[2]);
 	
-		if(output_line[0] & REG && output_line[0] & CONST)
+		if((output_line[0] & REG) && (output_line[0] & CONST))
 		{
 			output->text[i].start = strndup(output_line, 3);
 			output->text[i].length = 3;
@@ -396,7 +397,6 @@ Text* compilation(Text* src)
 			output->text[i].start = strndup(output_line, 1);
 			output->text[i].length = 1;
 			output->text[i].finish = output->text[i].start + 1;
-
 		}
 
         current_address += output->text[i].length;
@@ -417,3 +417,6 @@ Text* compilation(Text* src)
 #undef skipDigits
 #undef skipAlphas
 #undef skipSpaces
+#undef $$$
+#undef $$
+#undef $

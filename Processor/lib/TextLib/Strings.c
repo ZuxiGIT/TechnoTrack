@@ -39,7 +39,7 @@ int numberOfLines(const unsigned char* text)
     
     //why i wrote this?????????
 	//if (beginning != text)
-	//	i++;
+		//i++;
 		
 	return i;
 }

@@ -15,13 +15,6 @@
 
 // CPU_COMMAND(name, opcode, argc, code)
 
-CPU_COMMAND(hlt, 0b1000, 0,
-	{
-		printf("Stopping CPU\n");
-		DTOR(int, stk);
-		return;
-	}
-)
 
 CPU_COMMAND(push, 0b1, 1,
 	{
@@ -124,6 +117,14 @@ CPU_COMMAND(out, 0b111, 0,
 		printf("output: %d\n", output);
 
 		cpu->ip++;
+	}
+)
+
+CPU_COMMAND(hlt, 0b1000, 0,
+	{
+		printf("Stopping CPU\n");
+		DTOR(int, stk);
+		return;
 	}
 )
 

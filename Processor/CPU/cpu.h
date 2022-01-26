@@ -22,6 +22,7 @@ typedef struct
     char ram[1024];
     int ip;
     unsigned char* bytecode;
+    int bytecode_len;
 
 } CPU;
 
