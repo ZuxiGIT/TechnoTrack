@@ -1,8 +1,11 @@
 #include <assert.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "diff.h"
 #include "DSL.h"
 #include "./lib/logger/logger.h"
+
 
 static Node* differentiate_node(Node* node)
 {

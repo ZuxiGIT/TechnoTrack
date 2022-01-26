@@ -2,6 +2,7 @@
 #include "../logger/logger.h"
 #include "../TextLib/File.h"
 #include "../../DSL.h"
+#include "../../diff.h"
 
 #include <stdlib.h>
 #include <assert.h>
@@ -9,6 +10,34 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <time.h>
+
+// this should not be here. Reoeganozation is needed
+#define SIZE_ARR(arr) (sizeof(arr) / sizeof(arr[0]))
+
+static wchar_t* output_strings[] = {
+    #define str(_line)  L ## #_line ,
+
+    #include "output_str"
+
+    #undef str
+};
+
+int print_random_str(char buff, int max)
+{
+    srand(time(NULL));
+
+    size_t ret = wcstombs(buff, output_strings[rand() % SIZE_ARR(output_strings)],
+                          max);
+
+    if(ret == -1)
+        return -1;
+
+    return (int) ret;
+}
+
+#undef SIZE_ARR
+//---------------------------
 
 unsigned long long hash(const void* _str, int len)
 {
