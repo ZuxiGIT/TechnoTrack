@@ -28,13 +28,13 @@ int main(int argc, const char** argv)
     CPU cpu  = {};
     $
     cpu.bytecode = readText(argv[1], fileSize(argv[1]));
+    cpu.bytecode_len = strlen(cpu.bytecode);
 
     $
     exec(&cpu, fileSize(argv[1]));
     $
     free(cpu.bytecode);
     // text_free(txt);
-    log_close();
     
     return 0;
 }
