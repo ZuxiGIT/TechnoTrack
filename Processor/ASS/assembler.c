@@ -9,6 +9,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#define $ printf("[%s:%d] processing line is \"%s\"\n", strrchr(__FILE__, '/') + 1, __LINE__, line); 
+#define $$ printf("[%s:%d] CHECK\n", strrchr(__FILE__, '/') + 1, __LINE__);
+
 #define RAM             0x80
 #define REG             0x40
 #define CONST           0x20
@@ -29,7 +32,10 @@ void fillMissedAddresses(FUrecord* table, Label* labels, Text* txt)
                 }
                 else
                 {
-                    printf("adding address %d for %s on %d\n", labels[table[i].label_num].addr, labels[table[i].label_num].name, table[i].addr);
+                    printf("adding address %d for %s on %d\n", 
+                            labels[table[i].label_num].addr,
+                            labels[table[i].label_num].name,
+                            table[i].addr);
                     txt->text[j].start[addr] = labels[table[i].label_num].addr;
                     break;
                 }
@@ -77,17 +83,26 @@ bool hasArg(const char* cmd)
 	return 0;
 }
 
-void skipSpaces(char** str)
+#define skipSpaces(txt) _skipSpaces(&txt)
+#define skipAlphas(txt) _skipAlphas(&txt)
+#define skipDigits(txt) _skipDigits(&txt)
+
+static void _skipDigits(char** str)
+{
+	while(isdigit(*(*str))) (*str)++ ;
+}
+
+static void _skipSpaces(char** str)
 {
 	while(isspace(*(*str))) (*str)++ ;
 }
 
-void skipAlphas(char** str)
+static void _skipAlphas(char** str)
 {
 	while(isalpha(*(*str))) (*str)++ ;
 }
 
-#define printf printf
+#define printf(...)  printf(__VA_ARGS__)
 
 Text* compilation(Text* src)
 {
@@ -106,7 +121,7 @@ Text* compilation(Text* src)
 
     asmerr = OK;
     
-    for(int i = 0; i < src->num_of_lines; i++)
+    for(int i = 0; i < src->num_of_lines /*&& asmerr == OK*/; i++)
     {
 
         output->text[i].start = NULL;
@@ -118,15 +133,26 @@ Text* compilation(Text* src)
 
 		char* line = src->text[i].start;
 
+        skipSpaces(line);
+
         printf("[%d] line is \"%s\"\n", __LINE__, line);
 
+        // for situations when label is used
+        // label: 
+        //  add
+        //  sub
+        //  jmp another_label
+
+        // checking that is not a cmd, but a label
+        // proccessing label (example "some_label:")
         if(strchr(line, ':'))
         {
             char format[10] = {};
             int offset = strchr(line, ':') - line;
 
-            printf("------------->offset id %d\n", offset);
+            printf("------------->offset is %d\n", offset);
 
+            // filling 'format' for scanf the  label
             sprintf(format, "%%%ds", offset);
 
             sscanf(line, format, cmd);
@@ -139,47 +165,67 @@ Text* compilation(Text* src)
 
             if(label_num != -1)
             {
+                // label exist in label table
                 printf("label address was changed from %d to %d in \'labels\'\n", labels[label_num].addr, current_address); 
                 labels[label_num].addr = current_address;
             }
             else
             {
+                // adding label to label table
                 labels[current_label++] = (Label){current_address, strndup(cmd, offset)};
                 printf("label \'%s\' with %d address was added\n", cmd, current_address);
             }
 
             continue;
         }
+        //end processing label
         else
-            sscanf(line, "%10s", cmd);
+            sscanf(line, "%10s", cmd); //therefore it is a command
         
         printf("[%d] cmd is \"%s\"\n", __LINE__, cmd);
 
         #define CPU_COMMAND(name, opcode, argc, code) \
-        if (!strcmp(#name, cmd))\
+        if (!strncmp(#name, cmd, sizeof(#name) - 1))\
 		{\
 			output_line[0] |= opcode;\
 			printf("cmd = %3s and name = %3s\n", cmd, #name);\
-		}
+		}\
+        else\
+
         #define CPU_REG(name, number)
 
         #include "../CPUcommands.h"
 
+        if(*line == '\0')
+            continue;
+        else
+        {
+                $$
+				pr_err(LOG_CONSOLE, "Syntax error: Unknown command\n\t[Line:%d]-->%s|\n", i, cmd);
+				asmerr = UNKNOWN_COMMAND;
+				continue;
+        }
+
         #undef CPU_COMMAND
 		#undef CPU_REG
 
-        //processing JMP command
-        if(output_line[0] & JMP_COMMAND)
+        pr_warn(LOG_CONSOLE, "%d\n", !(output_line[0] ^ JMP_COMMAND));
+        
+        skipAlphas(line);
+
+		skipSpaces(line);
+
+        // if cmd is JMP
+        //processing JMP's command arg
+        if(!(output_line[0] ^ JMP_COMMAND))
         {
-            printf("parsing cmd:%s arg\n", cmd);
+            printf("parsing cmd: %s\n", cmd);
 
-            skipAlphas(&line);
-
-            skipSpaces(&line);
-
-            bool label_was_found = false;
+            int found_label = -1;
 
             //searching label
+            /*
+            bool label_was_found = false;
             for(int j =  0; j < current_label; j ++)
             {
                 printf("label is %s\n", labels[j].name);
@@ -201,19 +247,37 @@ Text* compilation(Text* src)
                     break;
                 }
             }
+*/
+            found_label = labelExists(labels, line);
 
-            //label was not found
-            if(!label_was_found)
+            if(found_label != -1)
+            // label was found
             {
+                printf("label was found\n");
+
+                output_line[1] = labels[found_label].addr;        
+
+                output->text[i].start = strndup(output_line, 2);
+                output->text[i].length = 2;
+                output->text[i].finish = output->text[i].start + 2; 
+
+                current_address += 2;
+            }
+            //label was not found
+            //if(!label_was_found)
+            else
+            {
+                current_address++;
+
+                addFixUpsTableRecord(tableFU, current_address, current_label);
+
+                printf("added record with \'addres\':%d and \'label_num\':%d params\n", current_address, current_label); 
+                
                 current_address++;
 
                 labels[current_label++] = (Label){ -1, strndup(line, strlen(line))};
 
                 printf("added %s label with address -1 in \'labels\'\n", line);
-
-                addFixUpsTableRecord(tableFU, current_address++, current_label - 1 );
-
-                printf("added record with \'addres\':%d and \'label_num\':%d params\n", current_address - 1, current_label - 1); 
 
                 output_line[1] = -1;        
 
@@ -225,46 +289,26 @@ Text* compilation(Text* src)
             printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
             
             continue; 
-        }
+        } // end processing JMP's command arg
 
-		printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
-		fflush(stdout);
+        $$
 
-		if(isalpha(*line))	
-			if(output_line[0] == 0)
-			{
-				printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
-				fflush(stdout);
-				pr_err(LOG_CONSOLE, "Syntax error: Unknown command\n[Line:%d]-->%s\n", i, src->text[i].start);
-				printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
-				fflush(stdout);
-				asmerr = UNKNOWN_COMMAND;
-				printf("[Line:%d] File: %s: CHECK\n", __LINE__, __FILE__);
-				fflush(stdout);
-				continue;
-			}
+        $
 
-		while(isalpha(*line)) line++;
-
-		skipSpaces(&line);
-
-
-        printf("[%d] line is \"%s\"\n", __LINE__, line);
-
-
-
-        printf("[%d] line is \"%s\"\n", __LINE__, line); // define
-
+        //proccessing cmd's arg
 		if(hasArg(cmd))
 		{
 
+            bool bracket = false;
+
 			if(*line == '[')
 			{
+                bracket = true;
 				output_line[0] |= RAM;
 				line++;
 			}
 
-            printf("line before parsing reg \"%s\"\n", line);
+            printf("line before parsing register \"%s\"\n", line);
 
 			#define CPU_COMMAND(name, opcode, argc, code)
 			#define CPU_REG(name, number) \
@@ -272,15 +316,17 @@ Text* compilation(Text* src)
 			{ \
 				output_line[0] |= REG;\
 				output_line[1] = number;\
-				while(isalpha(*line)) line++;\
-				skipSpaces(&line);\
-				if(*line++ != '+')\
+				/*while(isalpha(*line)) line++;\*/\
+                skipAlphas(line);\
+				skipSpaces(line);\
+				if(bracket && *line++ != '+')\
 				{\
 					pr_err(LOG_CONSOLE, "Error ocurred: expected \'+\' but got %c\n"\
 										"[Line:%d]--->%s\n", *line, i, src->text[i].start);\
 				    continue;\
 				}\
-				skipSpaces(&line);\
+                else\
+				    skipSpaces(line);\
 			}
 
 			#include "../CPUcommands.h"
@@ -290,6 +336,7 @@ Text* compilation(Text* src)
 			
             printf("line before parsing constant \"%s\"\n", line);
 			char arg = 0;	
+
 			if(sscanf(line, "%hhd", &arg))
 			{
 				if(output_line[0] & REG)
@@ -301,14 +348,14 @@ Text* compilation(Text* src)
 
 				output_line[0] |= CONST;
 
-				while(isdigit(*line)) line++;
+                skipDigits(line);
 			}
 
-			skipSpaces(&line);
+			skipSpaces(line);
 
         	printf("[%d] line is \"%s\"\n", __LINE__, line);
 
-			if(output_line[0] & RAM)
+			if(bracket)
 				if(*line != ']') 
 				{
 					pr_err(LOG_CONSOLE, "Syntax error: expected \']\' but got %c\n", *line);
@@ -317,16 +364,20 @@ Text* compilation(Text* src)
 				else
 					line++;
 
-			skipSpaces(&line);
+			skipSpaces(line);
 
-        	printf("[%d] line is \"%s\"\n", __LINE__, line);
+        	$
+            //printf("[%d] line is \"%s\"\n", __LINE__, line);
 		}
 
 
 		if(*line != '\0' && *line != ';' && asmerr == OK)
-			pr_err(LOG_CONSOLE, "Syntax error\n[Line:%d]-->%s\n", i, src->text[i].start);
+			pr_err(LOG_CONSOLE, "Syntax error on line %d: %s\n",
+                                i, src->text[i].start);
 
-        printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
+        printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n",
+                src->text[i].start,
+                output_line[0], output_line[1], output_line[2]);
 	
 		if(output_line[0] & REG && output_line[0] & CONST)
 		{
@@ -351,8 +402,6 @@ Text* compilation(Text* src)
         current_address += output->text[i].length;
     }
 	
-	log_close();
-	
     fillMissedAddresses(tableFU, labels, output);
     freeLabelTable(labels);
 
@@ -364,3 +413,7 @@ Text* compilation(Text* src)
 
 	return output;
 }
+
+#undef skipDigits
+#undef skipAlphas
+#undef skipSpaces

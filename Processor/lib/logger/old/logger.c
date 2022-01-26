@@ -12,24 +12,18 @@ static char filepath[256] = "log.txt";
 static char buff[BUFSIZ] = {};
 static int buff_pos = 0;
 
-#define _checkErrors(str)\
-{\
-    char error[128] = {};\
-    sprintf(error, "%s:%d %s", __FILE__, __LINE__, str);\
-    __checkErrors(error);\
-}
+
 
 void log_set_path(const char* path)
 {
     memccpy(filepath, path, '\0', sizeof(filepath));
 }
 
-static void __checkErrors(const char* str);
+static void _checkErrors(const char* str);
 
 void log_close()
 {
-    if(log_file)
-        fclose(log_file);
+    fclose(log_file);
 }
 
 
@@ -81,29 +75,15 @@ static void _pr_warn(int log_level)
 
 void pr_log_level(int log_level, int dest, const char* fmt, ...)
 {
-    _checkErrors("Before Console logging: ");
     buff_pos = 0;
     
     if(!log_file)
     {
         log_init(NULL);
     }
-    
-    if(!!(dest & LOG_CONSOLE_STDERR))
-    {
-        if (log_level == LOG_INFO)
-            buff_pos += setColor(buff + buff_pos, FG_GREEN);
-        else if (log_level == LOG_WARN)
-            buff_pos += setColor(buff + buff_pos, FG_YELLOW);
-        else if (log_level == LOG_ERR)
-            buff_pos += setColor(buff + buff_pos, FG_RED);
-    }
 
     _pr_warn(log_level);
     
-    if(!!(dest & LOG_CONSOLE_STDERR))
-        buff_pos += resetColor(buff + buff_pos);
-
     va_list params;
     va_start(params, fmt);
 
@@ -120,33 +100,30 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
 
     if (!log_file)
     {
-        //setColor(NULL, FG_RED);
-        fprintf(stderr, "ERROR: Can not use file logging\n");
-        //resetColor(NULL);
+        setColor(FG_RED);
+        printf("ERROR: Can not use logging\n");
+        resetColor();
         return;
     }
 
     assert(log_file != NULL);
     
-    if ((dest & LOG_CONSOLE) == LOG_CONSOLE)
+    if (!!(dest & LOG_CONSOLE))
     {
-        freopen(NULL, "w", stdout);
+        if (log_level == LOG_INFO)
+            setColor(FG_GREEN);
+        else if (log_level == LOG_WARN)
+            setColor(FG_YELLOW);
+        else if (log_level == LOG_ERR)
+            setColor(FG_RED);
+        
         fwrite(buff, sizeof(char), buff_pos, stdout);
-        freopen(NULL, "w", stdout);
+        fflush(stdout);
+        
+        _checkErrors("Console logging: ");
+        
+        resetColor();
     }
-
-    if((dest & LOG_STDERR) == LOG_STDERR)
-    {
-        freopen(NULL, "w", stderr);
-        //fprintf(stderr, "----->");
-        fwrite(buff, sizeof(char), buff_pos, stderr);
-        freopen(NULL, "w", stderr);
-    }
-
-    fflush(stdout);
-
-    _checkErrors("After Console logging: ");
-    
     
     if (!!(dest & LOG_FILE))
     {
@@ -158,13 +135,11 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
 }
 
 
-static void __checkErrors(const char* str)
+static void _checkErrors(const char* str)
 {
     if(errno)
     {
-        //setColor(FG_RED);
         perror(str);
-        //resetColor();
         errno = 0;
     }
 }

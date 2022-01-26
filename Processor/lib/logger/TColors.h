@@ -26,16 +26,27 @@ enum  {
     BG_WHITE
 };
 
-void resetColor()
+int resetColor(char* buff)
 {
-    printf("\033[0;0m");
-    fflush(stdout);
+    if(buff == NULL)
+    {
+        printf("\033[0m");
+        fflush(stdout);
+    }
+    else
+        return sprintf(buff, "\033[0m");
+
 }
 
-void setColor(int color)
+int setColor(char* buff, int color)
 {
-    printf("\033[%dm", color);
-    fflush(stdout);
+    if(buff == NULL)
+    {
+        printf("\033[%dm", color);
+        fflush(stdout);
+    }
+    else
+        return sprintf(buff, "\033[%dm", color);
 }
 
 #endif /* TCOLORS_H */

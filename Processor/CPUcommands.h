@@ -37,7 +37,7 @@ CPU_COMMAND(push, 0b1, 1,
 	}
 )
 
-CPU_COMMAND(pop, 0b10, 0,
+CPU_COMMAND(pop, 0b10, 1,
 	{
 		int arg = POP(int, stk);
 
@@ -134,3 +134,5 @@ CPU_COMMAND(jmp, 0b10000, 0,
 )
 // CPU_REG(name, number)
 CPU_REG(ax, 0b1)
+CPU_REG(bx, 0b10)
+CPU_REG(cx, 0b100)
