@@ -15,17 +15,16 @@
 
 #define _CONCAT_PROXY(LEFT, RIGHT)		LEFT ## _ ## RIGHT
 #define CONCAT(LEFT, RIGHT)				_CONCAT_PROXY(LEFT, RIGHT)
+
 #ifndef LOGFILE
 #define LOGFILE 
 
-const char* FILE_LOG = "logfile.txt";
+const char FILE_LOG[256] = "logfile.txt";
 
 #endif
 
-#define DEBUG
-
-#ifndef PARAMETRS
-#define PARAMETRS
+#ifndef PARAMETERS
+#define PARAMETERS
 	typedef unsigned long long 	StkCanary;
 	
 	#ifdef USER_DATA_TYPE
@@ -109,8 +108,13 @@ do{																					\
 	#define STK_isStackOk(TYPE)		isStackOK_CONCAT(TYPE)
 	#define STK_cleanStack(TYPE)	cleanStack_CONCAT(TYPE)
 	#define STK_stackDump(TYPE)		stackDump_CONCAT(TYPE)
-	#define STK_expandStack(TYPE) 	expandStack_CONCAT(TYPE)
-	#define STK_squeezeStack(TYPE)	squeezeStack_CONCAT(TYPE)
+    #ifdef RESIZEABLE
+        #define STK_expandStack(TYPE) 	expandStack_CONCAT(TYPE)
+        #define STK_squeezeStack(TYPE)	squeezeStack_CONCAT(TYPE)
+    #else
+        #define STK_expandStack(TYPE)   	
+        #define STK_squeezeStack(TYPE)  	
+    #endif
 #else
 	#define StkElem 				int
 	#define STACK(TYPE) 			Stack
@@ -134,7 +138,7 @@ do{																					\
 				STK_checkStack(TYPE) 														\
 				(reason, stk_pointer, (Location){__FILE__, __PRETTY_FUNCTION__, __LINE__})
 #else 
-	#define checkStack(TYPE, reason, stk_name, stk_pointer) 
+	#define checkStack(TYPE, reason, stk_pointer) 
 #endif
 
 
@@ -353,8 +357,10 @@ void STK_PUSH(StkElem) (STACK(StkElem)* stk, const StkElem value)
 	else 
 	{
 		printf("Stack %s is full\n", stk->info->name);
-		CONCAT(expandStack, StkElem)(stk);
-		((StkElem*)(stk->data))[stk->size++] = value;
+		STK_expandStack(StkElem) (stk);
+        #ifdef RESIZEABLE
+	    	((StkElem*)(stk->data))[stk->size++] = value;
+        #endif
 	}
 
 	stk->hash = hash(stk->data - sizeof(StkCanary),

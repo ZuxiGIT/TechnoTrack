@@ -67,7 +67,7 @@ void fprintTextBinary(Text* input)
 	{
         char format[10] = {};
         snprintf(format, 10, "%%%ds", input->text[i].length);
-        printf("----------->format is %s\n", format);
+        //printf("----------->format is %s\n", format);
         if(input->text[i].start)
     	    fprintf(fp, format, input->text[i].start);
     }
