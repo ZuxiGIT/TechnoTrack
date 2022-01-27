@@ -40,10 +40,14 @@ void fillMissedAddresses(FUrecord* table, Label* labels, Text* txt)
                 }
                 else
                 {
-                    printf("adding address %d for %s on %d\n", 
-                            labels[table[i].label_num].addr,
-                            labels[table[i].label_num].name,
-                            table[i].addr);
+                    pr_info(LOG_CONSOLE, "correcting address for label \"%s\""
+                                         " on address %d\n" 
+                                         "\twas %d became %d\n",
+                                         labels[table[i].label_num].name,
+                                         table[i].addr,
+                                         txt->text[j].start[addr],
+                                         labels[table[i].label_num].addr);
+
                     txt->text[j].start[addr] = labels[table[i].label_num].addr;
                     break;
                 }
@@ -53,6 +57,10 @@ void fillMissedAddresses(FUrecord* table, Label* labels, Text* txt)
 void addFixUpsTableRecord(FUrecord* table, int addr, int label_num)
 {
     static int current_record = 0;
+    pr_info(LOG_CONSOLE, "added a new record in FixUp table\n"
+                         "\t'address' %d 'label_number' %d"
+                         " (relative to the table)\n",
+                         addr, label_num);
     table[current_record++] = (FUrecord) { addr, label_num };
 }
 
@@ -284,15 +292,25 @@ Text* compilation(Text* src)
 
             if(label_num != -1)
             {
-                // label exist in label table
-                printf("label address was changed from %d to %d in \'labels\'\n", labels[label_num].addr, current_address); 
+                // label exists in label table
+                pr_warn(LOG_CONSOLE, "label exists in label table\n" 
+                                     "\tsomething goes wrong\n");
+                pr_info(LOG_CONSOLE, "label '%s' address was changed\n"
+                                     "\tfrom %d to %d in table \'labels\'\n",
+                                     labels[label_num].name,
+                                     labels[label_num].addr,
+                                     current_address); 
                 labels[label_num].addr = current_address;
             }
             else
             {
+                // label does not exist in a label table
                 // adding label to label table
                 labels[current_label++] = (Label){current_address, strndup(cmd, offset)};
-                printf("label \'%s\' with %d address was added\n", cmd, current_address);
+                pr_info(LOG_CONSOLE, "Unknown label\n"
+                                     "\tadded label '%s' with address %d"
+                                     " in table \'labels\'\n",
+                                     cmd, current_address);
             }
 
             continue;
@@ -340,13 +358,13 @@ Text* compilation(Text* src)
 
         // if cmd is JMP
         //processing JMP's command arg
-        if(output_line[0] & 0x1f == 0b10000 || 
-           output_line[0] & 0x1f == 0b10001 || // jmp opcodes
-           output_line[0] & 0x1f == 0b10010 ||
-           output_line[0] & 0x1f == 0b10011 ||
-           output_line[0] & 0x1f == 0b10100 ||
-           output_line[0] & 0x1f == 0b10101 ||
-           output_line[0] & 0x1f == 0b10110)
+        if((output_line[0] & 0x1f) == 0b10000 || 
+           (output_line[0] & 0x1f) == 0b10001 || // jmp opcodes
+           (output_line[0] & 0x1f) == 0b10010 ||
+           (output_line[0] & 0x1f) == 0b10011 ||
+           (output_line[0] & 0x1f) == 0b10100 ||
+           (output_line[0] & 0x1f) == 0b10101 ||
+           (output_line[0] & 0x1f) == 0b10110)
         {
             printf("parsing cmd: %s\n", cmd);
 
@@ -374,13 +392,15 @@ Text* compilation(Text* src)
 
                 addFixUpsTableRecord(tableFU, current_address, current_label);
 
-                printf("added record with \'addres\':%d and \'label_num\':%d params\n", current_address, current_label); 
+                //pr_info(LOG_CONSOLE, "added record with \'addres\':%d and \'label_num\':%d params\n", current_address, current_label); 
                 
                 current_address++;
 
                 labels[current_label++] = (Label){ -1, strndup(line, strlen(line))};
 
-                printf("added %s label with address -1 in \'labels\'\n", line);
+                pr_info(LOG_CONSOLE, "Unknown label\n"
+                                     "\tadded label '%s' with address -1"
+                                     " in table \'labels\'\n", line);
 
                 output_line[1] = -1;        
 
@@ -415,8 +435,8 @@ Text* compilation(Text* src)
                 if((output_line[0] & 0xf) == 0b1000) // --> "move" opcode
                     if((output_line[0] & CONST) && !(output_line[0] & RAM))
                     {
-                        pr_err(LOG_CONSOLE, "Error: \"move\" cannot have the first"
-                                            " as an immediate\n");
+                        pr_err(LOG_CONSOLE, "Error: \"move\" cannot "
+                                            "have the first as an immediate\n");
                         printf("\t[Line:%d] ---> \"%s\"\n", i+1, src->text[i].start);
                         continue;
                     }
@@ -487,6 +507,7 @@ Text* compilation(Text* src)
                     pr_warn(LOG_CONSOLE, "result_line[0] = 0x%hhx\n", result_line[0]);
 
                     write_result_line(num_of_bytes, result_line);
+                    current_address += output->text[i].length;
 
                     printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX"
                             " 0x%hhX 0x%hhX 0x%hhX\n",
