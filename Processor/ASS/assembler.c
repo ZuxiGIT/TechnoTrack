@@ -1,4 +1,5 @@
 #include "assembler.h"
+#define WARN_LEVEL
 #include "../lib/logger/logger.h"
 
 #include <ctype.h>
@@ -66,7 +67,7 @@ void addFixUpsTableRecord(FUrecord* table, int addr, int label_num)
 
 int labelExists(Label* table, char* label)
 {
-    printf("searching label \'%s(%ld)\'\n", label, strlen(label));
+    pr_log(LOG_CONSOLE, "searching label \'%s(%ld)\'\n", label, strlen(label));
 
     for(int i = 0; i < 10; i ++)
         if(table[i].addr)    
@@ -132,11 +133,11 @@ int parseArg(char** _str, char* output_line)
     }
 
     skipSpaces(line);
-    printf("line before parsing register \"%s\"\n", line);
+    pr_log(LOG_CONSOLE,"line before parsing register \"%s\"\n", line);
 
     if(isalpha(*line))
     {
-        printf("arg contains a register\n");
+        pr_log(LOG_CONSOLE,"arg contains a register\n");
 
         #define CPU_COMMAND(name, opcode, argc, code)    
         #define CPU_REG(name, number) \
@@ -181,7 +182,7 @@ int parseArg(char** _str, char* output_line)
         #undef CPU_REG
     }
 
-    printf("line before parsing constant \"%s\"\n", line);
+    pr_log(LOG_CONSOLE,"line before parsing constant \"%s\"\n", line);
 
     if(isdigit(*line))
     {
@@ -192,7 +193,7 @@ int parseArg(char** _str, char* output_line)
         else
             output_line[1] = arg;
 
-        printf("arg is %hhd\n", arg);
+        pr_log(LOG_CONSOLE,"arg is %hhd\n", arg);
 
         output_line[0] |= CONST;
 
@@ -277,18 +278,18 @@ Text* compilation(Text* src)
             char format[10] = {};
             int offset = strchr(line, ':') - line;
 
-            printf("------------->offset is %d\n", offset);
+            pr_log(LOG_CONSOLE,"------------->offset is %d\n", offset);
 
             // filling 'format' to scanf the  label
             sprintf(format, "%%%ds", offset);
 
             sscanf(line, format, cmd);
 
-            printf("label is %s\n", cmd);
+            pr_log(LOG_CONSOLE,"label is %s\n", cmd);
 
             int label_num = labelExists(labels, cmd);
 
-            printf("label_num is %d\n", label_num);
+            pr_log(LOG_CONSOLE,"label_num is %d\n", label_num);
 
             if(label_num != -1)
             {
@@ -325,8 +326,8 @@ Text* compilation(Text* src)
         if (!strncmp(#name, cmd, sizeof(#name) - 1))\
 		{\
 			output_line[0] |= opcode;\
-            printf("opcode is 0x%hhx\n", opcode);\
-			printf("cmd = %3s and name = %3s\n", cmd, #name);\
+            pr_log(LOG_CONSOLE,"opcode is 0x%hhx\n", opcode);\
+			pr_log(LOG_CONSOLE,"cmd = %3s and name = %3s\n", cmd, #name);\
 		}\
         else\
 
@@ -366,7 +367,7 @@ Text* compilation(Text* src)
            (output_line[0] & 0x1f) == 0b10101 ||
            (output_line[0] & 0x1f) == 0b10110)
         {
-            printf("parsing cmd: %s\n", cmd);
+            pr_log(LOG_CONSOLE,"parsing cmd: %s\n", cmd);
 
             int found_label = -1;
 
@@ -375,7 +376,7 @@ Text* compilation(Text* src)
             if(found_label != -1)
             // label was found
             {
-                printf("label was found\n");
+                pr_log(LOG_CONSOLE,"label was found\n");
 
                 output_line[1] = labels[found_label].addr;        
 
@@ -409,7 +410,7 @@ Text* compilation(Text* src)
                 output->text[i].finish = output->text[i].start + 2; 
             }
 
-            printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
+            pr_log(LOG_CONSOLE,"entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n", src->text[i].start, output_line[0], output_line[1], output_line[2]);
             
             continue; 
         } // end processing JMP's command arg
@@ -509,7 +510,7 @@ Text* compilation(Text* src)
                     write_result_line(num_of_bytes, result_line);
                     current_address += output->text[i].length;
 
-                    printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX"
+                    pr_log(LOG_CONSOLE,"entered line: %s\n\toutputline: 0x%hhX 0x%hhX"
                             " 0x%hhX 0x%hhX 0x%hhX\n",
                             src->text[i].start,
                             result_line[0], result_line[1], result_line[2],
@@ -527,7 +528,7 @@ Text* compilation(Text* src)
 			pr_err(LOG_CONSOLE, "Syntax error on line %d: %s\n",
                                 i, src->text[i].start);
 
-        printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n",
+        pr_log(LOG_CONSOLE,"entered line: %s\n\toutputline: 0x%hhX 0x%hhX 0x%hhX\n",
                 src->text[i].start,
                 output_line[0], output_line[1], output_line[2]);
 	
