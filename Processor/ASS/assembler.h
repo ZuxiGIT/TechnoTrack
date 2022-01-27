@@ -33,17 +33,6 @@ typedef struct
     int label_num;
 } FUrecord;
 
-//const char* const sCommands[] = 
-//{
-//    #define CPU_COMMAND(name, opcode, argc, code) #name,
-//	#define CPU_REG(name, number) 
-//
-//    #include "../CPUcommands.h"
-//
-//    #undef CPU_COMMAND
-//	#undef CPU_REG
-//};
-
 enum Registers
 {
 	#define CPU_COMMAND(name, opcode, argc, code) 

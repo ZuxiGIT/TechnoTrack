@@ -13,9 +13,16 @@
 #define $$ printf("[%s:%d] CHECK\n", strrchr(__FILE__, '/') + 1, __LINE__);
 #define $$$ printf("[%d] line is \"%s\"\n", __LINE__, line);
 
-#define RAM             0x80
-#define REG             0x40
-#define CONST           0x20
+#define write_result_line(num, src)\
+do{\
+    output->text[i].start = strndup(src, num);\
+    output->text[i].length = num;\
+    output->text[i].finish = output->text[i].start + num;\
+}while(0);
+
+#define CONST           0x80
+#define RAM             0x40
+#define REG             0x20
 #define JMP_COMMAND     0x10
 
 enum ASMERR asmerr;
@@ -69,10 +76,10 @@ void freeLabelTable(Label* table)
             free(table[i].name);
 }
 
-bool hasArg(const char* cmd)
+int hasArg(const char* cmd)
 {
     #define CPU_COMMAND(name, opcode, argc, code) \
-	if (!strcmp(#name, cmd) && argc >= 1 ) return 1;
+	if (!strcmp(#name, cmd) && argc >= 1 ) return argc;
 	
 	#define CPU_REG(name, number)
 	
@@ -102,6 +109,117 @@ static void _skipAlphas(char** str)
 {
 	while(isalpha(*(*str))) (*str)++ ;
 }
+
+int parseArg(char** _str, char* output_line)
+{
+    char* line = *_str;
+
+    bool bracket = false;
+
+    if(*line == '[')
+    {
+        bracket = true;
+        output_line[0] |= RAM;
+        line++;
+    }
+
+    skipSpaces(line);
+    printf("line before parsing register \"%s\"\n", line);
+
+    if(isalpha(*line))
+    {
+        printf("arg contains a register\n");
+
+        #define CPU_COMMAND(name, opcode, argc, code)    
+        #define CPU_REG(name, number) \
+        if (!strncmp(#name, line, sizeof(#name) - 1))\
+        { \
+            output_line[0] |= REG;\
+            output_line[1] = number;\
+            skipAlphas(line);\
+            skipSpaces(line);\
+            if(bracket && *line == ']')\
+            {\
+                line++;\
+                skipSpaces(line);\
+		        if(*line != '\0' && *line != ';')\
+                {\
+                    pr_err(LOG_CONSOLE, "Syntax error\n");\
+                    return -1;\
+                }\
+                else\
+                    return 0;\
+            }\
+            if(bracket && *line++ != '+')\
+            {\
+                pr_err(LOG_CONSOLE, "Error ocurred: expected \'+\' "\
+                                    "but got \'%c\'\n", *(line-1));\
+                return -1;\
+            }\
+            else\
+                skipSpaces(line);\
+        }\
+        else
+
+
+        #include "../CPUcommands.h"
+
+        {
+            pr_err(LOG_CONSOLE, "Syntax error: Unknown register operand\n");
+            return -1;
+        }
+
+        #undef CPU_COMMAND
+        #undef CPU_REG
+    }
+
+    printf("line before parsing constant \"%s\"\n", line);
+
+    if(isdigit(*line))
+    {
+        char arg = 0;	
+        sscanf(line, "%hhd", &arg);
+        if(output_line[0] & REG)
+            output_line[2] = arg;	
+        else
+            output_line[1] = arg;
+
+        printf("arg is %hhd\n", arg);
+
+        output_line[0] |= CONST;
+
+        skipDigits(line);
+    }
+
+    skipSpaces(line);
+
+    $$$
+
+    if(bracket)
+        if(*line != ']') 
+        {
+            pr_err(LOG_CONSOLE, "Syntax error: expected \']\' but got \'%c\'\n", *line);
+            return -1;
+        }
+        else
+            line++;
+
+    skipSpaces(line);
+
+    $$$
+
+    *_str = line;
+
+    // means that there was no arg (because atributes REG, RAM, CONST are 0)
+    if((output_line[0] & 0xe0) == 0)
+    {
+        pr_err(LOG_CONSOLE, "Error: expected an operand\n");
+        return -1;
+    }
+
+    return 0;
+}
+
 
 #define printf(...)  printf(__VA_ARGS__)
 
@@ -189,6 +307,7 @@ Text* compilation(Text* src)
         if (!strncmp(#name, cmd, sizeof(#name) - 1))\
 		{\
 			output_line[0] |= opcode;\
+            printf("opcode is 0x%hhx\n", opcode);\
 			printf("cmd = %3s and name = %3s\n", cmd, #name);\
 		}\
         else\
@@ -198,19 +317,22 @@ Text* compilation(Text* src)
         #include "../CPUcommands.h"
 
         if(*line == '\0' || *line == ';')
+        {
+
+            printf("[%d] Skipping the line\n", __LINE__);
             continue;
+        }
         else
         {
                 $$
-				pr_err(LOG_CONSOLE, "Syntax error: Unknown command\n\t[Line:%d]-->%s|\n", i, cmd);
+				pr_err(LOG_CONSOLE, "Syntax error: Unknown command\n"
+                                    "\t[Line:%d]-->\"%s\"\n", i, cmd);
 				asmerr = UNKNOWN_COMMAND;
 				continue;
         }
 
         #undef CPU_COMMAND
 		#undef CPU_REG
-
-        pr_warn(LOG_CONSOLE, "%d\n", !(output_line[0] ^ JMP_COMMAND));
         
         skipAlphas(line);
 
@@ -218,37 +340,18 @@ Text* compilation(Text* src)
 
         // if cmd is JMP
         //processing JMP's command arg
-        if(!(output_line[0] ^ JMP_COMMAND))
+        if(output_line[0] & 0x1f == 0b10000 || 
+           output_line[0] & 0x1f == 0b10001 || // jmp opcodes
+           output_line[0] & 0x1f == 0b10010 ||
+           output_line[0] & 0x1f == 0b10011 ||
+           output_line[0] & 0x1f == 0b10100 ||
+           output_line[0] & 0x1f == 0b10101 ||
+           output_line[0] & 0x1f == 0b10110)
         {
             printf("parsing cmd: %s\n", cmd);
 
             int found_label = -1;
 
-            //searching label
-            /*
-            bool label_was_found = false;
-            for(int j =  0; j < current_label; j ++)
-            {
-                printf("label is %s\n", labels[j].name);
-                
-                if(!strncmp(labels[j].name, line, strlen(labels[j].name)))
-                //label was found
-                {
-                    printf("label was found\n");
-                    label_was_found = true;
-
-                    output_line[1] = labels[j].addr;        
-
-                    output->text[i].start = strndup(output_line, 2);
-                    output->text[i].length = 2;
-                    output->text[i].finish = output->text[i].start + 2; 
-
-                    current_address += 2;
-                    
-                    break;
-                }
-            }
-*/
             found_label = labelExists(labels, line);
 
             if(found_label != -1)
@@ -265,7 +368,6 @@ Text* compilation(Text* src)
                 current_address += 2;
             }
             //label was not found
-            //if(!label_was_found)
             else
             {
                 current_address++;
@@ -297,78 +399,106 @@ Text* compilation(Text* src)
         $
 
         //proccessing cmd's arg
-		if(hasArg(cmd))
+        int num_of_args = hasArg(cmd);
+		if(num_of_args)
 		{
 
-            bool bracket = false;
+            if(parseArg(&line, output_line) < 0)
+            {
+                printf("\t[Line:%d] ---> \"%s\"\n", i+1, src->text[i].start);
+                continue;
+            }
+            else
+            {
+                pr_warn(LOG_CONSOLE, "output_line[0] = 0x%hhx\n", output_line[0]);
+                // checking the first "move" operand if it is a const
+                if((output_line[0] & 0xf) == 0b1000) // --> "move" opcode
+                    if((output_line[0] & CONST) && !(output_line[0] & RAM))
+                    {
+                        pr_err(LOG_CONSOLE, "Error: \"move\" cannot have the first"
+                                            " as an immediate\n");
+                        printf("\t[Line:%d] ---> \"%s\"\n", i+1, src->text[i].start);
+                        continue;
+                    }
+            }
 
-			if(*line == '[')
-			{
-                bracket = true;
-				output_line[0] |= RAM;
-				line++;
-			}
+            if(num_of_args > 1)
+            {
+                skipSpaces(line);
 
-            printf("line before parsing register \"%s\"\n", line);
+                if(*line != ',')
+                {
+                    pr_err(LOG_CONSOLE, "Syntax error: wrong delimeter "
+                                        "between operands\n");
+                    printf("\t[Line:%d] ---> \"%s\"\n", i+1, src->text[i].start);
+                    continue;
+                }
 
-			#define CPU_COMMAND(name, opcode, argc, code)    
-			#define CPU_REG(name, number) \
-			if (!strncmp(#name, line, sizeof(#name) - 1))\
-			{ \
-				output_line[0] |= REG;\
-				output_line[1] = number;\
-				/*while(isalpha(*line)) line++;\*/\
-                skipAlphas(line);\
-				skipSpaces(line);\
-				if(bracket && *line++ != '+')\
-				{\
-					pr_err(LOG_CONSOLE, "Error ocurred: expected \'+\' but got %c\n"\
-										"[Line:%d]--->%s\n", *line, i, src->text[i].start);\
-				    continue;\
-				}\
-                else\
-				    skipSpaces(line);\
-			}
+                line++;
+                skipSpaces(line);
 
-			#include "../CPUcommands.h"
+                char output_line_4_2_arg[3] = {};
 
-			#undef CPU_COMMAND
-			#undef CPU_REG
-			
-            printf("line before parsing constant \"%s\"\n", line);
-			char arg = 0;	
+                if(parseArg(&line, output_line_4_2_arg) < 0)
+                {
+                    printf("\t[Line:%d] ---> \"%s\"\n", i+1, src->text[i].start);
+                    continue;
+                }
+                else
+                {
+                    if(num_of_args == 2)
+                        if(*line != '\0' && *line != ';')
+                        {
+                            pr_err(LOG_CONSOLE, "Syntax error\n");
+                            printf("\t[Line:%d] ---> \"%s\"\n", i+1, src->text[i].start);
+                           continue; 
+                        }
 
-			if(isdigit(*line))
-			{
-                sscanf(line, "%hhd", &arg);
-				if(output_line[0] & REG)
-					output_line[2] = arg;	
-				else
-					output_line[1] = arg;
+                    pr_warn(LOG_CONSOLE, "output_line[0] = 0x%hhx\n", output_line[0]);
+                    char result_line[5] = {};
+                    int num_of_bytes = 1;
 
-                printf("arg is %hhd\n", arg);
+                    if(output_line[0] & REG)
+                        num_of_bytes++;
+                    if(output_line[0] & CONST)
+                        num_of_bytes++;
 
-				output_line[0] |= CONST;
+                    memcpy(result_line, output_line, num_of_bytes);
+                    int temp = num_of_bytes;
 
-                skipDigits(line);
-			}
+                    if(output_line_4_2_arg[0] & REG)
+                        num_of_bytes++;
+                    if(output_line_4_2_arg[0] & CONST)
+                        num_of_bytes++;
 
-			skipSpaces(line);
 
-            $$$
+                    memcpy(result_line + temp, output_line_4_2_arg + 1, num_of_bytes - temp);
+                    
+                    pr_warn(LOG_CONSOLE, "result_line[0] = 0x%hhx\n", result_line[0]);
+                    // for move operands only 
+                    if((output_line[0] & 0xf) == 0b1000) // --> "move" opcode
+                    {
+                        result_line[0] |= (char)(((long long)output_line_4_2_arg[0] & REG) >> 5);
+                        result_line[0] |= (char)(((long long)output_line_4_2_arg[0] & RAM) >> 5);
+                        result_line[0] |= (char)(((long long)output_line_4_2_arg[0] & CONST) >> 5);
+                    }
 
-			if(bracket)
-				if(*line != ']') 
-				{
-					pr_err(LOG_CONSOLE, "Syntax error: expected \']\' but got %c\n", *line);
-					continue;
-				}
-				else
-					line++;
+                    pr_info(LOG_CONSOLE, "num is %d\n", num_of_bytes);
+                    pr_warn(LOG_CONSOLE, "result_line[0] = 0x%hhx\n", result_line[0]);
 
-			skipSpaces(line);
+                    write_result_line(num_of_bytes, result_line);
 
-        	$$$
+                    printf("entered line: %s\n\toutputline: 0x%hhX 0x%hhX"
+                            " 0x%hhX 0x%hhX 0x%hhX\n",
+                            src->text[i].start,
+                            result_line[0], result_line[1], result_line[2],
+                            result_line[3], result_line[4]);
+
+                    continue;
+                }
+
+                skipSpaces(line);
+            }
 		}
 
 
@@ -382,21 +512,24 @@ Text* compilation(Text* src)
 	
 		if((output_line[0] & REG) && (output_line[0] & CONST))
 		{
-			output->text[i].start = strndup(output_line, 3);
-			output->text[i].length = 3;
-			output->text[i].finish = output->text[i].start + 3;
+            write_result_line(3, output_line);
+			//output->text[i].start = strndup(output_line, 3);
+			//output->text[i].length = 3;
+			//output->text[i].finish = output->text[i].start + 3;
 		}
 		else if((output_line[0] & REG) | (output_line[0] & CONST))
 		{		
-			output->text[i].start = strndup(output_line, 2);
-			output->text[i].length = 2;
-			output->text[i].finish = output->text[i].start + 2;
+            write_result_line(2, output_line);
+			//output->text[i].start = strndup(output_line, 2);
+			//output->text[i].length = 2;
+			//output->text[i].finish = output->text[i].start + 2;
 		}		
 		else if (output_line[0] & 0x1f)
 		{
-			output->text[i].start = strndup(output_line, 1);
-			output->text[i].length = 1;
-			output->text[i].finish = output->text[i].start + 1;
+            write_result_line(1, output_line);
+			//output->text[i].start = strndup(output_line, 1);
+			//output->text[i].length = 1;
+			//output->text[i].finish = output->text[i].start + 1;
 		}
 
         current_address += output->text[i].length;

@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 
-#define RAM 	0x80
-#define REG 	0x40
-#define CONST 	0x20
+#define CONST 	0x80
+#define RAM 	0x40
+#define REG 	0x20
 
 #define StkElem int
 #include "../lib/Stack/Stack.h"
