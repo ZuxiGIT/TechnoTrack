@@ -1,0 +1,154 @@
+// func(name, derivative, latex_begin, latex_mid, latex_end, C_function)
+// as function can be binary or unary there are two macros _unary and _binary to select
+// specific type of function
+
+
+#ifndef binary
+    #ifndef unary
+        #define _unary(func) func
+        #define _binary(func) func
+    #else
+        #define _unary(func) func
+        #define _binary(func)   
+    #endif
+#else
+    #ifndef unary
+        #define _unary(func)   
+    #else
+        #define _unary(func) func
+    #endif
+    #define _binary(func) func
+#endif
+
+_unary(func(sin, 
+    {
+        // cos(param) * deriv(param)
+
+        Node* res = create_oper_node('*');
+        attach_node(res, left, create_func_node(_2_str(cos)));
+        Node* res_left = res->left;
+        attach_node(res_left, left, create_empty_node());
+        attach_node(res_left, right, copy_subtree(node->right)); 
+        attach_node(res, right, differentiate_node(node->right));
+        return res;
+    },
+    " ",
+    "\\sin(",
+    ")",
+    sin
+))
+
+_unary(func(cos,
+    {
+        // -sin(param) * deriv(param)
+        
+        Node* res = create_oper_node('*');
+        attach_node(res, left, create_oper_node('-'));
+        Node* res_left = res->left;
+        attach_node(res_left, left, create_empty_node());
+        attach_node(res_left, right, create_func_node(_2_str(sin)));
+        Node* sin_node = res->left->right;
+        attach_node(sin_node, left, create_empty_node());
+        attach_node(sin_node, right, copy_subtree(node->right));
+        attach_node(res, right, differentiate_node(node->right));
+        return res;
+    },
+    " ",
+    "\\cos(",
+    ")",
+    cos
+))
+
+_binary(func(^,
+    {   // if param == const --> 0
+        // if param^n != const --> n * param^(n-1) * deriv(param)
+
+        if(node->left->type == CONST) 
+            return create_const_node(0);
+        else
+        {
+            Node* res = create_oper_node('*');
+
+            double power = node->right->value.num;
+
+            attach_node(res, left, create_const_node(power));
+            attach_node(res, right, create_oper_node('*'));
+
+            Node* res_r = res->right;
+
+            attach_node(res_r, left, create_func_node(_2_str(^)));
+
+            Node* res_r_l = res->right->left;
+
+            attach_node(res_r_l, left, copy_subtree(node->left));
+            attach_node(res_r_l, right, create_const_node(power - 1));
+ 
+            attach_node(res_r, right, differentiate_node(node->left));
+            return res;
+        }
+    },
+    "{",
+    "}^{",
+    "}",
+    pow
+))
+
+
+_unary(func(ln,
+    {
+        // deriv(param) / param
+
+        Node* res = create_oper_node('/');
+        attach_node(res, left, differentiate_node(node->right));
+        attach_node(res, right, copy_subtree(node->right));
+        return res;
+    },
+    " ",
+    "\\ln(",
+    ")",
+    log
+))
+
+_unary(func(exp,
+    {
+        Node* res = create_oper_node('*');
+        attach_node(res, right, differentiate_node(node->right));
+        attach_node(res, left, create_func_node(_2_str(exp)));
+        attach_node(res->left, left, create_empty_node());
+        attach_node(res->left, right, copy_subtree(node->right));
+        return res;
+    },
+    " ",
+    "\\exp(",
+    ")",
+    exp
+))
+
+_unary(func(e,
+    {
+        Node* res = create_oper_node('*');
+        attach_node(res, right, differentiate_node(node->right));
+        attach_node(res, left, create_func_node(_2_str(e)));
+        attach_node(res->left, left, create_empty_node());
+        attach_node(res->left, right, copy_subtree(node->right));
+        return res;
+
+    },
+    " ",
+    "\\exp(",
+    ")",
+    exp
+))
+
+_unary(func(tg,
+    {
+        assert(NULL && "Not implenented yet");
+    },
+    " ",
+    "(",
+    ")",
+    tan
+))
+
+#undef _unary
+#undef _binary
