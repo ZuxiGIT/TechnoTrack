@@ -9,4 +9,6 @@ add_executable(main
 target_link_libraries(main
     INTERFACE TColors
     PRIVATE tree
+    PRIVATE list
+    PRIVATE id_table
     PRIVATE logger)

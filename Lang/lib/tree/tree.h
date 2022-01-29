@@ -3,17 +3,19 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "../id_table/id_table.h"
 
 typedef enum
 {
-    FUNC = 0,
-    VAR,
-    CONST,
+    FUNCTION = 0,
+    VARIABLE,
+    CONSTANT,
     OPERATOR,
-    SEMIOCOLON,
+    CONDITION,
+    SEMICOLON,
     EMPTY,
     UNDEFINED
-} type_t;
+} node_type_t;
 
 typedef union
 {
@@ -21,14 +23,16 @@ typedef union
     char* text;
 } value_t;  
 
+
 typedef struct Node 
 {
     value_t value;
     struct Node* left;
     struct Node* right;
     struct Node* parent;
-    type_t type; 
+    node_type_t type; 
     bool alloc;
+    id_table_t* id_table;
 } Node;
 
 typedef struct 
@@ -54,7 +58,7 @@ Tree* load_tree(const char* input);
 
 Tree* parse_tree_from_source(const char* input);
 
-Node* create_node(type_t type, value_t value);
+Node* create_node(node_type_t type, value_t value);
 
 Node* copy_node(const Node* node);
 Node* copy_subtree(const Node* subtree);

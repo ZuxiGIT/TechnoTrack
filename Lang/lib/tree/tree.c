@@ -57,7 +57,7 @@ Tree* tree_init()
     return res;
 }
 
-static Node* _create_node(type_t type, value_t value, Node* parent, Node* left, Node* right)
+static Node* _create_node(node_type_t type, value_t value, Node* parent, Node* left, Node* right)
 {
     Node* res = (Node*)calloc(1, sizeof(Node));
 
@@ -70,7 +70,7 @@ static Node* _create_node(type_t type, value_t value, Node* parent, Node* left, 
     return res;
 }
 
-inline Node* create_node(type_t type, value_t value)
+inline Node* create_node(node_type_t type, value_t value)
 {
     return _create_node(type, (value_t) value, NULL, NULL, NULL);
 }
@@ -78,7 +78,7 @@ inline Node* create_node(type_t type, value_t value)
 
 static void printNode(const Node* node)
 {
-    if(node->type != FUNC)
+    if(node->type != FUNCTION)
         printf("\n{\n\ttype: %d\n\tvalue: %d\n\talloc: %d\n}\n",
                node->type, (int)node->value.num, node->alloc);
     else
@@ -95,7 +95,7 @@ Node* copy_node(const Node* node)
 
     res->type = node->type;
 
-    if((node->type == VAR) || (node->type == FUNC))
+    if((node->type == VARIABLE) || (node->type == FUNCTION))
     {
         res->value.text = strndup(node->value.text, strlen(node->value.text));
         res->alloc = true;
@@ -186,15 +186,15 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         buff_pos += sprintf(curr_pos, "shape=\"circle\", fillcolor=\"#CD5C5C\","
                                       " label=\"%c\"];\n",
                                       (int)(node->value.num));
-    else if(node->type == FUNC)
+    else if(node->type == FUNCTION)
         buff_pos += sprintf(curr_pos, "shape=\"octagon\", fillcolor=\"#7FFF00\","
                                       " label=\"%s\"];\n",
                                       node->value.text);
-    else if(node->type == VAR)
+    else if(node->type == VARIABLE)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#40E0D0\","
                                       " label=\"%s\"];\n",
                                       node->value.text);
-    else if(node->type == CONST)
+    else if(node->type == CONSTANT)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#DDA0DD\","
                                       " label=\"%.2lf\"];\n",
                                       node->value.num);
@@ -292,7 +292,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
 {
     int ret = buff_pos;
 
-    if(node->type == FUNC)
+    if(node->type == FUNCTION)
     {
         #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
@@ -324,7 +324,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
         buff_pos += ret;
     }
 
-    if(node->type == FUNC)
+    if(node->type == FUNCTION)
     {
 
         #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
@@ -350,9 +350,9 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
         else
             buff_pos += sprintf(curr_pos, "%c", (int)node->value.num);
     }
-    else if(node->type == VAR)
+    else if(node->type == VARIABLE)
         buff_pos += sprintf(curr_pos, "%s",  node->value.text);
-    else if(node->type == CONST)
+    else if(node->type == CONSTANT)
         buff_pos += sprintf(curr_pos, "%.1lf", node->value.num);
 
     if(node->right != NULL)
@@ -366,7 +366,7 @@ static int _dump_node_tex(Node* node, char* dump_buff, int buff_pos)
         buff_pos += ret;
     }
 
-    if(node->type == FUNC)
+    if(node->type == FUNCTION)
     {
         #define func(name, diff, latex_begin, latex_mid, latex_end, c_f)\
         if(strncasecmp(node->value.text, #name, sizeof(#name) - 1) == 0)\
@@ -470,11 +470,11 @@ static int _save_node(Node* node, char* dump_buff, int buff_pos, int shift, int 
 
     _SHIFT;
 
-    if(node->type == CONST) 
+    if(node->type == CONSTANT) 
         buff_pos += sprintf(curr_pos, "value: %lf\n", node->value.num);
-    else if((node->type == VAR))
+    else if((node->type == VARIABLE))
         buff_pos += sprintf(curr_pos, "value: \"%s\"\n", node->value.text);
-    else if(node->type == FUNC)
+    else if(node->type == FUNCTION)
         buff_pos += sprintf(curr_pos, "value: \"%s\"\n", (node->value.text));
     else if(node->type == OPERATOR) 
         buff_pos += sprintf(curr_pos, "value: \"%c\"\n", (int)(node->value.num));
@@ -697,7 +697,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
             _SKIP_TILL(txt, '"');
             txt++;
         }
-        else if(node->type == FUNC)
+        else if(node->type == FUNCTION)
         {
             if(!IS_FUNC(txt))
             {
@@ -713,7 +713,7 @@ static Node* _parse_node_from_save(Tree* tree, char** text)
             *txt = '\0';
             txt++;
         }
-        else if(node->type == VAR)
+        else if(node->type == VARIABLE)
         {
              node->value.text = txt;
             _SKIP_TILL(txt, '"');
@@ -831,20 +831,20 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
     
     if(isdigit(*txt))
     {
-        node->type = CONST;
+        node->type = CONSTANT;
         sscanf(txt, "%lf", &node->value.num);
         _SKIP_DIGITS(txt);
     }
     else if(IS_FUNC(txt))
     {
         node->value.text = txt;
-        node->type = FUNC;
+        node->type = FUNCTION;
         _SKIP_TILL(txt, '(');
     }
     else if(isalpha(*txt))
     {
         node->value.text = txt;
-        node->type = VAR;
+        node->type = VARIABLE;
         _SKIP_CHARS(txt);
     }
     else if(IS_OPERATOR(*txt))
@@ -870,7 +870,7 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 
     if(*txt == ')')
     {
-        if(node->type == VAR)
+        if(node->type == VARIABLE)
             *txt = '\0';
 
         txt++;
@@ -898,7 +898,7 @@ static Node* _parse_node_from_source(Tree* tree, char** text)
 
         node->right->parent = node;
         
-        if(node->type == FUNC)
+        if(node->type == FUNCTION)
             *bracket = '\0';
     }
 

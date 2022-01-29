@@ -6,5 +6,6 @@ add_library(tree
     tree.c)
 
 target_link_libraries(tree
+    PUBLIC id_table
     PRIVATE logger
     PRIVATE file)

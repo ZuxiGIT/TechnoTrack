@@ -28,11 +28,14 @@
 }
 
 #define _2_str(name) #name
-#define create_undefined_node() create_node(UNDEFINED, (value_t)((char*)NULL))
-#define create_const_node(num)  create_node(CONST,     (value_t)((double)num))
-#define create_oper_node(oper)  create_node(OPERATOR,  (value_t)((double)oper))
-#define create_func_node(func)  create_node(FUNC,      (value_t)func)
-#define create_empty_node()     create_node(EMPTY,     (value_t)((char*)NULL))
+#define create_undefined_node()  create_node(UNDEFINED, (value_t)((char*)NULL))
+#define create_const_node(num)   create_node(CONSTANT,  (value_t)((double)num))
+#define create_oper_node(oper)   create_node(OPERATOR,  (value_t)((double)oper))
+#define create_func_node(func)   create_node(FUNCTION,  (value_t)func)
+#define create_condition_node()  create_node(CONDITION, (value_t)((char*)NULL))
+#define create_variable_node(var)create_node(VARIABLE,  (value_t)var)
+#define create_semicolon_node()  create_node(SEMICOLON, (value_t)((double)';'))
+#define create_empty_node()      create_node(EMPTY,     (value_t)((char*)NULL))
 
 
 #endif /* DSL_H */
