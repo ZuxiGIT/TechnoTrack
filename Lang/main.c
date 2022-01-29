@@ -39,19 +39,23 @@ static inline void _skip_spaces(const char** txt)
     }
 
 // current gramatic
-// G ::= {St}+ '$'                                                  --> gramatic
+// G ::= {Func_def | St}+ '$'                                       --> gramatic
+// St ::= If | { Assign | E ';'}                                    --> statement
+// If ::= "if" '('E')' Blk | St {"else" Blk | St}?                  --> if condition
+// Blk ::= '{' {St} + '}'                                           --> usual block of statements
 // E ::= T{[+-]T}*                                                  --> expresion
 // T ::= P{[*/]P}*                                                  --> 
-// P ::= '('E')' | N | F | N                                        --> primary expresion
+// P ::= '('E')' | N | F | V                                        --> primary expresion
 // N ::= [0-9]+                                                     --> number
 // V ::= [_a-zA-Z]{[_a-zA-z0-9]}*                                   --> variable
 // Op ::= [+-*/%<<>>]                                               --> operator
-// Com_op ::= Op | {=}?                                             --> compound operator
+// Com_op ::= Op'='                                                 --> compound operator
 // Assign ::= V'='E                                                 --> assignemnet
 // F ::= {"exp" | "ln" | "sin" | "cos" | ... } '('E {',' E}*')'     --> function call
-// St ::= If { Assign | E ';'}                                      --> statement
-// Blk ::= '{' St + '}'                                             --> usual block of statements
-// If ::= "if"'('E')'Blk | St {"else" Blk | St}                     --> if condition
+// Func_def ::= F '(' V {',' V}* ')' Blk                            --> function definition
+// Var-def ::= V'='N'
+
+
 
 
 // old gramatic
@@ -73,16 +77,19 @@ static char for_var[20] = {};
 
 void SyntaxError(const char* format, ...)
 {
-   va_list params;
-   va_start(params, format);
+    5+4;
+    int x;
+    x;
+    va_list params;
+    va_start(params, format);
 
-   setColor(NULL, FG_RED);
-   printf("Synax error: ");
-   resetColor(NULL);
+    setColor(NULL, FG_RED);
+    printf("Synax error: ");
+    resetColor(NULL);
 
-   vprintf(format, params);
+    vprintf(format, params);
 
-   va_end(params);
+    va_end(params);
 }
 
 Node* GetG(const char* str);
@@ -199,6 +206,7 @@ Node* GetN()
     if(!isdigit(*s))
     {
         status = NOT_OK;
+        SyntaxError("Expected number\n");
         return NULL;
     }
 
