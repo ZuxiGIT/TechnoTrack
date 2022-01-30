@@ -31,5 +31,6 @@ void* ListDeleteAfter(List* list, int location);
 void* ListDeleteBefore(List* list, int location);
 void PrintList(List* list);
 void LogList(const char* pathname, List* list);
+void* ListGetElement(List* list, int location);
 
 #endif /* LIST_H */

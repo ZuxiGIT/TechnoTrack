@@ -12,6 +12,7 @@ typedef enum
     CONSTANT,
     OPERATOR,
     CONDITION,
+    FUNC_CALL,
     SEMICOLON,
     EMPTY,
     UNDEFINED
@@ -31,8 +32,8 @@ typedef struct Node
     struct Node* right;
     struct Node* parent;
     node_type_t type; 
-    bool alloc;
     id_table_t* id_table;
+    bool alloc;
 } Node;
 
 typedef struct 

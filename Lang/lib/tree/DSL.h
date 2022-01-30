@@ -34,6 +34,7 @@
 #define create_func_node(func)   create_node(FUNCTION,  (value_t)func)
 #define create_condition_node()  create_node(CONDITION, (value_t)((char*)NULL))
 #define create_variable_node(var)create_node(VARIABLE,  (value_t)var)
+#define create_func_call_node(func)  create_node(FUNC_CALL, (value_t)func)
 #define create_semicolon_node()  create_node(SEMICOLON, (value_t)((double)';'))
 #define create_empty_node()      create_node(EMPTY,     (value_t)((char*)NULL))
 

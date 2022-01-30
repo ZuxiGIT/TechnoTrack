@@ -128,7 +128,7 @@ void node_free(Node* node)
     if(node == NULL)
         return;
 
-    assert(node);
+    //assert(node);
 
     if((node->left) != NULL)
         node_free(node->left);
@@ -137,6 +137,12 @@ void node_free(Node* node)
 
     if(node->alloc)
         free(node->value.text);
+
+    if(node->type == FUNCTION)
+    {
+        id_table_free(node->id_table);
+        free(node->id_table);
+    }
 
     free(node);
 
@@ -195,9 +201,22 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
                                       " label=\"%s\"];\n",
                                       node->value.text);
     else if(node->type == CONSTANT)
-        buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#DDA0DD\","
+        buff_pos += sprintf(curr_pos, "shape=\"egg\", fillcolor=\"#DDA0DD\","
                                       " label=\"%.2lf\"];\n",
                                       node->value.num);
+    else if(node->type == CONDITION)
+        buff_pos += sprintf(curr_pos, "shape=\"hexagon\", fillcolor=\"#00A170\","
+                                      " label=\"if\"];\n");
+    else if(node->type == FUNC_CALL)
+        buff_pos += sprintf(curr_pos, "shape=\"ellipse\", fillcolor=\"#D2386C\","
+                                      " label=\"%s\"];\n",
+                                      node->value.text);
+    else if(node->type == SEMICOLON)
+        buff_pos += sprintf(curr_pos, "shape=\"circle\", fillcolor=\"#E9897E\","
+                                      " label=\";\"];\n");
+    else if(node->type == EMPTY)
+        buff_pos += sprintf(curr_pos, "shape=\"plaintext\",fillcolor=\"#E9897E\","
+                                      " label=\"[EMPTY]\\njust to bind nodes\"];\n");
     else
     {
         pr_err(LOG_CONSOLE, "Error [dot dump]: unknown type[%d]\n", 
@@ -215,7 +234,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
     }
 
 
-    if(node->left != NULL && node->left->type != EMPTY)
+    if(node->left != NULL)// && node->left->type != EMPTY)
     { 
         _SHIFT;
 
@@ -224,7 +243,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         buff_pos += dump_node_dot(node->left);
     }
 
-    if(node->right != NULL && node->right->type != EMPTY)
+    if(node->right != NULL)// && node->right->type != EMPTY)
     {
         _SHIFT;
 

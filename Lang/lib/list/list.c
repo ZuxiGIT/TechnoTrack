@@ -56,7 +56,6 @@ void ListCtor(List* list, int capacity)
 void ListDtor(List* list)
 {
     free(list->cells);
-    log_close();
 }
 
 int ListInsertBack(List* list, void* num)
@@ -97,7 +96,8 @@ int ListInsertAfter(List* list, int location, void* num)
 
     int found = _findEmptyCell(list);
 
-    printf("found cell with %d address (location = %d, num = 0x%p)\n",
+    printf("found empty cell with %d address (location = %d)"
+            " to insert value = %p\n",
             found, location, num);
 
     if(found)
@@ -228,8 +228,9 @@ void PrintList(List* list)
             list->head, list->tail, list->free);
     for(int i = 0; i < list->capacity; i ++)
     {
-        printf("Cell[%d]: data = 0x%p\tnext = %d\tprev = %d\n",
-                i, list->cells[i].data, list->cells[i].next, 
+        printf("Cell[%d]: data = 0x%p[%s]\tnext = %d\tprev = %d\n",
+                i, list->cells[i].data,(char*)list->cells[i].data,
+                list->cells[i].next, 
                 list->cells[i].prev);
     }
 }
@@ -320,4 +321,9 @@ void LogList(const char* pathname, List* list)
     memset(log_buffer, '\0', sizeof(log_buffer));
 
     buff_pos = 0;
+}
+
+void* ListGetElement(List* list, int location)
+{
+    return list->cells[location].data; 
 }

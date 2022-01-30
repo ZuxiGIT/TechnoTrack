@@ -19,5 +19,7 @@ typedef struct
 void add_id_record(id_table_t* table, id_record_t record);
 void clear_id_table(id_table_t* table);
 bool is_in_id_table(id_table_t* table, char* name);
+id_record_t* get_last_record(id_table_t* table);
+void id_table_free(id_table_t* table);
 
 #endif /* ID_TABLE_H */
