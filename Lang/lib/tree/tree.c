@@ -216,7 +216,7 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
                                       " label=\";\"];\n");
     else if(node->type == EMPTY)
         buff_pos += sprintf(curr_pos, "shape=\"plaintext\",fillcolor=\"#E9897E\","
-                                      " label=\"[EMPTY]\\njust to bind nodes\"];\n");
+                                      " label=\"[EMPTY]\\nbinding node\"];\n");
     else
     {
         pr_err(LOG_CONSOLE, "Error [dot dump]: unknown type[%d]\n", 

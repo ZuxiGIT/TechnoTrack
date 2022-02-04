@@ -19,6 +19,8 @@ static const char* type2str(node_type_t type)
             return "Function";
         case VARIABLE:
             return "Variable";
+        case VARIABLE_DEF:
+            return "Variable definition";
         case CONSTANT:
             return "Constant";
         case OPERATOR:
@@ -110,7 +112,8 @@ static void* _create_node(node_type_t type, value_t value, Node* parent,
     }
     else if(type == VARIABLE ||
             type == OPERATOR ||
-            type == CONSTANT)
+            type == CONSTANT ||
+            type == VARIABLE_DEF)
     {
         Id_node* res = NULL;
 
@@ -301,6 +304,10 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
         buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#40E0D0\","
                                       " label=\"%s\"];\n",
                                       ((Id_node*)node)->value.text);
+    else if(node->type == VARIABLE_DEF)
+        buff_pos += sprintf(curr_pos, "shape=\"polygon\", fillcolor=\"#40E0D0\","
+                                      " label=\"VARIABLE_DEF\\n%s\"];\n",
+                                      ((Id_node*)node)->value.text);
     else if(node->type == CONSTANT)
         buff_pos += sprintf(curr_pos, "shape=\"egg\", fillcolor=\"#DDA0DD\","
                                       " label=\"%.2lf\"];\n",
@@ -317,10 +324,10 @@ static int _dump_node_dot(Node* node, char* dump_buff, int buff_pos, int shift)
                                       " label=\";\"];\n");
     else if(node->type == EMPTY)
         buff_pos += sprintf(curr_pos, "shape=\"plaintext\",fillcolor=\"#E9897E\""
-                                      ", label=\"[EMPTY]\\njust to bind nodes\"];\n");
+                                      ", label=\"[EMPTY]\\nbinding node\"];\n");
     else if(node->type == BLOCK_OF_STATEMENTS)
         buff_pos += sprintf(curr_pos, "shape=\"plaintext\",fillcolor=\"#E9897E\""
-                                      ", label=\"[BLOCK_OF_STATEMENTS]\"];\n");
+                                      ", label=\"[Blk of statements]\"];\n");
     else
     {
         pr_err(LOG_CONSOLE, "Error [dot dump]: unknown type [%d (%s)]\n", 
@@ -605,7 +612,10 @@ static int _save_node(Node* node, char* dump_buff, int buff_pos,
     if(node->type == CONSTANT) 
         buff_pos += sprintf(curr_pos, "value: %.2lf\n",
                                       ((Id_node*)node)->value.num);
-    else if((node->type == VARIABLE))
+    else if(node->type == VARIABLE)
+        buff_pos += sprintf(curr_pos, "value: \"%s\"\n", 
+                                      ((Id_node*)node)->value.text);
+    else if(node->type == VARIABLE_DEF)
         buff_pos += sprintf(curr_pos, "value: \"%s\"\n", 
                                       ((Id_node*)node)->value.text);
     else if(node->type == FUNCTION)

@@ -39,6 +39,7 @@
 #define create_empty_node()      create_node(EMPTY,     (value_t)((char*)NULL))
 #define create_blk_node()        create_node(BLOCK_OF_STATEMENTS,\
                                             (value_t)((char*)NULL))
+#define create_var_def_node(var)    create_node(VARIABLE_DEF, (value_t)var)
 
 
 #endif /* DSL_H */

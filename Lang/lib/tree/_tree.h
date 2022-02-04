@@ -9,6 +9,7 @@ typedef enum
 {
     FUNCTION = 0,
     VARIABLE,
+    VARIABLE_DEF,
     CONSTANT,
     OPERATOR,
     CONDITION,

@@ -14,6 +14,8 @@
 #include "./lib/tree/DSL.h"
 #include "./lib/tree/_tree.h"
 
+#include "./lib/TextLib/File.h"
+
 
 #define check_status(node)\
 do{\
@@ -24,6 +26,14 @@ do{\
     }\
 }while(0);
 
+#define skipAlphas(txt) _skip_alphas(&txt);
+static inline void _skip_alphas(const char** txt)
+{
+    while(isalpha(**(txt))) 
+    {
+        (*txt)++;
+    }
+}
 #define skipSpaces(txt) _skip_spaces(&txt);
 static inline void _skip_spaces(const char** txt)
 {
@@ -44,7 +54,7 @@ static inline void _skip_spaces(const char** txt)
 
 // current gramatic
 // G ::= {Func_def}+ '$'                                            --> gramatic
-// St ::= If | { Assign | E ';'}                                    --> statement
+// St ::= If | { Var_def | Assign | E ';'}                          --> statement
 // If ::= "if" '('E')' Blk | St {"else" Blk | St}?                  --> if condition 
 // Blk ::= '{' {St} + '}'                                           --> usual block of statements
 // E ::= T{[+-]T}*                                                  --> expresion
@@ -57,7 +67,7 @@ static inline void _skip_spaces(const char** txt)
 // Assign ::= Id'='E                                                --> assignemnet
 // F ::= {"exp" | "ln" | "sin" | "cos" | ... } '('E {',' E}*')'     --> function call
 // Func_def ::= Id'(' Id{',' V}* ')' Blk                            --> function definition
-// Var_def ::= Id'='N'
+// Var_def ::= "let" Id {'='N'}? ';'
 
 // old gramatic
 // G ::= E'$'
@@ -66,9 +76,13 @@ static inline void _skip_spaces(const char** txt)
 // P ::= '(E')' | N
 // N ::= [0-9]+
 
-List Id_list;
-id_table_t* current_id_table;
+// only for functions and global variables
+static List global_id_list;
 
+// a list of id_tables of visible variables
+static List id_table_list;
+
+static char for_var[20] = {};
 
 typedef struct
 {
@@ -84,13 +98,20 @@ typedef enum
 } status_t;
 
 status_t status;
-static char for_var[20] = {};
 
+bool is_known_var(char* var)
+{
+    for(int i = 1; i <= id_table_list.size; i++)
+        if(is_in_id_table(ListGetElement(&id_table_list, i), var))
+            return true;
+
+    return false;
+}
 
 bool is_in_list(List* list, char* name)
 {
     for(int i = 1; i <= list->size; i ++)
-        if(strncmp(((func_prop_t*)ListGetElement(list, i))->name, name, strlen(name)) == 0)
+        if(strncmp(((Id_node*)ListGetElement(list, i))->value.text, name, strlen(name)) == 0)
             return true;
 
     return false;
@@ -106,7 +127,7 @@ bool is_known_func(char* func)
     #include "known_func"
 #undef func
 
-    if(is_in_list(&Id_list, func))
+    if(is_in_list(&global_id_list, func))
         return true;
     else
         return false;
@@ -142,6 +163,7 @@ Blk_node* GetBlk();
 Node* GetIf();
 Func_node* GetFunc_def();
 Func_node* GetFunc_call();
+Id_node* GetVar_def();
 
 
 
@@ -174,7 +196,7 @@ Node* GetG(const char* str)
         //PrintList(&Id_list);
     }
 
-    REQUIRE('$', *s);
+    REQUIRE('$', s);
     return res;
 }
 
@@ -265,7 +287,7 @@ Func_node* GetFunc_call()
 
     skipSpaces(s);
     
-    REQUIRE('(', *s);
+    REQUIRE('(', s);
 
     skipSpaces(s);
 
@@ -277,7 +299,7 @@ Func_node* GetFunc_call()
     skipSpaces(s)
     */
 
-    REQUIRE(')', *s);
+    REQUIRE(')', s);
 
     Func_node* res = (Func_node*)create_func_call_node(func_name);
     res->id_base.alloc_name = true;
@@ -303,7 +325,7 @@ void* GetP()
         check_status(val);
 
         skipSpaces(s);
-        REQUIRE(')', *s);
+        REQUIRE(')', s);
         s++;
         pr_log(LOG_CONSOLE, "Returning from GetP();\n\t\"%.5s\"\n", s);
         return val;
@@ -327,13 +349,15 @@ void* GetP()
 
     char* id = NULL;
     if((id = GetId()) != NULL)
-        if(is_in_id_table(current_id_table, id))
+    {
+        if(is_known_var(id))
         {
             pr_log(LOG_CONSOLE, "Returning from GetP();\n\t\"%.5s\"\n", s);
             Id_node* res = (Id_node*)create_variable_node(id);
             res->alloc_name = true;
             return res;
         }
+    }
     
     pr_err(LOG_STDERR, "Error occured\n");
     exit(EXIT_FAILURE);
@@ -424,23 +448,12 @@ Node* GetAssign()
     //
     //
 
-    bool flag = false;
-    if(!is_in_id_table(current_id_table, id))
+    if(!is_known_var(id))
     {
-        flag = true;
-        id_record_t* last_record = get_last_record(current_id_table);
-
-        if(last_record == NULL)
-            add_id_record(current_id_table, (id_record_t) {NULL, id, 0} );
-        else
-            add_id_record(current_id_table, 
-                      (id_record_t){NULL, id, last_record->offset + 4});
-    }
-    /*
-    else //it is already in the table, so we do not need the name
-        //pr_err(LOG_CONSOLE, "Var is %s\n", id);
+        pr_err(LOG_CONSOLE, "Undeclared in this scope [\"%s\"]\n", id);
         free(id);
-    */
+        exit(EXIT_FAILURE);
+    }
 
     skipSpaces(s);
 
@@ -451,8 +464,9 @@ Node* GetAssign()
     Node* res = create_oper_node('=');
 
     attach_node(res, left, create_variable_node(id));
-    if(!flag)
-        ((Id_node*)res->left)->alloc_name = true;
+
+    ((Id_node*)res->left)->alloc_name = true;
+
     attach_node(res, right, expr);
 
     pr_log(LOG_CONSOLE, "Returning from GetAssign();\n\t\"%.5s\"\n", s);
@@ -463,20 +477,26 @@ Node* GetAssign()
 Node* GetIf()
 {
     pr_info(LOG_CONSOLE, "Parsing \"If\" condition \n\t\"%.10s...\"\n", s);
+
     skipSpaces(s);
 
+    pr_warn(LOG_CONSOLE, "strncmp\n");
     if(strncmp(s, "if", sizeof("if") - 1) != 0)
         return NULL;
 
+    pr_warn(LOG_CONSOLE, "skipping if\n");
     s += sizeof("if") - 1; //skipping "if"
 
     skipSpaces(s);
 
-    REQUIRE('(', *s);
+    pr_warn(LOG_CONSOLE, "REQUIRE('(', s);\n");
+    REQUIRE('(', s);
 
     skipSpaces(s);
 
+    pr_warn(LOG_CONSOLE, "Before GetE\n");
     Node* condition = GetE();
+    pr_warn(LOG_CONSOLE, "After GetE\n");
 
     check_status(condition);
 
@@ -485,11 +505,13 @@ Node* GetIf()
 
     skipSpaces(s);
 
-    REQUIRE(')', *s);
+    REQUIRE(')', s);
 
     skipSpaces(s);
 
+    pr_warn(LOG_CONSOLE, "Before GetBlk\n");
     Node* body = (Node*)GetBlk();
+    pr_warn(LOG_CONSOLE, "After GetBlk\n");
 
     if(body == NULL)
     {
@@ -503,7 +525,7 @@ Node* GetIf()
     return res;
 }
 
-// St ::= If | { Assign | E ';'}
+// St ::= If | { Var_def | Assign | E ';'}
 Node* GetSt()
 {
     pr_info(LOG_CONSOLE, "Parsing Statement\n\t\"%.10s...\"\n", s);
@@ -512,6 +534,7 @@ Node* GetSt()
     Node* res;
 
     const char* begin = s;
+
     Node* val = GetIf();
 
     if(val != NULL)
@@ -522,15 +545,25 @@ Node* GetSt()
         return res;
     }
 
-
     res = create_semicolon_node();
+
+    val = (Node*)GetVar_def();
+
+    if(val != NULL)
+    {
+        skipSpaces(s);
+        REQUIRE(';', s);
+        attach_node(res, left, val);
+        pr_log(LOG_CONSOLE, "Returning from GetSt();\n\t\"%.5s\"\n", s);
+        return res;
+    }
 
     val = GetAssign();
 
     if(val != NULL)
     {
         skipSpaces(s);
-        REQUIRE(';', *s);
+        REQUIRE(';', s);
         attach_node(res, left, val);
         pr_log(LOG_CONSOLE, "Returning from GetSt();\n\t\"%.5s\"\n", s);
         return res;
@@ -542,7 +575,7 @@ Node* GetSt()
     if(val != NULL)
     {
         skipSpaces(s);
-        REQUIRE(';', *s);
+        REQUIRE(';', s);
         attach_node(res, left, val);
         pr_log(LOG_CONSOLE, "Returning from GetSt();\n\t\"%.5s\"\n", s);
         return res;
@@ -565,7 +598,17 @@ Blk_node* GetBlk()
     
     Blk_node* res = create_blk_node();
 
+    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    PrintList(&id_table_list);
+
+    ListInsertBack(&id_table_list, res->id_table);
+
+    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    PrintList(&id_table_list);
+
+    pr_warn(LOG_CONSOLE, "Before GetSt\n");
     Node* val1 = GetSt();
+    pr_warn(LOG_CONSOLE, "After GetSt\n");
     attach_node(res, left, val1);
 
     check_status(val1); 
@@ -585,6 +628,13 @@ Blk_node* GetBlk()
 
     pr_log(LOG_CONSOLE, "Returning from GetBlk();\n\t\"%.5s\"\n", s);
 
+    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    PrintList(&id_table_list);
+
+    ListPopBack(&id_table_list);
+
+    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    PrintList(&id_table_list);
     return res;
 }
 
@@ -650,18 +700,24 @@ Func_node* GetFunc_def()
     else
         skipSpaces(s);
     
-    REQUIRE(')', *s);
+    REQUIRE(')', s);
 
     res->num_of_args = num_of_args;
 
-    pr_warn(LOG_CONSOLE, "Inserted prop of func \"%s\""
-                        " [name = %s, num of args = %d]\n",
-                        id, id, num_of_args);
+    //pr_warn(LOG_CONSOLE, "Inserted prop of func \"%s\""
+    //                     " [name = %s, num of args = %d]\n",
+    //                     id, id, num_of_args);
 
-    current_id_table = res->id_table;
+    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    PrintList(&id_table_list);
+    ListInsertBack(&id_table_list, res->id_table);
+    
+    //current_id_table = res->id_table;
 
     skipSpaces(s);
 
+    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    PrintList(&id_table_list);
     Node* func_body = (Node*)GetBlk();
 
     if(func_body == NULL)
@@ -671,28 +727,73 @@ Func_node* GetFunc_def()
     }
 
     attach_node(res, left, func_body);
-    //res->left = func_body;
 
-    current_id_table = NULL;
+    ListInsertBack(&global_id_list, res);
+
+    ListPopBack(&id_table_list);
+
+    //current_id_table = NULL;
 
     return res;
 }
 
-//void free_list_elements(List* list)
-//{
-//    for(int i = 1; i <= list->size; i++)
-//    {
-//        //func_prop_t* f_p = (func_prop_t*)ListGetElement(list, i);
-//        //free(f_p->name);
-//        //free(f_p);
-//        free(ListGetElement(list, i));
-//    }
-//}
+// Var_def ::= "let" Id {'='N'}?
+Id_node* GetVar_def()
+{
+    skipSpaces(s);
 
+    if(strncmp(s, "let", sizeof("let") - 1) != 0)
+        return NULL;
+
+    s += sizeof("let") - 1; // skipping "let" word
+    //skipAlphas(s);
+    skipSpaces(s);
+
+    char* id = GetId(); 
+
+    check_status(id);
+
+    Id_node* var = create_var_def_node(id);
+    var->alloc_name = true;
+
+    if(id_table_list.size == 0)
+    {
+        pr_err(LOG_CONSOLE, "id_table_list is empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    {
+        id_table_t* last_table = ListGetElement(&id_table_list, id_table_list.size);
+        id_record_t* last_record = get_last_record(last_table);
+
+        PrintList(&id_table_list);
+        print_id_table(last_table);
+
+        if(last_record == NULL)
+            add_id_record(last_table, (id_record_t){NULL, id, 4});
+        else
+            add_id_record(last_table, (id_record_t){NULL, id, last_record->offset + 4});
+    }
+
+    skipSpaces(s);
+    if(*s == '=')
+    {
+       s++;
+       skipSpaces(s);
+    
+       Node* num = GetN();
+       attach_node(var, left, num);
+    }
+
+    skipSpaces(s);
+
+    return var;
+}
 
 int main(int argc, char **argv)
 {
-    ListCtor(&Id_list, 20);
+    ListCtor(&global_id_list, 20);
+    ListCtor(&id_table_list, 20);
 
     if(argc < 2)
     {
@@ -701,14 +802,17 @@ int main(int argc, char **argv)
     }
 
     Tree* tree = tree_init();
-    tree->root = GetG(argv[1]);
-    dump_tree_dot("aaa", tree);
+
+    int sz = fileSize(argv[1]);
+    char* txt = readText(argv[1], sz);
+
+    tree->root = GetG(txt);
+    dump_tree_dot("dot_out", tree);
 
     tree_free(&tree);
 
-    //free_list_elements(&Id_list);
-    ListDtor(&Id_list);
+    ListDtor(&id_table_list);
+    ListDtor(&global_id_list);
 
-    //fprintf(stdout, "Result is: %d\n", GetG(argv[1]));
     return 0;
 }

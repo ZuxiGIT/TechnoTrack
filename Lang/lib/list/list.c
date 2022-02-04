@@ -181,6 +181,8 @@ void* ListDelete(List* list, int location)
     list->free = location;
 
     list->cells[location].prev = -1;
+
+    list->size--;
     
     return list->cells[location].data;
 }
@@ -224,12 +226,15 @@ void* ListDeleteBefore(List* list, int location)
 
 void PrintList(List* list)
 {
-    printf("list.head = %d\tlist.tail = %d\tlist.free = %d\n",
-            list->head, list->tail, list->free);
-    for(int i = 0; i < list->capacity; i ++)
+    printf("list.head = %d\tlist.tail = %d\tlist.free = %d\n"
+           "list.size = %d\tlist.capacity = %d\n",
+            list->head, list->tail, list->free,
+            list->size, list->capacity);
+
+    for(int i = 0; i <= list->size; i ++)
     {
-        printf("Cell[%d]: data = 0x%p[%s]\tnext = %d\tprev = %d\n",
-                i, list->cells[i].data,(char*)list->cells[i].data,
+        printf("Cell[%d]: data = 0x%p\tnext = %d\tprev = %d\n",
+                i, list->cells[i].data,
                 list->cells[i].next, 
                 list->cells[i].prev);
     }
