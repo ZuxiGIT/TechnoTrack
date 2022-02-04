@@ -810,6 +810,7 @@ int main(int argc, char **argv)
     dump_tree_dot("dot_out", tree);
 
     tree_free(&tree);
+    free(txt);
 
     ListDtor(&id_table_list);
     ListDtor(&global_id_list);
