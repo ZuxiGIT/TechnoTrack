@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include <assert.h>
 
 
@@ -83,6 +84,12 @@ id_record_t* get_last_record(id_table_t* table)
 
 void id_table_free(id_table_t* table)
 {
+    if(table == NULL)
+        return;
+
+    if(table->records == NULL)
+        return;
+
     id_record_t* current_record = table->records;
 
     while(current_record->next != NULL)
@@ -96,4 +103,31 @@ void id_table_free(id_table_t* table)
     free(current_record->name);
     free(current_record);
 
+}
+
+void print_id_table(id_table_t* table)
+{
+    if(table == NULL)
+        return;
+
+    if(table->size == 0)
+        return;
+
+    id_record_t* current_record = table->records;
+
+    printf("{\n");
+    while(current_record->next != NULL)
+    {
+        printf("\t{name: %.10s, offset: %d}\n",
+               current_record->name,
+               current_record->offset);
+
+        current_record = current_record->next;
+    }
+
+    printf("\t{name: %.10s, offset: %d}\n",
+           current_record->name,
+           current_record->offset);
+
+    printf("}\n");
 }

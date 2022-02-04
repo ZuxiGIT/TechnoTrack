@@ -2,7 +2,7 @@
 #define DSL_H
 
 #include <stdlib.h>
-#include "tree.h"
+#include "_tree.h"
 
 /*
  * side means left child or right
@@ -15,8 +15,8 @@
 
 #define attach_node(node, side, child)\
 {\
-    node->side = child;\
-    node->side->parent = node;\
+    ((Node*)node)->side = (Node*)child;\
+    ((Node*)node)->side->parent = (Node*)node;\
 }
 
 #define add_node(tree, node, side, type, value)\
@@ -37,6 +37,8 @@
 #define create_func_call_node(func)  create_node(FUNC_CALL, (value_t)func)
 #define create_semicolon_node()  create_node(SEMICOLON, (value_t)((double)';'))
 #define create_empty_node()      create_node(EMPTY,     (value_t)((char*)NULL))
+#define create_blk_node()        create_node(BLOCK_OF_STATEMENTS,\
+                                            (value_t)((char*)NULL))
 
 
 #endif /* DSL_H */

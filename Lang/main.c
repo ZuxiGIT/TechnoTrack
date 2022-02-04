@@ -12,7 +12,7 @@
 #include "./lib/logger/logger.h"
 
 #include "./lib/tree/DSL.h"
-#include "./lib/tree/tree.h"
+#include "./lib/tree/_tree.h"
 
 
 #define check_status(node)\
@@ -116,9 +116,6 @@ bool is_known_func(char* func)
 
 void SyntaxError(const char* format, ...)
 {
-    5+4;
-    int x;
-    x;
     va_list params;
     va_start(params, format);
 
@@ -135,15 +132,16 @@ void SyntaxError(const char* format, ...)
 Node* GetG(const char* str);
 Node* GetE();
 Node* GetT();
-Node* GetP();
+void* GetP();
 Node* GetN();
 char* GetV();
 char* GetId();
 Node* GetAssign();
 Node* GetSt();
-Node* GetBlk();
+Blk_node* GetBlk();
 Node* GetIf();
-Node* GetFunc_def();
+Func_node* GetFunc_def();
+Func_node* GetFunc_call();
 
 
 
@@ -158,8 +156,8 @@ Node* GetG(const char* str)
 
     Node* res;
 
-    Node* val = GetFunc_def();
-    res = val;
+    Func_node* val = GetFunc_def();
+    res = (Node*)val;
 
     check_status(val);
 
@@ -169,7 +167,7 @@ Node* GetG(const char* str)
     while(*s != '$')
     {
         skipSpaces(s);
-        Node* val2 = GetFunc_def();
+        Func_node* val2 = GetFunc_def();
         check_status(val2);
         attach_node(val, right, val2);
         val = val2;
@@ -251,7 +249,7 @@ Node* GetT()
 }
 
 // F ::= {"exp" | "ln" | "sin" | "cos" | ... } '('E {',' E}*')'
-Node* GetFunc_call()
+Func_node* GetFunc_call()
 {
     skipSpaces(s);
     char* func_name = GetId();
@@ -280,15 +278,17 @@ Node* GetFunc_call()
     */
 
     REQUIRE(')', *s);
-    Node* res = create_func_call_node(func_name);
-    res->alloc = true;
+
+    Func_node* res = (Func_node*)create_func_call_node(func_name);
+    res->id_base.alloc_name = true;
+
     return res;
 }
 
 // P ::= '('E')' | N | F | Id
-Node* GetP()
+void* GetP()
 {
-    Node* val = NULL;
+    void* val = NULL;
 
     pr_info(LOG_CONSOLE, "Parsing Primary Expression\n\t\"%.10s...\"\n", s);
 
@@ -318,6 +318,7 @@ Node* GetP()
     }
 
     pr_log(LOG_CONSOLE, "Parsing Function call\n\t\"%.10s...\"\n", s);
+
     if((val = GetFunc_call()) != NULL)
     {
         pr_log(LOG_CONSOLE, "Returning from GetP();\n\t\"%.5s\"\n", s);
@@ -329,8 +330,8 @@ Node* GetP()
         if(is_in_id_table(current_id_table, id))
         {
             pr_log(LOG_CONSOLE, "Returning from GetP();\n\t\"%.5s\"\n", s);
-            Node* res = create_variable_node(id);
-            res->alloc = true;
+            Id_node* res = (Id_node*)create_variable_node(id);
+            res->alloc_name = true;
             return res;
         }
     
@@ -430,10 +431,10 @@ Node* GetAssign()
         id_record_t* last_record = get_last_record(current_id_table);
 
         if(last_record == NULL)
-            add_id_record(current_id_table, (id_record_t){id, 0});
+            add_id_record(current_id_table, (id_record_t) {NULL, id, 0} );
         else
             add_id_record(current_id_table, 
-                      (id_record_t){id, last_record->offset + 4});
+                      (id_record_t){NULL, id, last_record->offset + 4});
     }
     /*
     else //it is already in the table, so we do not need the name
@@ -451,7 +452,7 @@ Node* GetAssign()
 
     attach_node(res, left, create_variable_node(id));
     if(!flag)
-        res->left->alloc = true;
+        ((Id_node*)res->left)->alloc_name = true;
     attach_node(res, right, expr);
 
     pr_log(LOG_CONSOLE, "Returning from GetAssign();\n\t\"%.5s\"\n", s);
@@ -488,7 +489,7 @@ Node* GetIf()
 
     skipSpaces(s);
 
-    Node* body = GetBlk();
+    Node* body = (Node*)GetBlk();
 
     if(body == NULL)
     {
@@ -554,7 +555,7 @@ Node* GetSt()
 }
 
 // Blk ::= '{' {St} + '}'
-Node* GetBlk()
+Blk_node* GetBlk()
 {
     pr_info(LOG_CONSOLE, "Parsing Block of statements\n\t\"%.10s...\"\n", s);
 
@@ -562,10 +563,10 @@ Node* GetBlk()
         return NULL;
     s++;
     
-    Node* res;
+    Blk_node* res = create_blk_node();
 
     Node* val1 = GetSt();
-    res = val1;
+    attach_node(res, left, val1);
 
     check_status(val1); 
 
@@ -581,18 +582,23 @@ Node* GetBlk()
         skipSpaces(s);
     }
     s++;
+
+    pr_log(LOG_CONSOLE, "Returning from GetBlk();\n\t\"%.5s\"\n", s);
+
     return res;
 }
 
 // Func_def ::= Id'(' Id{',' V}* ')' Blk
-Node* GetFunc_def()
+Func_node* GetFunc_def()
 {
     char* id =  GetId();
 
-    pr_info(LOG_CONSOLE, "new function name \"%s\"\n", id);
-
     if(id == NULL)
         return NULL;
+
+    pr_info(LOG_CONSOLE, "new function name \"%s\"\n", id);
+
+    skipSpaces(s);
 
     if(*s != '(')
     {
@@ -602,9 +608,8 @@ Node* GetFunc_def()
 
     s++;
     
-    Node* res = create_func_node(id);
-    res->alloc = true;
-    res->id_table = (id_table_t*)calloc(1, sizeof(id_table_t));
+    Func_node* res = create_func_node(id);
+    res->id_base.alloc_name = true;
 
     int offset = 0;
     int num_of_args = 0;
@@ -617,7 +622,7 @@ Node* GetFunc_def()
     {
         pr_log(LOG_CONSOLE, "adding new id_record with \"%s\" name\n", var);
 
-        add_id_record(res->id_table, (id_record_t){var, offset});
+        add_id_record(res->id_table, (id_record_t){NULL, var, offset});
         num_of_args++;
 
         skipSpaces(s);
@@ -637,7 +642,7 @@ Node* GetFunc_def()
                 pr_err(LOG_STDERR, "Syntax error: function definiton\n");
                 exit(EXIT_FAILURE);
             }
-            add_id_record(res->id_table, (id_record_t){var, offset});
+            add_id_record(res->id_table, (id_record_t){NULL, var, offset});
             num_of_args++;
             skipSpaces(s);
         }
@@ -647,22 +652,17 @@ Node* GetFunc_def()
     
     REQUIRE(')', *s);
 
-
-    func_prop_t* func_prop = (func_prop_t*)calloc(1, sizeof(func_prop_t));
-    func_prop->name = id;
-    func_prop->num_of_args = num_of_args;
+    res->num_of_args = num_of_args;
 
     pr_warn(LOG_CONSOLE, "Inserted prop of func \"%s\""
                         " [name = %s, num of args = %d]\n",
                         id, id, num_of_args);
 
-    ListInsertBack(&Id_list, func_prop);
-
     current_id_table = res->id_table;
 
     skipSpaces(s);
 
-    Node* func_body = GetBlk();
+    Node* func_body = (Node*)GetBlk();
 
     if(func_body == NULL)
     {
@@ -674,19 +674,20 @@ Node* GetFunc_def()
     //res->left = func_body;
 
     current_id_table = NULL;
+
     return res;
 }
 
-void free_list_elements(List* list)
-{
-    for(int i = 1; i <= list->size; i++)
-    {
-        //func_prop_t* f_p = (func_prop_t*)ListGetElement(list, i);
-        //free(f_p->name);
-        //free(f_p);
-        free(ListGetElement(list, i));
-    }
-}
+//void free_list_elements(List* list)
+//{
+//    for(int i = 1; i <= list->size; i++)
+//    {
+//        //func_prop_t* f_p = (func_prop_t*)ListGetElement(list, i);
+//        //free(f_p->name);
+//        //free(f_p);
+//        free(ListGetElement(list, i));
+//    }
+//}
 
 
 int main(int argc, char **argv)
@@ -701,11 +702,11 @@ int main(int argc, char **argv)
 
     Tree* tree = tree_init();
     tree->root = GetG(argv[1]);
-    dump_tree_dot("ggff", tree);
+    dump_tree_dot("aaa", tree);
 
     tree_free(&tree);
 
-    free_list_elements(&Id_list);
+    //free_list_elements(&Id_list);
     ListDtor(&Id_list);
 
     //fprintf(stdout, "Result is: %d\n", GetG(argv[1]));
