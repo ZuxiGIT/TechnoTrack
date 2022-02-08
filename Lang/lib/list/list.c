@@ -330,5 +330,8 @@ void LogList(const char* pathname, List* list)
 
 void* ListGetElement(List* list, int location)
 {
+    if(list->size == 0)
+        return NULL;
+
     return list->cells[location].data; 
 }

@@ -230,8 +230,9 @@ void node_free(Node* node)
     if((node->right) != NULL)
         node_free(node->right);
 
-    if(node->type == FUNCTION ||
-       node->type == VARIABLE ||
+    if(node->type == FUNCTION     ||
+       node->type == VARIABLE     ||
+       node->type == VARIABLE_DEF ||
        node->type == FUNC_CALL)
         if(((Id_node*)node)->alloc_name)
             free(((Id_node*)node)->value.text);

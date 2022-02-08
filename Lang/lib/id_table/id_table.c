@@ -95,12 +95,12 @@ void id_table_free(id_table_t* table)
     while(current_record->next != NULL)
     {
         id_record_t* next = current_record->next;
-        free(current_record->name);
+        //free(current_record->name);
         free(current_record);
         current_record = next;
     }
 
-    free(current_record->name);
+    //free(current_record->name);
     free(current_record);
 
 }

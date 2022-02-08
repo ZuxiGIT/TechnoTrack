@@ -53,7 +53,7 @@ static inline void _skip_spaces(const char** txt)
     }
 
 // current gramatic
-// G ::= {Func_def}+ '$'                                            --> gramatic
+// G ::= {Func_def | {Var_def ';'} }+ '$'                                  --> gramatic
 // St ::= If | { Var_def | Assign | E ';'}                          --> statement
 // If ::= "if" '('E')' Blk | St {"else" Blk | St}?                  --> if condition 
 // Blk ::= '{' {St} + '}'                                           --> usual block of statements
@@ -67,7 +67,7 @@ static inline void _skip_spaces(const char** txt)
 // Assign ::= Id'='E                                                --> assignemnet
 // F ::= {"exp" | "ln" | "sin" | "cos" | ... } '('E {',' E}*')'     --> function call
 // Func_def ::= Id'(' Id{',' V}* ')' Blk                            --> function definition
-// Var_def ::= "let" Id {'='N'}? ';'
+// Var_def ::= "let" Id {'='E}? ';'
 
 // old gramatic
 // G ::= E'$'
@@ -79,7 +79,7 @@ static inline void _skip_spaces(const char** txt)
 // only for functions and global variables
 static List global_id_list;
 
-// a list of id_tables of visible variables
+// a list of id_tables of visible variables in the current scope`
 static List id_table_list;
 
 static char for_var[20] = {};
@@ -104,6 +104,13 @@ bool is_known_var(char* var)
     for(int i = 1; i <= id_table_list.size; i++)
         if(is_in_id_table(ListGetElement(&id_table_list, i), var))
             return true;
+
+    for(int i = 1; i <= global_id_list.size; i++)
+    {
+        Id_node* node = ListGetElement(&global_id_list, i);
+        if(strncmp(node->value.text, var, strlen(var)) == 0)
+            return true;
+    } 
 
     return false;
 }
@@ -169,7 +176,7 @@ Id_node* GetVar_def();
 
 const char* s = NULL;
 
-// G ::= {Func_def}+ '$' 
+// G ::= {Func_def | {Var_def ';'} }+ '$'
 Node* GetG(const char* str)
 {
     s = str;
@@ -178,8 +185,17 @@ Node* GetG(const char* str)
 
     Node* res;
 
-    Func_node* val = GetFunc_def();
-    res = (Node*)val;
+    Node* val = (Node*)GetFunc_def();
+
+    if(val == NULL)
+    {
+        s = str; //restoring string after wrong GetFunc_def
+        val = (Node*)GetVar_def();
+        skipSpaces(s);
+        REQUIRE(';', s);
+    }
+
+    res = val;
 
     check_status(val);
 
@@ -189,8 +205,20 @@ Node* GetG(const char* str)
     while(*s != '$')
     {
         skipSpaces(s);
-        Func_node* val2 = GetFunc_def();
-        check_status(val2);
+
+        const char* begin = s;
+        Node* val2 = (Node*)GetFunc_def();
+
+        if(val2 == NULL)
+        {
+            s = begin; //restoring string after wrong GetFunc_def
+            val2 = (Node*)GetVar_def();
+            check_status(val2);
+            skipSpaces(s);
+            pr_warn(LOG_CONSOLE, "yyyy\n");
+            REQUIRE(';', s);
+        }
+
         attach_node(val, right, val2);
         val = val2;
         //PrintList(&Id_list);
@@ -214,7 +242,6 @@ Node* GetE()
     {
         char op = *s;
         s++;
-
         skipSpaces(s);
         Node* val2 = GetT();
         check_status(val2);
@@ -307,7 +334,7 @@ Func_node* GetFunc_call()
     return res;
 }
 
-// P ::= '('E')' | N | F | Id
+// P ::= '('E')' | N | F | Var 
 void* GetP()
 {
     void* val = NULL;
@@ -341,13 +368,20 @@ void* GetP()
 
     pr_log(LOG_CONSOLE, "Parsing Function call\n\t\"%.10s...\"\n", s);
 
+    const char* restoring = s;
+
     if((val = GetFunc_call()) != NULL)
     {
         pr_log(LOG_CONSOLE, "Returning from GetP();\n\t\"%.5s\"\n", s);
         return val;
     }
 
+    s = restoring; // restoring string after wrong GetFunc_call 
+
     char* id = NULL;
+
+    pr_log(LOG_CONSOLE, "Parsing Variable\n\t\"%.10s...\"\n", s);
+
     if((id = GetId()) != NULL)
     {
         if(is_known_var(id))
@@ -412,15 +446,20 @@ char* GetV()
     return for_var;
 }
 
+// Id ::= [_a-zA-Z]{[_a-zA-z0-9]}*
 char* GetId()
 {
     const char* begin = s;
-    while(isalpha(*s))
+
+    if(isalpha(*s))
         s++;
-    if(begin == s)
-        return NULL;
     else
-        return strndup(begin, s - begin);
+        return NULL;
+
+    while(isalpha(*s) || *s == '_' || isdigit(*s))
+        s++;
+
+    return strndup(begin, s - begin);
 }
 
 // Assign ::= Id'='E
@@ -480,23 +519,18 @@ Node* GetIf()
 
     skipSpaces(s);
 
-    pr_warn(LOG_CONSOLE, "strncmp\n");
     if(strncmp(s, "if", sizeof("if") - 1) != 0)
         return NULL;
 
-    pr_warn(LOG_CONSOLE, "skipping if\n");
     s += sizeof("if") - 1; //skipping "if"
 
     skipSpaces(s);
 
-    pr_warn(LOG_CONSOLE, "REQUIRE('(', s);\n");
     REQUIRE('(', s);
 
     skipSpaces(s);
 
-    pr_warn(LOG_CONSOLE, "Before GetE\n");
     Node* condition = GetE();
-    pr_warn(LOG_CONSOLE, "After GetE\n");
 
     check_status(condition);
 
@@ -509,9 +543,7 @@ Node* GetIf()
 
     skipSpaces(s);
 
-    pr_warn(LOG_CONSOLE, "Before GetBlk\n");
     Node* body = (Node*)GetBlk();
-    pr_warn(LOG_CONSOLE, "After GetBlk\n");
 
     if(body == NULL)
     {
@@ -598,17 +630,15 @@ Blk_node* GetBlk()
     
     Blk_node* res = create_blk_node();
 
-    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
-    PrintList(&id_table_list);
+    //pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    //PrintList(&id_table_list);
 
     ListInsertBack(&id_table_list, res->id_table);
 
-    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
-    PrintList(&id_table_list);
+    //pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    //PrintList(&id_table_list);
 
-    pr_warn(LOG_CONSOLE, "Before GetSt\n");
     Node* val1 = GetSt();
-    pr_warn(LOG_CONSOLE, "After GetSt\n");
     attach_node(res, left, val1);
 
     check_status(val1); 
@@ -628,13 +658,14 @@ Blk_node* GetBlk()
 
     pr_log(LOG_CONSOLE, "Returning from GetBlk();\n\t\"%.5s\"\n", s);
 
-    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
-    PrintList(&id_table_list);
+    //pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    //PrintList(&id_table_list);
 
     ListPopBack(&id_table_list);
 
-    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
-    PrintList(&id_table_list);
+    //pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    //PrintList(&id_table_list);
+
     return res;
 }
 
@@ -708,16 +739,18 @@ Func_node* GetFunc_def()
     //                     " [name = %s, num of args = %d]\n",
     //                     id, id, num_of_args);
 
-    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
-    PrintList(&id_table_list);
+    //pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    //PrintList(&id_table_list);
+
     ListInsertBack(&id_table_list, res->id_table);
     
     //current_id_table = res->id_table;
 
     skipSpaces(s);
 
-    pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
-    PrintList(&id_table_list);
+    //pr_warn(LOG_CONSOLE, "PrintList(&id_table_list)\n");
+    //PrintList(&id_table_list);
+
     Node* func_body = (Node*)GetBlk();
 
     if(func_body == NULL)
@@ -737,9 +770,11 @@ Func_node* GetFunc_def()
     return res;
 }
 
-// Var_def ::= "let" Id {'='N'}?
+// Var_def ::= "let" Id {'='E'}?
 Id_node* GetVar_def()
 {
+    pr_info(LOG_CONSOLE, "Parsing Var definition\n\t\"%.10s...\"\n", s);
+
     skipSpaces(s);
 
     if(strncmp(s, "let", sizeof("let") - 1) != 0)
@@ -758,16 +793,16 @@ Id_node* GetVar_def()
 
     if(id_table_list.size == 0)
     {
-        pr_err(LOG_CONSOLE, "id_table_list is empty\n");
-        exit(EXIT_FAILURE);
+        pr_log(LOG_CONSOLE, "Adding a new global variable\n");
+        ListInsertBack(&global_id_list, var);
     }
-
+    else
     {
         id_table_t* last_table = ListGetElement(&id_table_list, id_table_list.size);
         id_record_t* last_record = get_last_record(last_table);
 
-        PrintList(&id_table_list);
-        print_id_table(last_table);
+        //PrintList(&id_table_list);
+        //print_id_table(last_table);
 
         if(last_record == NULL)
             add_id_record(last_table, (id_record_t){NULL, id, 4});
@@ -781,11 +816,14 @@ Id_node* GetVar_def()
        s++;
        skipSpaces(s);
     
-       Node* num = GetN();
+       Node* num = GetE();
+       check_status(num);
        attach_node(var, left, num);
     }
 
     skipSpaces(s);
+
+    pr_info(LOG_CONSOLE, "Returning from GetVar_def()\n\t\"%.10s...\"\n", s);
 
     return var;
 }
