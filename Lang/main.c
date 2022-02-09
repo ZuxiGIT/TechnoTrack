@@ -47,13 +47,13 @@ static inline void _skip_spaces(const char** txt)
     if(*s == req) s++;\
     else \
     { \
-        pr_err(LOG_STDERR, "bad string, got \"%c\", expected \"%c\"\n",\
+        pr_err(LOG_STDERR, "bad string, got \"%.1s\", expected \"%c\"\n",\
                             got, req);\
-        exit(1);\
+        exit(EXIT_FAILURE);\
     }
 
 // current gramatic
-// G ::= {Func_def | {Var_def ';'} }+ '$'                                  --> gramatic
+// G ::= {Func_def | {Var_def ';'} }+ '$'                           --> gramatic
 // St ::= If | { Var_def | Assign | E ';'}                          --> statement
 // If ::= "if" '('E')' Blk | St {"else" Blk | St}?                  --> if condition 
 // Blk ::= '{' {St} + '}'                                           --> usual block of statements
@@ -115,17 +115,18 @@ bool is_known_var(char* var)
     return false;
 }
 
-bool is_in_list(List* list, char* name)
+int is_in_list(List* list, char* name)
 {
     for(int i = 1; i <= list->size; i ++)
         if(strncmp(((Id_node*)ListGetElement(list, i))->value.text, name, strlen(name)) == 0)
-            return true;
+            return i;
 
-    return false;
+    return 0;
 }
 
 bool is_known_func(char* func)
 {
+    int num_of_func;
 #define func(name)\
     if(strncmp(func, #name, sizeof(#name) - 1) == 0)\
         return true;\
@@ -134,10 +135,27 @@ bool is_known_func(char* func)
     #include "known_func"
 #undef func
 
-    if(is_in_list(&global_id_list, func))
-        return true;
+    // currently function and variables cannot have the same name 
+    if(num_of_func = is_in_list(&global_id_list, func))
+        if(((Node*)ListGetElement(&global_id_list, num_of_func))->type == FUNCTION)
+            return true;
+        else 
+            return false;
     else
         return false;
+}
+
+Func_node* find_func(char* func)
+{
+    for(int i = 1; i <= global_id_list.size; i ++)
+    {
+        Id_node* res = ListGetElement(&global_id_list, i);
+        if(strncmp(res->value.text, func, strlen(func)) == 0)
+            return (Func_node*)res;
+
+    }
+
+    return NULL;
 }
 
 
@@ -308,9 +326,23 @@ Func_node* GetFunc_call()
 
     if(!is_known_func(func_name))
     {
+        skipSpaces(s);
+
+        if(*s == '(')
+        {
+            pr_err(LOG_CONSOLE, "Undeclared function name [\"%s\"]\n",
+                                func_name);
+            exit(EXIT_FAILURE);
+        }
+
         free(func_name);
         return NULL;
     }
+
+    Func_node* called_func = find_func(func_name);
+
+    Func_node* res = (Func_node*)create_func_call_node(func_name);
+    res->id_base.alloc_name = true;
 
     skipSpaces(s);
     
@@ -318,18 +350,70 @@ Func_node* GetFunc_call()
 
     skipSpaces(s);
 
-    //let it be without parameters for a while
-    /*
-    Node* body = GetE();
-    check_status(body);
+    char* var = GetId();
+    int offset = 0;
+    int num_of_args = 0;
+
+
+    if(var != NULL)
+    {
+        if(!is_known_var(var))
+        {
+            pr_err(LOG_CONSOLE, "Undeclared in this scope [\"%s\"]\n", var);
+            exit(EXIT_FAILURE);
+        }
+
+        add_id_record(res->id_table, (id_record_t){NULL, var, offset});
+        num_of_args++;
+
+        if(num_of_args > called_func->num_of_args)
+        {
+            pr_err(LOG_STDERR, "wrong number of arguments:"
+                               " expected: %d got: %d\n",
+                               called_func->num_of_args,
+                               num_of_args);
+            exit(EXIT_FAILURE);
+        }
+
+        skipSpaces(s);
+
+        while(*s == ',')
+        {
+            s++;
+            offset += 4;
+            skipSpaces(s);
+
+            var = GetId();
+
+            if(var == NULL)
+            {
+                pr_err(LOG_STDERR, "Syntax error: function call list of parameters\n");
+                exit(EXIT_FAILURE);
+            }
+
+            add_id_record(res->id_table, (id_record_t){NULL, var, offset});
+            num_of_args++;
+            skipSpaces(s); 
+
+            if(num_of_args > called_func->num_of_args)
+            {
+                pr_err(LOG_STDERR, "wrong number of arguments:"
+                                   " expected: %d got: %d\n",
+                                   called_func->num_of_args,
+                                   num_of_args);
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+    else
+       skipSpaces(s); 
+
 
     skipSpaces(s)
-    */
+    
 
     REQUIRE(')', s);
 
-    Func_node* res = (Func_node*)create_func_call_node(func_name);
-    res->id_base.alloc_name = true;
 
     return res;
 }
@@ -451,7 +535,7 @@ char* GetId()
 {
     const char* begin = s;
 
-    if(isalpha(*s))
+    if(isalpha(*s) || *s == '_')
         s++;
     else
         return NULL;
@@ -695,9 +779,12 @@ Func_node* GetFunc_def()
     int offset = 0;
     int num_of_args = 0;
 
+
     skipSpaces(s);
 
     char* var = GetId();
+
+    skipSpaces(s);
 
     if(var != NULL)
     {
@@ -730,6 +817,7 @@ Func_node* GetFunc_def()
     }
     else
         skipSpaces(s);
+
     
     REQUIRE(')', s);
 
@@ -755,7 +843,8 @@ Func_node* GetFunc_def()
 
     if(func_body == NULL)
     {
-        pr_err(LOG_STDERR, "Syntax error: function definiton\n");
+        pr_err(LOG_STDERR, "Syntax error: function definiton [func:\"%s\"]\n",
+                           res->id_base.value.text);
         exit(EXIT_FAILURE);
     }
 
