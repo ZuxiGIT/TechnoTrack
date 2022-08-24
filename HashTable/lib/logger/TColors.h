@@ -31,6 +31,7 @@ static int resetColor(char* buff)
     {
         printf("\033[0m");
         fflush(stdout);
+        return 0;
     }
     else
         return sprintf(buff, "\033[0m");
@@ -43,6 +44,7 @@ static int setColor(char* buff, int color)
     {
         printf("\033[%dm", color);
         fflush(stdout);
+        return 0;
     }
     else
         return sprintf(buff, "\033[%dm", color);

@@ -1,19 +1,22 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+#include <stddef.h>
 #include "./lib/list/list.h"
+
 
 typedef unsigned long long hash_t;
 
-typedef struct
-{
-    list_t* buckets;
-    int size;
-} hashtable_t;
+//struct hashtable;
+typedef struct hashtable hashtable_t;
 
-void HashTableCtor(hashetable_t* htab, int bucket_count);
+//enum
+//{
+//} hashFunctions;
+
+hashtable_t* HashTableCtor(int bucket_count);
 void HashTableDtor(hashtable_t* htab);
-int  HashTableAddElem(hashtable_t* htab, void* data, 
-                     hash_t (*findHash) (void* data, size_t data_len));
+int HashTableAddElem(hashtable_t* htab, const char* key, int val); 
+int HashTableGetElemByKey(hashtable_t* htab, const char* key);
 
 #endif /* HASHTABLE_H */

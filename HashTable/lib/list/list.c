@@ -1,10 +1,11 @@
 #include "list.h"
-#include "./logger/logger.h"
+#include "../logger/logger.h"
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <limits.h>
 
 #define VERIFY_CELL(loc)\
     if(list->cells[loc].prev == -1)\
@@ -49,11 +50,12 @@ void ListDtor(list_t* list)
     free(list->cells);
 }
 
-int ListInsertBack(list_t* list, void* data)
+int ListInsertBack(list_t* list, const char* key, int val)
 {
     if(!list->head)
     {
-        list->cells[1].data = data;
+        list->cells[1].key = key;
+        list->cells[1].value = val;
         list->head = list->tail = 1;
         list->cells[1].next = 0;
         list->cells[1].prev = 0;
@@ -62,14 +64,15 @@ int ListInsertBack(list_t* list, void* data)
         return 1; 
     }
     
-    return ListInsertAfter(list, list->tail, data);
+    return ListInsertAfter(list, list->tail, key, val);
 }
 
-int ListInsertFront(list_t* list, void* data)
+int ListInsertFront(list_t* list, const char* key, int val)
 {
     if(!list->head)
     {
-        list->cells[1].data = data;
+        list->cells[1].key = key;
+        list->cells[1].value = val;
         list->head = list->tail = 1;
         list->cells[1].next = 0;
         list->cells[1].prev = 0;
@@ -78,10 +81,10 @@ int ListInsertFront(list_t* list, void* data)
         return 1; 
     }
 
-    return ListInsertBefore(list, list->head, data);
+    return ListInsertBefore(list, list->head, key, val);
 }
 
-int ListInsertAfter(list_t* list, int location, void* data)
+int ListInsertAfter(list_t* list, int location, const char* key, int val)
 {
     VERIFY_CELL(location);
 
@@ -89,12 +92,10 @@ int ListInsertAfter(list_t* list, int location, void* data)
 
     list->free = list->cells[found].next;
 
-    //printf("found cell with %d address (location = %d, num = %d)\n",
-    //        found, location, num);
-
     if(found)
     {
-        list->cells[found].data = data;
+        list->cells[found].key = key;
+        list->cells[found].value = val;
 
         list->cells[found].prev = location;
 
@@ -115,7 +116,7 @@ int ListInsertAfter(list_t* list, int location, void* data)
         if(list->resizeable)
         {
             ListResize(list, (int)(list->capacity * 1.67));
-            found = ListInsertAfter(list, location, data);
+            found = ListInsertAfter(list, location, key, val);
         }
         else
             pr_err(LOG_CONSOLE, "List is full\n");
@@ -124,7 +125,7 @@ int ListInsertAfter(list_t* list, int location, void* data)
     return found;
 } 
 
-int ListInsertBefore(list_t* list, int location, void* data)
+int ListInsertBefore(list_t* list, int location, const char* key, int val)
 {
     VERIFY_CELL(location);
 
@@ -134,7 +135,9 @@ int ListInsertBefore(list_t* list, int location, void* data)
 
     if(found)
     {
-        list->cells[found].data = data;
+        list->cells[found].key = key;
+        list->cells[found].value = val;
+
         list->cells[found].next = location;
         list->cells[found].prev = list->cells[location].prev;
 
@@ -153,7 +156,7 @@ int ListInsertBefore(list_t* list, int location, void* data)
         if(list->resizeable)
         {
             ListResize(list, (int)(list->capacity * 1.67));
-            found = ListInsertBefore(list, location, data);
+            found = ListInsertBefore(list, location, key, val);
         }
         else
             pr_err(LOG_CONSOLE, "List is full\n");
@@ -192,7 +195,7 @@ int ListDelete(list_t* list, int location)
 
     list->cells[location].prev = -1;
     
-    return list->cells[location].data;
+    return list->cells[location].value;
 }
 
 int ListPopFront(list_t* list)
@@ -277,9 +280,12 @@ void LogList(const char* pathname, list_t* list)
     {
         buff_pos += _shift(log_buffer + buff_pos, shift);
         buff_pos += sprintf(log_buffer + buff_pos, "cell_%d [shape=record, "
-                            "label=\"{ addres\\n%d | data\\n%d }| <next> next\\n%d |"
+                            "label=\"{ addres\\n%d | key\\n%p | val\\n%d }| <next> next\\n%d |"
                             "<prev> prev\\n%d \"];\n", 
-                            i, i, list->cells[i].data, list->cells[i].next, 
+                            i, i, 
+                            list->cells[i].key, 
+                            list->cells[i].value, 
+                            list->cells[i].next, 
                             list->cells[i].prev);
 
         if(i != 1)
@@ -344,4 +350,17 @@ void ListResize(list_t* list, int new_size)
 
     free(list->cells);
     list->cells = tmp;
+}
+
+int ListGetElemByKey(list_t* list, const char* key)
+{
+    int key_len = strlen(key);
+
+    for(int i = list->head; i != 0; i = list->cells[i].next)
+    {
+        if(!strncmp(key, list->cells[i].key, key_len))
+            return list->cells[i].value;
+    }
+
+    return INT_MAX;
 }
