@@ -1,4 +1,5 @@
 #include "hashtable.h"
+#include "./lib/logger/logger.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -45,6 +46,7 @@ void HashTableDtor(hashtable_t* htab)
 int HashTableAddElem(hashtable_t* htab, const char* key, int val)
 {
     hash_t hash = hashFunc((void*)key, strlen(key)) % htab->size;
+    pr_info(LOG_CONSOLE, "New element: (hash) %llu (key) \"%s\" (val) %d\n", hash, key, val);
 
     return ListInsertBack(htab->buckets + hash, key, val) > 0 ? 0 : -1;
 }
@@ -56,6 +58,15 @@ int HashTableGetElemByKey(hashtable_t* htab, const char* key)
     return ListGetElemByKey(htab->buckets + hash, key);
 }
 
+int HashTableSizeInBytes(hashtable_t* htab)
+{
+    int size = sizeof(hashtable_t) + sizeof(list_t)*htab->size;
+
+    for(int i = 0; i < htab->size; i ++)
+        size += sizeof(cell_t) * htab->buckets[i].size;
+
+    return size;
+}
 
 //----------------------------------hash functions------------------------------
 

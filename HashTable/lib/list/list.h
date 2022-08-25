@@ -37,7 +37,7 @@ int ListDeleteAfter(list_t* list, int location);
 int ListDeleteBefore(list_t* list, int location);
 void PrintList(list_t* list);
 void LogList(const char* pathname, list_t* list);
-void ListResize(list_t* list, int new_size);
+int ListResize(list_t* list, int new_size);
 int ListGetElemByKey(list_t* list, const char* key);
 
 #endif /* LIST_H */

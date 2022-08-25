@@ -18,5 +18,6 @@ hashtable_t* HashTableCtor(int bucket_count);
 void HashTableDtor(hashtable_t* htab);
 int HashTableAddElem(hashtable_t* htab, const char* key, int val); 
 int HashTableGetElemByKey(hashtable_t* htab, const char* key);
+int HashTableSizeInBytes(hashtable_t* htab);
 
 #endif /* HASHTABLE_H */

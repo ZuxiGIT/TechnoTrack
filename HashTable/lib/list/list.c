@@ -23,6 +23,15 @@
         return -1;\
     }\
 
+static int _findEmptyCell(list_t* list)
+{
+    for(int i = 0; i < list->capacity; i++)
+        if(list->cells[i].prev == -1)
+            return i;
+
+    return 0;
+}
+
 void ListCtor(list_t* list, int capacity)
 {
     list->cells = (cell_t*)calloc(capacity, sizeof(cell_t));
@@ -115,7 +124,12 @@ int ListInsertAfter(list_t* list, int location, const char* key, int val)
     {
         if(list->resizeable)
         {
-            ListResize(list, (int)(list->capacity * 1.67));
+            if(ListResize(list, (int)(list->capacity * 1.67)))
+            {
+                pr_err(LOG_CONSOLE, "Cannot expand list: no mempry allocation\n");
+                return 1;
+            }
+
             found = ListInsertAfter(list, location, key, val);
         }
         else
@@ -155,7 +169,12 @@ int ListInsertBefore(list_t* list, int location, const char* key, int val)
     {
         if(list->resizeable)
         {
-            ListResize(list, (int)(list->capacity * 1.67));
+            if(ListResize(list, (int)(list->capacity * 1.67)))
+            {
+                pr_err(LOG_CONSOLE, "Cannot expand list: no mempry allocation\n");
+                return 1;
+            }
+
             found = ListInsertBefore(list, location, key, val);
         }
         else
@@ -239,15 +258,17 @@ int ListDeleteBefore(list_t* list, int location)
 
 void PrintList(list_t* list)
 {
+    list = (void*)list;
+    return;
     //printf("list.head = %d\tlist.tail = %d\tlist.free = %d\n",
     //        list->head, list->tail, list->free);
 
-    for(int i = 0; i < list->capacity; i ++)
-    {
+    //for(int i = 0; i < list->capacity; i ++)
+    //{
         //printf("Cell[%d]: data = %d\tnext = %d\tprev = %d\n",
         //        i, list->cells[i].data, list->cells[i].next, 
         //        list->cells[i].prev);
-    }
+    //}
 }
 
 static int _shift(char* buff, int shift)
@@ -340,16 +361,35 @@ void LogList(const char* pathname, list_t* list)
 }
 
 
-void ListResize(list_t* list, int new_size)
+int ListResize(list_t* list, int new_size)
 {
+    pr_warn(LOG_CONSOLE, "Expanding list (%p); previous size %d; new size %d\n", list, list->capacity, new_size);
+    pr_warn(LOG_CONSOLE, "list->head %d list->tail %d list->free %d\n", list->head, list->tail, list->free);
+
     cell_t* tmp = (cell_t*)calloc(new_size, sizeof(cell_t));
 
-    memcpy(tmp, list->cells, list->size);
+    if(!tmp)
+        return 1;
 
-    list->capacity = new_size;
+    for(int i = list->capacity; i < new_size - 1; i++)
+    {
+        tmp[i].next = i + 1;
+        tmp[i].prev = -1;
+    }
 
+    tmp[new_size - 1].next = 0;
+    tmp[new_size - 1].prev = -1;
+
+
+    memcpy(tmp, list->cells, sizeof(cell_t) * list->size);
     free(list->cells);
+
     list->cells = tmp;
+    list->capacity = new_size;
+    list->free = _findEmptyCell(list);
+    pr_info(LOG_CONSOLE, "list->capacity %d list->head %d list->tail %d list->free %d\n", list->capacity, list->head, list->tail, list->free);
+
+    return 0;
 }
 
 int ListGetElemByKey(list_t* list, const char* key)
