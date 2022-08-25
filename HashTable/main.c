@@ -38,6 +38,9 @@ int main()
 {
     int size = fileSize(INPUT);
     FILE* fp = fopen(INPUT, "r");
+    
+
+    // +1 for '\0' byte
     char* txt = (char*)calloc(size + 1, sizeof(char));
 
     if(!txt)
@@ -47,9 +50,8 @@ int main()
         return -1;
     }
 
-    fread(txt, 1, size, fp);
+    (void)!fread(txt, sizeof(char), size, fp);
     fclose(fp);
-    printf("text size is: %d bytes\n", size);
     getchar();
 
     char* txt_save = txt;
@@ -65,14 +67,15 @@ int main()
             i++;
             if(HashTableAddElem(htab, word, i) < 0)
             {
-                printf("failure\n");
+                pr_err(LOG_CONSOLE, "adding an element failure\n");
                 exit(-1);
             }
         }
 
     
-    printf("Total words: %d\n", i);
-    printf("Total size: %d bytes\n", HashTableSizeInBytes(htab));
+    pr_info(LOG_CONSOLE, "Total words: %d\n", i);
+    pr_info(LOG_CONSOLE, "Total hashtable size: %d bytes\n", HashTableSizeInBytes(htab));
+    pr_info(LOG_CONSOLE, "Text size is: %d bytes\n", size);
 
     HashTableDtor(htab);
     free(txt_save);

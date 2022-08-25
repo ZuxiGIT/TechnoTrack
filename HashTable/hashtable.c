@@ -20,6 +20,9 @@ static hashfunc_t hashFunc = simpleHash;
 
 hashtable_t* HashTableCtor(int bucket_count)
 {
+    if(__builtin_popcount(bucket_count) != 1)
+        return NULL;
+
     hashtable_t* htab = (hashtable_t*)calloc(1, sizeof(hashtable_t));
 
     htab->buckets = (list_t*)calloc(bucket_count, sizeof(list_t));
@@ -45,15 +48,14 @@ void HashTableDtor(hashtable_t* htab)
 
 int HashTableAddElem(hashtable_t* htab, const char* key, int val)
 {
-    hash_t hash = hashFunc((void*)key, strlen(key)) % htab->size;
-    pr_info(LOG_CONSOLE, "New element: (hash) %llu (key) \"%s\" (val) %d\n", hash, key, val);
+    hash_t hash = hashFunc((void*)key, strlen(key)) & (htab->size - 1);
 
     return ListInsertBack(htab->buckets + hash, key, val) > 0 ? 0 : -1;
 }
 
 int HashTableGetElemByKey(hashtable_t* htab, const char* key)
 {
-    hash_t hash = hashFunc((void*) key, strlen(key)) % htab->size;
+    hash_t hash = hashFunc((void*) key, strlen(key)) & (htab->size - 1);
 
     return ListGetElemByKey(htab->buckets + hash, key);
 }
@@ -69,14 +71,18 @@ int HashTableSizeInBytes(hashtable_t* htab)
 }
 
 //----------------------------------hash functions------------------------------
+#define likely(x)         __builtin_expect(!!(x),1)
+#define unlikely(x)       __builtin_expect(!!(x),0)
 
 hash_t simpleHash(void* data, size_t data_len)
 {
     hash_t hash = 5381;
     const unsigned char* c = data;
 
-    while (data_len-- > 0)
+    while (likely(data_len-- > 0))
         hash = ((hash << 5) + hash) + *c++; /* hash * 33 + c */
 
     return hash;
 }
+#undef unlikely 
+#undef likely
