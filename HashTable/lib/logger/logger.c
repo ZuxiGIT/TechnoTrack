@@ -130,17 +130,17 @@ void pr_log_level(int log_level, int dest, const char* fmt, ...)
     
     if ((dest & LOG_CONSOLE) == LOG_CONSOLE)
     {
-        freopen(NULL, "w", stdout);
+        (void)!freopen(NULL, "w", stdout);
         fwrite(buff, sizeof(char), buff_pos, stdout);
-        freopen(NULL, "w", stdout);
+        (void)!freopen(NULL, "w", stdout);
     }
 
     if((dest & LOG_STDERR) == LOG_STDERR)
     {
-        freopen(NULL, "w", stderr);
+        (void)!freopen(NULL, "w", stderr);
         //fprintf(stderr, "----->");
         fwrite(buff, sizeof(char), buff_pos, stderr);
-        freopen(NULL, "w", stderr);
+        (void)!freopen(NULL, "w", stderr);
     }
 
     fflush(stdout);

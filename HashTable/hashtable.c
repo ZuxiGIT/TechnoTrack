@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 
 struct hashtable
 {
@@ -25,14 +26,11 @@ hashtable_t* HashTableCtor(int bucket_count)
 
     hashtable_t* htab = (hashtable_t*)calloc(1, sizeof(hashtable_t));
 
+    if(!htab)
+        return NULL;
+
     htab->buckets = (list_t*)calloc(bucket_count, sizeof(list_t));
     htab->size = bucket_count;
-
-    for(int i = 0; i < bucket_count; i++)
-    {
-        ListCtor(htab->buckets + i, 10);
-        htab->buckets[i].resizeable = true;
-    }
 
     return htab;
 }
@@ -50,6 +48,12 @@ int HashTableAddElem(hashtable_t* htab, const char* key, int val)
 {
     hash_t hash = hashFunc((void*)key, strlen(key)) & (htab->size - 1);
 
+    if((htab->buckets[hash].cells) == NULL)
+    {
+        ListCtor(htab->buckets + hash, 10);
+        htab->buckets[hash].resizeable = true;
+    }
+
     return ListInsertBack(htab->buckets + hash, key, val) > 0 ? 0 : -1;
 }
 
@@ -57,15 +61,22 @@ int HashTableGetElemByKey(hashtable_t* htab, const char* key)
 {
     hash_t hash = hashFunc((void*) key, strlen(key)) & (htab->size - 1);
 
+    if((htab->buckets[hash].cells) == NULL)
+        return INT_MAX;
+
     return ListGetElemByKey(htab->buckets + hash, key);
 }
 
 int HashTableSizeInBytes(hashtable_t* htab)
 {
-    int size = sizeof(hashtable_t) + sizeof(list_t)*htab->size;
+    int size = sizeof(hashtable_t);
 
     for(int i = 0; i < htab->size; i ++)
-        size += sizeof(cell_t) * htab->buckets[i].size;
+        if(htab->buckets[i].cells != NULL)
+        {
+            size += sizeof(list_t);
+            size += sizeof(cell_t) * htab->buckets[i].size;
+        }
 
     return size;
 }

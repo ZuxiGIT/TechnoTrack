@@ -7,21 +7,25 @@
 #include <fcntl.h>
 #include <limits.h>
 
-#define VERIFY_CELL(loc)\
-    if(list->cells[loc].prev == -1)\
-    {\
-        pr_err(LOG_CONSOLE, "Bad location "\
-               "(cell with %d address does not exist\n",\
-                loc);\
-        return -1;\
-    }\
-\
-    if(!loc)\
-    {\
-        pr_err(LOG_CONSOLE, "Bad location "\
-               "(location can not be equal 0)\n");\
-        return -1;\
-    }\
+#if defined(DEBUG)
+    #define VERIFY_CELL(loc)\
+        if(list->cells[loc].prev == -1)\
+        {\
+            pr_err(LOG_CONSOLE, "Bad location "\
+                   "(cell with %d address does not exist\n",\
+                    loc);\
+            return -1;\
+        }\
+    \
+        if(!loc)\
+        {\
+            pr_err(LOG_CONSOLE, "Bad location "\
+                   "(location can not be equal 0)\n");\
+            return -1;\
+        }
+#else
+    #define VERIFY_CELL(loc)  ;
+#endif
 
 static int _findEmptyCell(list_t* list)
 {
@@ -63,7 +67,7 @@ int ListInsertBack(list_t* list, const char* key, int val)
 {
     if(!list->head)
     {
-        list->cells[1].key = key;
+        strncpy(list->cells[1].key, key, 19);
         list->cells[1].value = val;
         list->head = list->tail = 1;
         list->cells[1].next = 0;
@@ -80,7 +84,7 @@ int ListInsertFront(list_t* list, const char* key, int val)
 {
     if(!list->head)
     {
-        list->cells[1].key = key;
+        memcpy(list->cells[1].key, key, strlen(key));
         list->cells[1].value = val;
         list->head = list->tail = 1;
         list->cells[1].next = 0;
@@ -103,7 +107,7 @@ int ListInsertAfter(list_t* list, int location, const char* key, int val)
 
     if(found)
     {
-        list->cells[found].key = key;
+        strncpy(list->cells[found].key, key, 19);
         list->cells[found].value = val;
 
         list->cells[found].prev = location;
@@ -149,7 +153,7 @@ int ListInsertBefore(list_t* list, int location, const char* key, int val)
 
     if(found)
     {
-        list->cells[found].key = key;
+        strncpy(list->cells[found].key, key, 19);
         list->cells[found].value = val;
 
         list->cells[found].next = location;
@@ -349,11 +353,11 @@ void LogList(const char* pathname, list_t* list)
 
     sprintf(dot_cmd, "dot -Tpdf %s > %s.pdf", pathname, pathname);
 
-    system(dot_cmd);
+    (void)!system(dot_cmd);
 
     sprintf(dot_clear, "rm %s", pathname);
 
-    system(dot_clear);
+    (void)!system(dot_clear);
 
     memset(log_buffer, '\0', sizeof(log_buffer));
 
@@ -363,8 +367,7 @@ void LogList(const char* pathname, list_t* list)
 
 int ListResize(list_t* list, int new_size)
 {
-    pr_warn(LOG_CONSOLE, "Expanding list (%p); previous size %d; new size %d\n", list, list->capacity, new_size);
-    pr_warn(LOG_CONSOLE, "list->head %d list->tail %d list->free %d\n", list->head, list->tail, list->free);
+    //pr_warn(LOG_CONSOLE, "List[%p] resize: old size %d new size %d\n", list, list->capacity, new_size); 
 
     cell_t* tmp = (cell_t*)calloc(new_size, sizeof(cell_t));
 
@@ -381,24 +384,23 @@ int ListResize(list_t* list, int new_size)
     tmp[new_size - 1].prev = -1;
 
 
-    memcpy(tmp, list->cells, sizeof(cell_t) * list->size);
+    memcpy(tmp, list->cells, sizeof(cell_t) * list->capacity);
     free(list->cells);
 
     list->cells = tmp;
     list->capacity = new_size;
     list->free = _findEmptyCell(list);
-    pr_info(LOG_CONSOLE, "list->capacity %d list->head %d list->tail %d list->free %d\n", list->capacity, list->head, list->tail, list->free);
 
     return 0;
 }
 
 int ListGetElemByKey(list_t* list, const char* key)
 {
-    int key_len = strlen(key);
+    //int key_len = strlen(key);
 
     for(int i = list->head; i != 0; i = list->cells[i].next)
     {
-        if(!strncmp(key, list->cells[i].key, key_len))
+        if(!strncmp(key, list->cells[i].key, 20))
             return list->cells[i].value;
     }
 

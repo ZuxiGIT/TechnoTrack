@@ -7,7 +7,7 @@
 
 typedef struct
 {
-    const char* key;
+    char key[20];
     int value;
     int next;
     int prev;
